@@ -1,2 +1,2 @@
-# meu-cantinho-de--estudos
+# meu-cantinho-de-estudos
  Meu espaço pessoal de estudos˚.🎀༘⋆
