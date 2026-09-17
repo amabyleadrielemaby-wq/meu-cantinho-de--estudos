@@ -1,808 +1,1322 @@
-
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Meu Cantinho de Estudos ✨</title>
-
+<title>Meu Cantinho de Estudos 🧸</title>
 <style>
-@import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:wght@500;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:wght@600;700&display=swap');
 
-:root {
-  --rosa: #d978a0;
-  --escuro: #a64e77;
-  --claro: #fff0f6;
-  --fundo: #fff9fc;
-  --texto: #4b3440;
-  --cinza: #987c89;
-  --borda: #f1dce6;
+:root{
+--pink:#e875a2;
+--dark:#9d416b;
+--soft:#fff0f6;
+--bg:#fffafd;
+--ink:#553644;
+--muted:#a17f90;
+--line:#f2d9e5;
+--card:#fff
 }
 
-* {
-  box-sizing: border-box;
-  margin: 0;
-  padding: 0;
+*{box-sizing:border-box}
+
+body{
+margin:0;
+background:var(--bg);
+color:var(--ink);
+font-family:"DM Sans",sans-serif
 }
 
-body {
-  font-family: 'DM Sans', sans-serif;
-  color: var(--texto);
-  background: var(--fundo);
-  min-height: 100vh;
+body:before{
+content:"";
+position:fixed;
+z-index:-1;
+width:360px;
+height:360px;
+right:-130px;
+top:-130px;
+background:#ffd9e9;
+border-radius:50%;
+filter:blur(80px)
 }
 
-body::before {
-  content: "";
-  position: fixed;
-  width: 350px;
-  height: 350px;
-  background: #f8cfe1;
-  border-radius: 50%;
-  filter: blur(100px);
-  opacity: .5;
-  top: -150px;
-  right: -100px;
-  z-index: -1;
+button,input,textarea,select{font:inherit}
+button{cursor:pointer}
+
+.app{display:flex;min-height:100vh}
+
+.sidebar{
+width:245px;
+position:fixed;
+inset:0 auto 0 0;
+padding:26px 16px;
+background:#fff9fcf2;
+border-right:1px solid var(--line);
+backdrop-filter:blur(14px);
+z-index:3
 }
 
-.layout {
-  display: flex;
-  min-height: 100vh;
+.brand{text-align:center;margin-bottom:25px}
+
+.brand .bear{
+font-size:48px;
+animation:float 4s ease-in-out infinite
 }
 
-.sidebar {
-  width: 245px;
-  position: fixed;
-  height: 100vh;
-  padding: 30px 18px;
-  background: #ffffffdd;
-  border-right: 1px solid var(--borda);
-  backdrop-filter: blur(18px);
+.brand h1{
+font:700 23px "Playfair Display";
+color:var(--dark);
+margin:4px 0
 }
 
-.logo {
-  text-align: center;
-  margin-bottom: 35px;
+.brand p{
+font-size:11px;
+color:var(--muted)
 }
 
-.logo span {
-  font-size: 34px;
-  display: block;
-  animation: flutuar 4s infinite ease-in-out;
+nav{display:grid;gap:7px}
+
+nav button{
+border:0;
+background:transparent;
+color:var(--muted);
+text-align:left;
+padding:12px 13px;
+border-radius:13px;
+transition:.25s
 }
 
-.logo h1 {
-  font-family: 'Playfair Display', serif;
-  color: var(--escuro);
-  font-size: 22px;
-  margin-top: 8px;
+nav button:hover,
+nav button.active{
+background:var(--soft);
+color:var(--dark);
+transform:translateX(4px)
 }
 
-.logo p {
-  color: var(--cinza);
-  font-size: 11px;
-  margin-top: 5px;
+.main{
+margin-left:245px;
+width:calc(100% - 245px);
+padding:30px;
+max-width:1500px
 }
 
-.menu {
-  display: flex;
-  flex-direction: column;
-  gap: 8px;
+.top{
+display:flex;
+justify-content:space-between;
+align-items:center;
+gap:15px;
+margin-bottom:24px
 }
 
-.menu button {
-  border: 0;
-  background: transparent;
-  color: var(--cinza);
-  padding: 14px;
-  border-radius: 13px;
-  text-align: left;
-  cursor: pointer;
-  transition: .3s;
+.top small{
+color:var(--pink);
+font-weight:700
 }
 
-.menu button:hover,
-.menu button.active {
-  background: var(--claro);
-  color: var(--escuro);
-  transform: translateX(4px);
+.top h2{
+font:700 clamp(27px,4vw,39px) "Playfair Display";
+margin:6px 0
 }
 
-.main {
-  margin-left: 245px;
-  width: calc(100% - 245px);
-  padding: 35px;
-  max-width: 1500px;
+.top p{
+color:var(--muted);
+font-size:14px;
+margin:0
 }
 
-.topo {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-bottom: 30px;
-  gap: 15px;
+.date{
+border:1px solid var(--line);
+border-radius:30px;
+padding:11px 15px;
+background:white;
+color:var(--dark);
+font-size:12px
 }
 
-.topo small {
-  color: var(--rosa);
-  font-weight: 700;
+.page{
+display:none;
+animation:fade .4s
 }
 
-.topo h2 {
-  font-family: 'Playfair Display', serif;
-  font-size: 36px;
-  margin-top: 6px;
+.page.active{display:block}
+
+.cards{
+display:grid;
+grid-template-columns:repeat(4,1fr);
+gap:16px;
+margin-bottom:20px
 }
 
-.topo p {
-  color: var(--cinza);
-  font-size: 14px;
-  margin-top: 6px;
+.card,.panel{
+background:#ffffffed;
+border:1px solid var(--line);
+border-radius:22px;
+padding:21px;
+box-shadow:0 10px 30px #b95c8010
 }
 
-.data {
-  background: white;
-  padding: 12px 18px;
-  border: 1px solid var(--borda);
-  border-radius: 30px;
-  color: var(--escuro);
-  font-size: 13px;
+.card{transition:.25s}
+.card:hover{transform:translateY(-4px)}
+
+.card .icon{font-size:25px}
+
+.card small{
+display:block;
+color:var(--muted);
+margin-top:10px
 }
 
-.pagina {
-  display: none;
-  animation: aparecer .5s ease;
+.card strong{
+display:block;
+font-size:29px;
+color:var(--dark);
+margin-top:4px
 }
 
-.pagina.ativa {
-  display: block;
+.grid{
+display:grid;
+grid-template-columns:1.25fr 1fr;
+gap:18px;
+margin-bottom:18px
 }
 
-.cards {
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  gap: 18px;
-  margin-bottom: 25px;
+.panel h3{
+font:700 22px "Playfair Display";
+margin:0 0 15px;
+color:var(--dark)
 }
 
-.card,
-.caixa {
-  background: #ffffffed;
-  border: 1px solid var(--borda);
-  border-radius: 20px;
-  padding: 23px;
-  box-shadow: 0 10px 35px #b15c8212;
+.panel p{
+font-size:13px;
+color:var(--muted);
+line-height:1.7
 }
 
-.card {
-  transition: .3s;
+.hero{
+background:linear-gradient(135deg,#fff0f6,#fff8fc);
+display:flex;
+justify-content:space-between;
+align-items:center;
+gap:20px;
+overflow:hidden
 }
 
-.card:hover {
-  transform: translateY(-5px);
-  box-shadow: 0 15px 40px #b15c8225;
+.hero h2{
+font:700 29px "Playfair Display";
+color:var(--dark);
+margin:5px 0
 }
 
-.card .icone {
-  font-size: 24px;
-  margin-bottom: 12px;
+.hero .bigbear{
+font-size:110px;
+animation:float 4s infinite ease-in-out
 }
 
-.card p {
-  color: var(--cinza);
-  font-size: 12px;
+.progress{
+height:12px;
+background:#f9e2ed;
+border-radius:20px;
+overflow:hidden;
+margin:13px 0
 }
 
-.card h3 {
-  color: var(--escuro);
-  font-size: 30px;
-  margin-top: 5px;
+.progress>div{
+height:100%;
+width:0;
+background:linear-gradient(90deg,#df6f9c,#f5b4cd);
+border-radius:20px;
+transition:.6s
 }
 
-.grade {
-  display: grid;
-  grid-template-columns: 1.3fr 1fr;
-  gap: 22px;
+.row{
+display:flex;
+justify-content:space-between;
+align-items:center;
+gap:10px
 }
 
-.caixa h3 {
-  font-family: 'Playfair Display', serif;
-  font-size: 22px;
-  margin-bottom: 18px;
+.tags{
+display:flex;
+gap:8px;
+flex-wrap:wrap
 }
 
-.caixa p {
-  color: var(--cinza);
-  font-size: 13px;
-  line-height: 1.7;
+.tag{
+border:1px solid #f0cddd;
+background:#fff2f7;
+color:var(--dark);
+border-radius:30px;
+padding:7px 11px;
+font-size:12px
 }
 
-.barra {
-  height: 12px;
-  background: #f8e5ee;
-  border-radius: 20px;
-  overflow: hidden;
-  margin: 16px 0;
+form{display:grid;gap:12px}
+
+.formgrid{
+display:grid;
+grid-template-columns:repeat(2,1fr);
+gap:12px
 }
 
-.barra div {
-  width: 0%;
-  height: 100%;
-  background: linear-gradient(90deg, #d978a0, #efb2ca);
-  border-radius: 20px;
-  transition: width .8s;
+.field{display:grid;gap:6px}
+
+.field.full{grid-column:1/-1}
+
+.field label{
+font-size:12px;
+font-weight:700;
+color:var(--dark)
 }
 
-.linha {
-  display: flex;
-  justify-content: space-between;
-  font-size: 12px;
-  color: var(--cinza);
+input,textarea,select{
+width:100%;
+border:1px solid var(--line);
+border-radius:12px;
+padding:11px;
+background:#fffafd;
+color:var(--ink);
+outline:none
 }
 
-.formulario {
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: 14px;
+textarea{
+min-height:100px;
+resize:vertical
 }
 
-.campo {
-  display: flex;
-  flex-direction: column;
-  gap: 7px;
+input:focus,
+textarea:focus,
+select:focus{
+border-color:var(--pink);
+box-shadow:0 0 0 3px var(--soft)
 }
 
-.campo.full {
-  grid-column: 1 / -1;
+.btn{
+border:0;
+border-radius:12px;
+padding:12px 16px;
+background:linear-gradient(135deg,#e875a2,#bd5c87);
+color:#fff;
+font-weight:700
 }
 
-.campo label {
-  font-size: 12px;
-  font-weight: 700;
-  color: var(--escuro);
+.btn.alt{
+background:#fff0f6;
+color:var(--dark);
+border:1px solid #f2cddd
 }
 
-.campo input,
-.campo select,
-.campo textarea {
-  padding: 12px;
-  border: 1px solid var(--borda);
-  border-radius: 12px;
-  background: #fffafd;
-  outline: none;
-  color: var(--texto);
+.list{
+display:grid;
+gap:10px;
+margin-top:17px
 }
 
-.campo textarea {
-  min-height: 100px;
-  resize: vertical;
+.item{
+border:1px solid var(--line);
+border-radius:15px;
+padding:14px;
+background:white
 }
 
-.campo input:focus,
-.campo select:focus,
-.campo textarea:focus {
-  border-color: var(--rosa);
-  box-shadow: 0 0 0 3px var(--claro);
+.item strong{
+color:var(--dark);
+font-size:14px
 }
 
-.botao {
-  border: none;
-  background: linear-gradient(135deg, #d978a0, #b75b83);
-  color: white;
-  border-radius: 12px;
-  padding: 13px 20px;
-  font-weight: 700;
-  cursor: pointer;
-  transition: .3s;
+.item p{
+margin:6px 0;
+font-size:12px
 }
 
-.botao:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 8px 20px #d978a044;
+.item .actions{
+display:flex;
+gap:7px;
+flex-wrap:wrap
 }
 
-.lista {
-  display: flex;
-  flex-direction: column;
-  gap: 12px;
-  margin-top: 20px;
+.item button{
+border:1px solid var(--line);
+background:white;
+color:var(--dark);
+border-radius:9px;
+padding:7px 10px;
+font-size:11px
 }
 
-.item {
-  background: white;
-  border: 1px solid var(--borda);
-  border-radius: 15px;
-  padding: 16px;
+.timer{text-align:center}
+
+.clock{
+font-size:76px;
+font-weight:700;
+color:var(--pink);
+letter-spacing:2px;
+margin:15px 0
 }
 
-.item strong {
-  font-size: 14px;
+.center{
+display:flex;
+justify-content:center;
+gap:8px;
+flex-wrap:wrap
 }
 
-.item p {
-  color: var(--cinza);
-  font-size: 12px;
-  margin-top: 7px;
+.quote{
+padding:20px;
+text-align:center;
+background:linear-gradient(135deg,#fff0f6,#f8efff);
+border-radius:18px;
+font:700 19px "Playfair Display";
+color:var(--dark)
 }
 
-.item button {
-  margin-top: 12px;
-  padding: 7px 10px;
-  border: 1px solid var(--borda);
-  border-radius: 8px;
-  background: white;
-  color: var(--escuro);
-  cursor: pointer;
+.profile{
+display:flex;
+align-items:center;
+gap:18px
 }
 
-.timer {
-  text-align: center;
-  padding: 25px;
+.avatar{
+width:95px;
+height:95px;
+display:grid;
+place-items:center;
+background:#ffe1ed;
+border-radius:50%;
+font-size:60px;
+border:5px solid white;
+box-shadow:0 0 0 1px var(--line)
 }
 
-.timer h4 {
-  color: var(--rosa);
+.achievements{
+display:grid;
+grid-template-columns:repeat(3,1fr);
+gap:12px
 }
 
-.relogio {
-  color: var(--escuro);
-  font-size: 75px;
-  font-weight: 700;
-  margin: 20px 0;
+.achievement{
+text-align:center;
+padding:15px;
+border:1px solid var(--line);
+border-radius:16px;
+background:#fff7fb
 }
 
-@keyframes aparecer {
-  from {
-    opacity: 0;
-    transform: translateY(10px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
+.achievement .medal{font-size:35px}
+
+.achievement.locked{
+opacity:.4;
+filter:grayscale(1)
 }
 
-@keyframes flutuar {
-  0%, 100% { transform: translateY(0); }
-  50% { transform: translateY(-8px); }
+.note{
+background:#fff4b8;
+border:0;
+transform:rotate(-1deg);
+padding:20px;
+border-radius:4px;
+box-shadow:3px 5px 10px #8c6c3215
 }
 
-@media (max-width: 1000px) {
-  .cards {
-    grid-template-columns: repeat(2, 1fr);
-  }
-
-  .grade {
-    grid-template-columns: 1fr;
-  }
+@keyframes fade{
+from{opacity:0;transform:translateY(8px)}
+to{opacity:1;transform:translateY(0)}
 }
 
-@media (max-width: 700px) {
-  .sidebar {
-    position: static;
-    width: 100%;
-    height: auto;
-  }
+@keyframes float{
+0%,100%{transform:translateY(0)}
+50%{transform:translateY(-8px)}
+}
 
-  .layout {
-    display: block;
-  }
+@media(max-width:1000px){
+.cards{grid-template-columns:repeat(2,1fr)}
+.grid{grid-template-columns:1fr}
+}
 
-  .main {
-    margin-left: 0;
-    width: 100%;
-    padding: 20px 15px;
-  }
+@media(max-width:700px){
+.app{display:block}
 
-  .topo {
-    align-items: flex-start;
-    flex-direction: column;
-  }
+.sidebar{
+position:static;
+width:100%;
+height:auto;
+border-right:0;
+border-bottom:1px solid var(--line)
+}
 
-  .topo h2 {
-    font-size: 29px;
-  }
+.main{
+margin:0;
+width:100%;
+padding:18px 13px
+}
 
-  .cards {
-    grid-template-columns: repeat(2, 1fr);
-    gap: 10px;
-  }
+.top{
+align-items:flex-start;
+flex-direction:column
+}
 
-  .card,
-  .caixa {
-    padding: 17px;
-  }
+.formgrid{grid-template-columns:1fr}
 
-  .formulario {
-    grid-template-columns: 1fr;
-  }
+.field.full{grid-column:auto}
 
-  .campo.full {
-    grid-column: auto;
-  }
+.hero .bigbear{font-size:70px}
+
+.achievements{
+grid-template-columns:1fr 1fr
+}
 }
 </style>
 </head>
 
 <body>
-
-<div class="layout">
+<div class="app">
 
 <aside class="sidebar">
-  <div class="logo">
-    <span>🌷</span>
-    <h1>Meu Cantinho</h1>
-    <p>Um espaço para florescer ✨</p>
-  </div>
+<div class="brand">
+<div class="bear">🧸</div>
+<h1>Meu Cantinho</h1>
+<p>de estudos, sonhos e conquistas 🎀</p>
+</div>
 
-  <nav class="menu">
-    <button class="active" onclick="abrir('inicio', this)">🏡 Início</button>
-    <button onclick="abrir('questoes', this)">📚 Questões</button>
-    <button onclick="abrir('cronograma', this)">🗓️ Cronograma</button>
-    <button onclick="abrir('foco', this)">⏳ Foco</button>
-    <button onclick="abrir('progresso', this)">📊 Progresso</button>
-  </nav>
+<nav>
+<button class="active" onclick="openPage('dashboard',this)">🏡 Dashboard</button>
+<button onclick="openPage('biblioteca',this)">📖 Biblioteca</button>
+<button onclick="openPage('diario',this)">📝 Diário de estudos</button>
+<button onclick="openPage('conquistas',this)">🏆 Conquistas</button>
+<button onclick="openPage('foco',this)">🌙 Modo estudo</button>
+<button onclick="openPage('mural',this)">💌 Mural</button>
+<button onclick="openPage('calendario',this)">🗓️ Calendário</button>
+<button onclick="openPage('colecao',this)">🧸 Coleção</button>
+<button onclick="openPage('etiquetas',this)">🎀 Etiquetas</button>
+<button onclick="openPage('perfil',this)">🌸 Perfil</button>
+</nav>
 </aside>
 
 <main class="main">
 
-<header class="topo">
-  <div>
-    <small>SEU MOMENTO DE CRESCER ✨</small>
-    <h2>Olá, estudante! 💗</h2>
-    <p>Pequenos passos também constroem grandes sonhos.</p>
-  </div>
+<header class="top">
+<div>
+<small>SEU ESPAÇO DE CRESCIMENTO ✨</small>
+<h2 id="hello">Olá, estudante! 💗</h2>
+<p>Um pouquinho todos os dias faz diferença.</p>
+</div>
 
-  <div class="data" id="data"></div>
+<div class="date" id="today"></div>
 </header>
 
-<section id="inicio" class="pagina ativa">
+<section id="dashboard" class="page active">
 
-  <div class="cards">
-    <div class="card">
-      <div class="icone">📚</div>
-      <p>Questões cadastradas</p>
-      <h3 id="total">0</h3>
-    </div>
+<div class="panel hero">
+<div>
+<small>SEU OBJETIVO MERECE CUIDADO 💕</small>
+<h2>Você consegue, um passo por vez!</h2>
+<p>Organize sua rotina e acompanhe sua evolução.</p>
+</div>
+<div class="bigbear">🧸📚</div>
+</div>
 
-    <div class="card">
-      <div class="icone">🎯</div>
-      <p>Questões revisadas</p>
-      <h3 id="revisadas">0</h3>
-    </div>
+<div class="cards" style="margin-top:18px">
 
-    <div class="card">
-      <div class="icone">📝</div>
-      <p>Tarefas concluídas</p>
-      <h3 id="tarefas">0</h3>
-    </div>
+<div class="card">
+<div class="icon">📖</div>
+<small>Materiais</small>
+<strong id="statMaterials">0</strong>
+</div>
 
-    <div class="card">
-      <div class="icone">🌸</div>
-      <p>Seu progresso</p>
-      <h3 id="porcentagem">0%</h3>
-    </div>
-  </div>
+<div class="card">
+<div class="icon">📝</div>
+<small>Registros no diário</small>
+<strong id="statDiary">0</strong>
+</div>
 
-  <div class="grade">
-    <div class="caixa">
-      <h3>✨ Seu progresso</h3>
-      <p>Continue estudando no seu ritmo. Cada questão resolvida é uma conquista!</p>
+<div class="card">
+<div class="icon">🗓️</div>
+<small>Tarefas concluídas</small>
+<strong id="statTasks">0</strong>
+</div>
 
-      <div class="barra">
-        <div id="barraProgresso"></div>
-      </div>
+<div class="card">
+<div class="icon">🏆</div>
+<small>Conquistas</small>
+<strong id="statAwards">0</strong>
+</div>
 
-      <div class="linha">
-        <span>Progresso geral</span>
-        <strong id="textoProgresso">0%</strong>
-      </div>
-    </div>
+</div>
 
-    <div class="caixa">
-      <h3>🌷 Mensagem do dia</h3>
-      <p>
-        Você não precisa fazer tudo perfeitamente.
-        Precisa apenas continuar, aprender com os erros
-        e acreditar no seu processo.
-      </p>
-    </div>
-  </div>
+<div class="grid">
+
+<div class="panel">
+<h3>🎀 Suas etiquetas</h3>
+<div class="tags" id="dashboardTags"></div>
+</div>
+
+<div class="panel">
+<h3>🌷 Meta de estudos</h3>
+<p id="goalText">Defina seu objetivo no perfil.</p>
+<div class="progress">
+<div id="goalBar"></div>
+</div>
+<div class="row">
+<small id="goalPercent">0%</small>
+<small>Continue assim ✨</small>
+</div>
+</div>
+
+</div>
+
+<div class="grid">
+
+<div class="panel">
+<h3>💌 Mensagem para você</h3>
+<div class="quote" id="dailyQuote"></div>
+</div>
+
+<div class="panel">
+<h3>📌 Próximas tarefas</h3>
+<div id="nextTasks"></div>
+</div>
+
+</div>
 
 </section>
 
-<section id="questoes" class="pagina">
-  <div class="caixa">
-    <h3>📚 Cadastrar questão</h3>
+<section id="biblioteca" class="page">
 
-    <form id="formQuestao">
-      <div class="formulario">
+<div class="panel">
+<h3>📖 Minha biblioteca</h3>
 
-        <div class="campo">
-          <label>Matéria</label>
-          <select id="materia" required>
-            <option value="">Selecione</option>
-            <option>Matemática</option>
-            <option>Português</option>
-            <option>Biologia</option>
-            <option>Química</option>
-            <option>Física</option>
-            <option>História</option>
-            <option>Geografia</option>
-            <option>Filosofia</option>
-            <option>Sociologia</option>
-            <option>Redação</option>
-          </select>
-        </div>
+<form id="libraryForm">
 
-        <div class="campo">
-          <label>Assunto</label>
-          <input id="assunto" placeholder="Ex.: Função do 1º grau" required>
-        </div>
+<div class="formgrid">
 
-        <div class="campo full">
-          <label>Enunciado da questão</label>
-          <textarea id="enunciado" placeholder="Digite a questão..." required></textarea>
-        </div>
+<div class="field">
+<label>Nome do material</label>
+<input id="bookName" required placeholder="Ex.: Apostila de matemática">
+</div>
 
-        <div class="campo full">
-          <label>Explicação ou aprendizado</label>
-          <textarea id="explicacao" placeholder="O que você aprendeu?"></textarea>
-        </div>
+<div class="field">
+<label>Tipo</label>
+<select id="bookType">
+<option>Livro</option>
+<option>PDF</option>
+<option>Resumo</option>
+<option>Vídeo</option>
+<option>Outro</option>
+</select>
+</div>
 
-      </div>
+<div class="field full">
+<label>Link ou observação</label>
+<input id="bookLink" placeholder="Cole um link ou escreva onde está salvo">
+</div>
 
-      <button class="botao" type="submit">+ Salvar questão</button>
-    </form>
+</div>
 
-    <div class="lista" id="listaQuestoes"></div>
-  </div>
+<button class="btn">+ Guardar material</button>
+</form>
+
+<div class="list" id="libraryList"></div>
+</div>
+
 </section>
 
-<section id="cronograma" class="pagina">
-  <div class="caixa">
-    <h3>🗓️ Meu cronograma</h3>
+<section id="diario" class="page">
 
-    <form id="formTarefa">
-      <div class="formulario">
-        <div class="campo">
-          <label>Tarefa</label>
-          <input id="nomeTarefa" placeholder="Ex.: Estudar matemática" required>
-        </div>
+<div class="panel">
+<h3>📝 Meu diário de estudos</h3>
 
-        <div class="campo">
-          <label>Data</label>
-          <input id="dataTarefa" type="date" required>
-        </div>
-      </div>
+<form id="diaryForm">
 
-      <button class="botao" type="submit">+ Adicionar tarefa</button>
-    </form>
+<div class="field">
+<label>Como foi seu dia?</label>
+<textarea id="diaryText" required placeholder="Escreva o que estudou, como se sentiu e o que aprendeu..."></textarea>
+</div>
 
-    <div class="lista" id="listaTarefas"></div>
-  </div>
+<button class="btn">Salvar registro 💗</button>
+</form>
+
+<div class="list" id="diaryList"></div>
+</div>
+
 </section>
 
-<section id="foco" class="pagina">
-  <div class="caixa timer">
-    <h3>⏳ Momento de foco</h3>
-    <h4 id="modo">FOCO</h4>
-    <div class="relogio" id="relogio">25:00</div>
+<section id="conquistas" class="page">
 
-    <button class="botao" onclick="iniciar()">Iniciar</button>
-    <button class="botao" onclick="pausar()">Pausar</button>
-    <button class="botao" onclick="reiniciar()">Reiniciar</button>
-  </div>
+<div class="panel">
+<h3>🏆 Minhas conquistas</h3>
+<p>Você desbloqueia medalhas conforme registra materiais, diários e tarefas concluídas.</p>
+<div class="achievements" id="achievementsList"></div>
+</div>
+
 </section>
 
-<section id="progresso" class="pagina">
-  <div class="caixa">
-    <h3>📊 Meu progresso</h3>
-    <p>Continue cadastrando questões e concluindo suas tarefas para acompanhar sua evolução.</p>
+<section id="foco" class="page">
 
-    <div class="barra">
-      <div id="barraFinal"></div>
-    </div>
+<div class="panel timer">
+<h3>🌙 Modo estudo</h3>
+<p>Respire, organize sua mesa e concentre-se em uma tarefa por vez.</p>
 
-    <div class="linha">
-      <span>Progresso das tarefas</span>
-      <strong id="finalTexto">0%</strong>
-    </div>
-  </div>
+<div class="clock" id="clock">25:00</div>
+
+<div class="center">
+<button class="btn" onclick="startTimer()">Iniciar</button>
+<button class="btn alt" onclick="pauseTimer()">Pausar</button>
+<button class="btn alt" onclick="resetTimer()">Reiniciar</button>
+</div>
+
+<p id="timerStatus">Sessão de foco • 25 minutos</p>
+</div>
+
+</section>
+
+<section id="mural" class="page">
+
+<div class="panel">
+<h3>💌 Mural de motivação</h3>
+
+<div class="quote" id="muralQuote"></div>
+
+<div class="center" style="margin-top:16px">
+<button class="btn" onclick="newQuote()">Nova mensagem ✨</button>
+</div>
+
+<div class="list">
+
+<div class="note">🌸 Pequenos passos todos os dias também são progresso.</div>
+<div class="note">🎀 Você não precisa ser perfeita, precisa continuar.</div>
+<div class="note">🧸 Seu futuro está sendo construído no presente.</div>
+
+</div>
+</div>
+
+</section>
+
+<section id="calendario" class="page">
+
+<div class="panel">
+<h3>🗓️ Meu calendário de tarefas</h3>
+
+<form id="taskForm">
+
+<div class="formgrid">
+
+<div class="field">
+<label>Tarefa</label>
+<input id="taskName" required placeholder="Ex.: Revisar funções">
+</div>
+
+<div class="field">
+<label>Data</label>
+<input id="taskDate" type="date" required>
+</div>
+
+</div>
+
+<button class="btn">+ Adicionar tarefa</button>
+</form>
+
+<div class="list" id="taskList"></div>
+</div>
+
+</section>
+
+<section id="colecao" class="page">
+
+<div class="panel">
+<h3>🧸 Minha coleção de ursinhos</h3>
+<p>Algumas decorações são desbloqueadas ao criar registros no seu cantinho.</p>
+<div class="achievements" id="collectionList"></div>
+</div>
+
+</section>
+
+<section id="etiquetas" class="page">
+
+<div class="panel">
+<h3>🎀 Etiquetas temáticas</h3>
+
+<form id="tagForm">
+
+<div class="field">
+<label>Nome da etiqueta</label>
+<input id="tagName" required placeholder="Ex.: Revisão importante">
+</div>
+
+<button class="btn">+ Criar etiqueta</button>
+</form>
+
+<div class="tags" id="tagList" style="margin-top:18px"></div>
+</div>
+
+</section>
+
+<section id="perfil" class="page">
+
+<div class="panel">
+<h3>🌸 Meu perfil</h3>
+
+<div class="profile">
+
+<div class="avatar" id="avatar">🧸</div>
+
+<div>
+<h3 id="profileName" style="margin:0">Estudante</h3>
+<p id="profileGoal">Meu objetivo é aprender cada dia mais.</p>
+</div>
+
+</div>
+
+<form id="profileForm" style="margin-top:20px">
+
+<div class="formgrid">
+
+<div class="field">
+<label>Seu nome</label>
+<input id="userName" placeholder="Como quer ser chamada?">
+</div>
+
+<div class="field">
+<label>Seu objetivo</label>
+<input id="userGoal" placeholder="Ex.: Passar na UFU">
+</div>
+
+<div class="field">
+<label>Seu avatar</label>
+<select id="userAvatar">
+<option>🧸</option>
+<option>🐰</option>
+<option>🐻</option>
+<option>🌷</option>
+<option>🎀</option>
+<option>🐱</option>
+</select>
+</div>
+
+</div>
+
+<button class="btn">Salvar perfil 💗</button>
+</form>
+
+</div>
+
 </section>
 
 </main>
 </div>
 
 <script>
-let questoes = JSON.parse(localStorage.getItem("questoesElegantes")) || [];
-let tarefas = JSON.parse(localStorage.getItem("tarefasElegantes")) || [];
 
-function abrir(id, botao) {
-  document.querySelectorAll(".pagina").forEach(p => p.classList.remove("ativa"));
-  document.getElementById(id).classList.add("ativa");
+const $=id=>document.getElementById(id);
 
-  document.querySelectorAll(".menu button").forEach(b => b.classList.remove("active"));
-  botao.classList.add("active");
-}
+const get=(key,def=[])=>JSON.parse(
+localStorage.getItem(key)||JSON.stringify(def)
+);
 
-function salvar() {
-  localStorage.setItem("questoesElegantes", JSON.stringify(questoes));
-  localStorage.setItem("tarefasElegantes", JSON.stringify(tarefas));
-}
+const set=(key,val)=>localStorage.setItem(
+key,
+JSON.stringify(val)
+);
 
-function atualizar() {
-  const total = questoes.length;
-  const revisadas = questoes.filter(q => q.revisada).length;
-  const concluidas = tarefas.filter(t => t.concluida).length;
-  const porcentagem = tarefas.length
-    ? Math.round(concluidas / tarefas.length * 100)
-    : 0;
-
-  document.getElementById("total").textContent = total;
-  document.getElementById("revisadas").textContent = revisadas;
-  document.getElementById("tarefas").textContent = concluidas;
-  document.getElementById("porcentagem").textContent = porcentagem + "%";
-  document.getElementById("textoProgresso").textContent = porcentagem + "%";
-  document.getElementById("finalTexto").textContent = porcentagem + "%";
-  document.getElementById("barraProgresso").style.width = porcentagem + "%";
-  document.getElementById("barraFinal").style.width = porcentagem + "%";
-}
-
-function mostrarQuestoes() {
-  const lista = document.getElementById("listaQuestoes");
-
-  if (!questoes.length) {
-    lista.innerHTML = "<p>Nenhuma questão cadastrada ainda. 🌸</p>";
-    return;
-  }
-
-  lista.innerHTML = questoes.map((q, i) => `
-    <div class="item">
-      <strong>${q.materia} — ${q.assunto}</strong>
-      <p>${q.enunciado}</p>
-      <p>${q.explicacao || "Sem explicação adicionada."}</p>
-      <button onclick="revisar(${i})">
-        ${q.revisada ? "✓ Revisada" : "Marcar como revisada"}
-      </button>
-      <button onclick="excluirQuestao(${i})">Excluir</button>
-    </div>
-  `).join("");
-}
-
-function mostrarTarefas() {
-  const lista = document.getElementById("listaTarefas");
-
-  if (!tarefas.length) {
-    lista.innerHTML = "<p>Nenhuma tarefa cadastrada ainda. 🌷</p>";
-    return;
-  }
-
-  lista.innerHTML = tarefas.map((t, i) => `
-    <div class="item">
-      <strong>${t.nome}</strong>
-      <p>📅 ${t.data}</p>
-      <p>${t.concluida ? "✨ Tarefa concluída!" : "⏰ Pendente"}</p>
-      <button onclick="concluir(${i})">
-        ${t.concluida ? "Desmarcar" : "Concluir"}
-      </button>
-      <button onclick="excluirTarefa(${i})">Excluir</button>
-    </div>
-  `).join("");
-}
-
-document.getElementById("formQuestao").addEventListener("submit", function(e) {
-  e.preventDefault();
-
-  questoes.push({
-    materia: document.getElementById("materia").value,
-    assunto: document.getElementById("assunto").value,
-    enunciado: document.getElementById("enunciado").value,
-    explicacao: document.getElementById("explicacao").value,
-    revisada: false
-  });
-
-  salvar();
-  mostrarQuestoes();
-  atualizar();
-  this.reset();
-  alert("Questão salva com carinho! 💗");
+let materials=get('cuteMaterials'),
+diaries=get('cuteDiaries'),
+tasks=get('cuteTasks'),
+tags=get('cuteTags',[
+'📚 ENEM',
+'🎀 Revisão',
+'🌸 Importante',
+'🧸 UFU'
+]),
+profile=get('cuteProfile',{
+name:'Estudante',
+goal:'Meu objetivo é aprender cada dia mais.',
+avatar:'🧸'
 });
 
-document.getElementById("formTarefa").addEventListener("submit", function(e) {
-  e.preventDefault();
+const quotes=[
+'Você é capaz de aprender coisas incríveis. 🌷',
+'Disciplina hoje, liberdade amanhã. 🎀',
+'Seu esforço de hoje merece orgulho. 🧸',
+'Não compare seu começo com o caminho de outra pessoa. 💗',
+'Cada questão é uma oportunidade de aprender. ✨'
+];
 
-  tarefas.push({
-    nome: document.getElementById("nomeTarefa").value,
-    data: document.getElementById("dataTarefa").value,
-    concluida: false
-  });
+let quoteIndex=0;
 
-  salvar();
-  mostrarTarefas();
-  atualizar();
-  this.reset();
-  alert("Tarefa adicionada! 🌸");
+function openPage(id,btn){
+
+document.querySelectorAll('.page').forEach(
+p=>p.classList.remove('active')
+);
+
+$(id).classList.add('active');
+
+document.querySelectorAll('nav button').forEach(
+b=>b.classList.remove('active')
+);
+
+btn.classList.add('active');
+
+}
+
+function refresh(){
+
+$('statMaterials').textContent=materials.length;
+
+$('statDiary').textContent=diaries.length;
+
+$('statTasks').textContent=tasks.filter(
+t=>t.done
+).length;
+
+$('statAwards').textContent=awards().filter(
+a=>a.unlocked
+).length;
+
+$('dashboardTags').innerHTML=tags.map(
+t=>`<span class="tag">${escape(t)}</span>`
+).join('');
+
+$('tagList').innerHTML=tags.map(
+(t,i)=>`<span class="tag">
+${escape(t)}
+<button onclick="deleteTag(${i})"
+style="border:0;background:transparent;color:#9d416b">
+×
+</button>
+</span>`
+).join('');
+
+let pct=tasks.length?
+Math.round(
+tasks.filter(t=>t.done).length/tasks.length*100
+):0;
+
+$('goalBar').style.width=pct+'%';
+
+$('goalPercent').textContent=pct+'%';
+
+$('goalText').textContent=profile.goal;
+
+renderMaterials();
+renderDiaries();
+renderTasks();
+renderAwards();
+renderCollection();
+
+$('hello').textContent='Olá, '+profile.name+'! 💗';
+
+$('profileName').textContent=profile.name;
+
+$('profileGoal').textContent=profile.goal;
+
+$('avatar').textContent=profile.avatar;
+
+}
+
+function escape(s){
+
+return String(s).replace(
+/[&<>"']/g,
+c=>({
+'&':'&amp;',
+'<':'&lt;',
+'>':'&gt;',
+'"':'&quot;',
+"'":'&#39;'
+}[c])
+);
+
+}
+
+function renderMaterials(){
+
+$('libraryList').innerHTML=materials.length?
+
+materials.map(
+(m,i)=>`<div class="item">
+
+<strong>📖 ${escape(m.name)}</strong>
+
+<p>
+Tipo: ${escape(m.type)}
+<br>
+${escape(m.link||'Sem observação')}
+</p>
+
+<div class="actions">
+<button onclick="removeMaterial(${i})">Excluir</button>
+</div>
+
+</div>`
+).join('')
+
+:'<p>Nenhum material guardado ainda. 🌸</p>';
+
+}
+
+function renderDiaries(){
+
+$('diaryList').innerHTML=diaries.length?
+
+diaries.slice().reverse().map(
+(d,i)=>`<div class="item">
+
+<strong>📝 ${escape(d.date)}</strong>
+
+<p>${escape(d.text)}</p>
+
+</div>`
+).join('')
+
+:'<p>Seu primeiro registro pode começar hoje. 💗</p>';
+
+}
+
+function renderTasks(){
+
+$('taskList').innerHTML=tasks.length?
+
+tasks.map(
+(t,i)=>`<div class="item">
+
+<strong>
+${t.done?'✅':'🗓️'} ${escape(t.name)}
+</strong>
+
+<p>Data: ${escape(t.date)}</p>
+
+<div class="actions">
+
+<button onclick="toggleTask(${i})">
+${t.done?'Desmarcar':'Concluir'}
+</button>
+
+<button onclick="removeTask(${i})">
+Excluir
+</button>
+
+</div>
+
+</div>`
+).join('')
+
+:'<p>Nenhuma tarefa cadastrada. 🎀</p>';
+
+$('nextTasks').innerHTML=tasks.filter(
+t=>!t.done
+).slice(0,4).map(
+t=>`<p>📝 ${escape(t.name)} — ${escape(t.date)}</p>`
+).join('')
+
+||'<p>Tudo organizado por enquanto! ✨</p>';
+
+}
+
+function awards(){
+
+return[
+{
+name:'Primeiro material',
+medal:'📚',
+unlocked:materials.length>=1
+},
+{
+name:'Diário iniciado',
+medal:'📝',
+unlocked:diaries.length>=1
+},
+{
+name:'Primeira tarefa',
+medal:'🌷',
+unlocked:tasks.length>=1
+},
+{
+name:'Tarefa concluída',
+medal:'🏆',
+unlocked:tasks.some(t=>t.done)
+},
+{
+name:'Cinco materiais',
+medal:'🎀',
+unlocked:materials.length>=5
+},
+{
+name:'Cinco registros',
+medal:'💌',
+unlocked:diaries.length>=5
+}
+];
+
+}
+
+function renderAwards(){
+
+$('achievementsList').innerHTML=awards().map(
+a=>`<div class="achievement ${a.unlocked?'':'locked'}">
+
+<div class="medal">${a.medal}</div>
+
+<strong>${a.name}</strong>
+
+<p>${a.unlocked?'Desbloqueada!':'Continue estudando'}</p>
+
+</div>`
+).join('');
+
+}
+
+function renderCollection(){
+
+let bears=[
+{
+n:'Ursinho leitor',
+e:'🧸📖',
+u:materials.length>=1
+},
+{
+n:'Ursinho estudioso',
+e:'🧸✏️',
+u:tasks.length>=1
+},
+{
+n:'Ursinho campeão',
+e:'🧸🏆',
+u:tasks.some(t=>t.done)
+},
+{
+n:'Ursinho diário',
+e:'🧸📝',
+u:diaries.length>=1
+},
+{
+n:'Ursinho especial',
+e:'🧸🎀',
+u:materials.length>=5
+}
+];
+
+$('collectionList').innerHTML=bears.map(
+b=>`<div class="achievement ${b.u?'':'locked'}">
+
+<div class="medal">${b.e}</div>
+
+<strong>${b.n}</strong>
+
+<p>${b.u?'Desbloqueado':'Bloqueado'}</p>
+
+</div>`
+).join('');
+
+}
+
+$('libraryForm').onsubmit=e=>{
+
+e.preventDefault();
+
+materials.push({
+name:$('bookName').value,
+type:$('bookType').value,
+link:$('bookLink').value
 });
 
-function revisar(i) {
-  questoes[i].revisada = !questoes[i].revisada;
-  salvar();
-  mostrarQuestoes();
-  atualizar();
+set('cuteMaterials',materials);
+
+e.target.reset();
+
+refresh();
+
+};
+
+$('diaryForm').onsubmit=e=>{
+
+e.preventDefault();
+
+diaries.push({
+text:$('diaryText').value,
+date:new Date().toLocaleDateString('pt-BR')
+});
+
+set('cuteDiaries',diaries);
+
+e.target.reset();
+
+refresh();
+
+};
+
+$('taskForm').onsubmit=e=>{
+
+e.preventDefault();
+
+tasks.push({
+name:$('taskName').value,
+date:$('taskDate').value,
+done:false
+});
+
+set('cuteTasks',tasks);
+
+e.target.reset();
+
+refresh();
+
+};
+
+$('tagForm').onsubmit=e=>{
+
+e.preventDefault();
+
+tags.push($('tagName').value);
+
+set('cuteTags',tags);
+
+e.target.reset();
+
+refresh();
+
+};
+
+$('profileForm').onsubmit=e=>{
+
+e.preventDefault();
+
+profile={
+name:$('userName').value||'Estudante',
+goal:$('userGoal').value||
+'Meu objetivo é aprender cada dia mais.',
+avatar:$('userAvatar').value
+};
+
+set('cuteProfile',profile);
+
+refresh();
+
+alert('Perfil salvo com carinho! 💗');
+
+};
+
+function removeMaterial(i){
+
+materials.splice(i,1);
+
+set('cuteMaterials',materials);
+
+refresh();
+
 }
 
-function excluirQuestao(i) {
-  questoes.splice(i, 1);
-  salvar();
-  mostrarQuestoes();
-  atualizar();
+function removeTask(i){
+
+tasks.splice(i,1);
+
+set('cuteTasks',tasks);
+
+refresh();
+
 }
 
-function concluir(i) {
-  tarefas[i].concluida = !tarefas[i].concluida;
-  salvar();
-  mostrarTarefas();
-  atualizar();
+function toggleTask(i){
+
+tasks[i].done=!tasks[i].done;
+
+set('cuteTasks',tasks);
+
+refresh();
+
 }
 
-function excluirTarefa(i) {
-  tarefas.splice(i, 1);
-  salvar();
-  mostrarTarefas();
-  atualizar();
+function deleteTag(i){
+
+tags.splice(i,1);
+
+set('cuteTags',tags);
+
+refresh();
+
 }
 
-let segundos = 1500;
-let intervalo = null;
+function newQuote(){
 
-function mostrarTempo() {
-  const minutos = Math.floor(segundos / 60);
-  const segundosRestantes = segundos % 60;
+quoteIndex=(quoteIndex+1)%quotes.length;
 
-  document.getElementById("relogio").textContent =
-    String(minutos).padStart(2, "0") + ":" +
-    String(segundosRestantes).padStart(2, "0");
+$('muralQuote').textContent=quotes[quoteIndex];
+
+$('dailyQuote').textContent=quotes[quoteIndex];
+
 }
 
-function iniciar() {
-  if (intervalo) return;
+let seconds=1500;
+let timer=null;
 
-  intervalo = setInterval(() => {
-    if (segundos > 0) {
-      segundos--;
-      mostrarTempo();
-    } else {
-      clearInterval(intervalo);
-      intervalo = null;
-      alert("Parabéns! Sua sessão terminou. ✨");
-    }
-  }, 1000);
+function showTime(){
+
+let m=Math.floor(seconds/60);
+let s=seconds%60;
+
+$('clock').textContent=
+String(m).padStart(2,'0')+':'+
+String(s).padStart(2,'0');
+
 }
 
-function pausar() {
-  clearInterval(intervalo);
-  intervalo = null;
+function startTimer(){
+
+if(timer)return;
+
+timer=setInterval(()=>{
+
+if(seconds>0){
+
+seconds--;
+
+showTime();
+
+}else{
+
+pauseTimer();
+
+alert('Sua sessão terminou! Você conseguiu! 🌷');
+
 }
 
-function reiniciar() {
-  pausar();
-  segundos = 1500;
-  mostrarTempo();
+},1000);
+
 }
 
-document.getElementById("data").textContent =
-  new Date().toLocaleDateString("pt-BR", {
-    day: "numeric",
-    month: "long",
-    year: "numeric"
-  });
+function pauseTimer(){
 
-mostrarQuestoes();
-mostrarTarefas();
-atualizar();
-mostrarTempo();
+clearInterval(timer);
+
+timer=null;
+
+}
+
+function resetTimer(){
+
+pauseTimer();
+
+seconds=1500;
+
+showTime();
+
+}
+
+$('today').textContent=new Date().toLocaleDateString(
+'pt-BR',
+{
+day:'numeric',
+month:'long',
+year:'numeric'
+}
+);
+
+$('muralQuote').textContent=quotes[0];
+
+$('dailyQuote').textContent=quotes[0];
+
+showTime();
+
+refresh();
+
 </script>
 
 </body>
