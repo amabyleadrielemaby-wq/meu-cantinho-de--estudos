@@ -1,1 +1,134 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Meu Cantinho de Estudos</title>
+<style>
+:root{--bg:#fff5f9;--card:#ffffff;--text:#4a2c3a;--muted:#a4778d;--primary:#e88caf;--danger:#d96b87;--border:#f3d5e1}
+*{box-sizing:border-box}body{margin:0;font-family:Arial,sans-serif;background:var(--bg);color:var(--text)}
+.container{max-width:1050px;margin:auto;padding:24px}.header{display:flex;justify-content:space-between;align-items:center;gap:12px;margin-bottom:24px}
+h1{margin:0;font-size:28px}.subtitle{color:var(--muted);margin-top:6px}.grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-bottom:20px}
+.card,.panel{background:var(--card);border:1px solid var(--border);border-radius:18px;padding:18px;box-shadow:0 5px 18px #35305b0b}
+.stat{font-size:30px;font-weight:bold;margin-top:8px}.muted{color:var(--muted);font-size:14px}
+.panel{margin-bottom:20px}.panel h2{margin-top:0;font-size:20px}
+form{display:grid;grid-template-columns:repeat(2,1fr);gap:12px}label{font-weight:bold;font-size:14px;display:flex;flex-direction:column;gap:6px}
+input,select,textarea{font:inherit;padding:11px;border:1px solid var(--border);border-radius:10px;background:#fff;color:var(--text)}
+textarea{min-height:90px;resize:vertical}.full{grid-column:1/-1}
+button{border:0;border-radius:10px;padding:12px 16px;background:var(--primary);color:white;font-weight:bold;cursor:pointer}
+button.secondary{background:#eeeefe;color:#5147bb}button.delete{background:#ffe8ed;color:#b52d4b;padding:8px}
+.filters{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:14px}.filters>*{flex:1;min-width:150px}
+.question{border:1px solid var(--border);border-radius:14px;padding:16px;margin:12px 0}.question-top{display:flex;justify-content:space-between;gap:10px;align-items:center}
+.badge{display:inline-block;padding:5px 9px;border-radius:999px;background:#eeeefe;color:#5147bb;font-size:12px;margin:3px 3px 0 0}
+.badge.reviewed{background:#e5f8ed;color:#21834b}.actions{display:flex;gap:8px;margin-top:12px;flex-wrap:wrap}
+.empty{text-align:center;color:var(--muted);padding:30px}
+@media(max-width:700px){.grid{grid-template-columns:1fr}form{grid-template-columns:1fr}.container{padding:16px}.header{align-items:flex-start;flex-direction:column}}
+</style>
+</head>
+<body>
+<div class="container">
+  <header class="header">
+    <div><h1>📚 Meu Cantinho de Estudos</h1><div class="subtitle">Organize seus erros e evolua todos os dias.</div></div>
+    <button onclick="document.getElementById('materia').focus()">+ Nova questão</button>
+  </header>
 
+  <section class="grid">
+    <div class="card"><div class="muted">Questões cadastradas</div><div class="stat" id="total">0</div></div>
+    <div class="card"><div class="muted">Para revisar</div><div class="stat" id="pending">0</div></div>
+    <div class="card"><div class="muted">Revisadas</div><div class="stat" id="done">0</div></div>
+  </section>
+
+  <section class="panel">
+    <h2>➕ Cadastrar questão</h2>
+    <form id="questionForm">
+      <label>Matéria
+        <input id="materia" required placeholder="Ex.: Matemática">
+      </label>
+      <label>Assunto
+        <input id="assunto" required placeholder="Ex.: Porcentagem">
+      </label>
+      <label>Tipo de erro
+        <select id="tipo">
+          <option>Não sabia o conteúdo</option>
+          <option>Falta de atenção</option>
+          <option>Interpretação</option>
+          <option>Erro de cálculo</option>
+          <option>Chute</option>
+          <option>Outro</option>
+        </select>
+      </label>
+      <label>Dificuldade
+        <select id="dificuldade"><option>Fácil</option><option selected>Média</option><option>Difícil</option></select>
+      </label>
+      <label class="full">Enunciado da questão
+        <textarea id="enunciado" required placeholder="Cole ou escreva a questão aqui..."></textarea>
+      </label>
+      <label class="full">Por que eu errei?
+        <textarea id="explicacao" placeholder="Explique seu erro e o que precisa estudar..."></textarea>
+      </label>
+      <label class="full">Etiqueta extra
+        <input id="etiqueta" placeholder="Ex.: Revisar fórmula, UFU, prioridade alta">
+      </label>
+      <div class="full"><button type="submit">Salvar questão</button></div>
+    </form>
+  </section>
+
+  <section class="panel">
+    <h2>🔎 Minhas questões</h2>
+    <div class="filters">
+      <input id="busca" placeholder="Pesquisar..." oninput="render()">
+      <select id="filtroMateria" onchange="render()"><option value="">Todas as matérias</option></select>
+      <select id="filtroStatus" onchange="render()"><option value="">Todos os status</option><option value="pending">Para revisar</option><option value="done">Revisadas</option></select>
+    </div>
+    <div id="lista"></div>
+  </section>
+</div>
+
+<script>
+let questoes = JSON.parse(localStorage.getItem('questoesEstudo') || '[]');
+
+function save(){localStorage.setItem('questoesEstudo',JSON.stringify(questoes));}
+function escapeHTML(str){return String(str||'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#039;'}[c]));}
+function updateStats(){
+  document.getElementById('total').textContent=questoes.length;
+  document.getElementById('pending').textContent=questoes.filter(q=>!q.revisada).length;
+  document.getElementById('done').textContent=questoes.filter(q=>q.revisada).length;
+  const select=document.getElementById('filtroMateria'), current=select.value;
+  select.innerHTML='<option value="">Todas as matérias</option>'+[...new Set(questoes.map(q=>q.materia))].sort().map(m=>`<option>${escapeHTML(m)}</option>`).join('');
+  select.value=current;
+}
+function render(){
+  updateStats();
+  const busca=document.getElementById('busca').value.toLowerCase();
+  const materia=document.getElementById('filtroMateria').value;
+  const status=document.getElementById('filtroStatus').value;
+  const lista=document.getElementById('lista');
+  const filtradas=questoes.filter(q=>
+    (!materia||q.materia===materia)&&(!status||(status==='done'?q.revisada:!q.revisada))&&
+    (JSON.stringify(q).toLowerCase().includes(busca))
+  );
+  if(!filtradas.length){lista.innerHTML='<div class="empty">Nenhuma questão encontrada. Cadastre sua primeira questão acima! ✨</div>';return;}
+  lista.innerHTML=filtradas.slice().reverse().map(q=>`
+    <article class="question">
+      <div class="question-top"><strong>${escapeHTML(q.materia)} — ${escapeHTML(q.assunto)}</strong>
+      <span class="badge ${q.revisada?'reviewed':''}">${q.revisada?'Revisada':'Para revisar'}</span></div>
+      <p>${escapeHTML(q.enunciado).replace(/\n/g,'<br>')}</p>
+      <div><span class="badge">${escapeHTML(q.tipo)}</span><span class="badge">${escapeHTML(q.dificuldade)}</span>${q.etiqueta?`<span class="badge">${escapeHTML(q.etiqueta)}</span>`:''}</div>
+      ${q.explicacao?`<p class="muted"><strong>Minha anotação:</strong> ${escapeHTML(q.explicacao).replace(/\n/g,'<br>')}</p>`:''}
+      <div class="actions">
+        <button class="secondary" onclick="toggleReview('${q.id}')">${q.revisada?'Marcar para revisar':'Marcar como revisada'}</button>
+        <button class="delete" onclick="removeQuestion('${q.id}')">Excluir</button>
+      </div>
+    </article>`).join('');
+}
+document.getElementById('questionForm').addEventListener('submit',e=>{
+  e.preventDefault();
+  questoes.push({id:Date.now().toString(),materia:materia.value.trim(),assunto:assunto.value.trim(),tipo:tipo.value,dificuldade:dificuldade.value,enunciado:enunciado.value.trim(),explicacao:explicacao.value.trim(),etiqueta:etiqueta.value.trim(),revisada:false});
+  save();e.target.reset();render();window.scrollTo({top:0,behavior:'smooth'});
+});
+function toggleReview(id){const q=questoes.find(q=>q.id===id);if(q)q.revisada=!q.revisada;save();render();}
+function removeQuestion(id){if(confirm('Excluir esta questão?')){questoes=questoes.filter(q=>q.id!==id);save();render();}}
+render();
+</script>
+</body>
+</html>
