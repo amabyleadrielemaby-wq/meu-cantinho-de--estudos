@@ -1,355 +1,425 @@
+
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Meu Cantinho de Estudos 🌸</title>
+<title>Meu Cantinho de Estudos ✨</title>
 
 <style>
+@import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:wght@500;600;700&display=swap');
+
 :root {
-  --bg: #fff5fa;
-  --card: #ffffff;
-  --pink: #e88caf;
-  --pink-dark: #c95f87;
-  --text: #4a2c3a;
-  --muted: #a4778d;
-  --border: #f3d5e1;
-  --soft: #fff0f6;
-  --green: #58a77c;
+  --rosa: #d978a0;
+  --escuro: #a64e77;
+  --claro: #fff0f6;
+  --fundo: #fff9fc;
+  --texto: #4b3440;
+  --cinza: #987c89;
+  --borda: #f1dce6;
 }
 
 * {
   box-sizing: border-box;
+  margin: 0;
+  padding: 0;
 }
 
 body {
-  margin: 0;
-  font-family: Arial, sans-serif;
-  background: var(--bg);
-  color: var(--text);
+  font-family: 'DM Sans', sans-serif;
+  color: var(--texto);
+  background: var(--fundo);
+  min-height: 100vh;
 }
 
-button, input, select, textarea {
-  font: inherit;
+body::before {
+  content: "";
+  position: fixed;
+  width: 350px;
+  height: 350px;
+  background: #f8cfe1;
+  border-radius: 50%;
+  filter: blur(100px);
+  opacity: .5;
+  top: -150px;
+  right: -100px;
+  z-index: -1;
 }
 
-button {
-  cursor: pointer;
-  border: 0;
-}
-
-.app {
+.layout {
   display: flex;
   min-height: 100vh;
 }
 
 .sidebar {
   width: 245px;
-  background: white;
-  border-right: 1px solid var(--border);
-  padding: 24px 16px;
-  flex-shrink: 0;
+  position: fixed;
+  height: 100vh;
+  padding: 30px 18px;
+  background: #ffffffdd;
+  border-right: 1px solid var(--borda);
+  backdrop-filter: blur(18px);
 }
 
 .logo {
   text-align: center;
-  margin-bottom: 28px;
+  margin-bottom: 35px;
 }
 
-.logo h2 {
-  color: var(--pink-dark);
-  margin: 8px 0;
-  font-size: 20px;
+.logo span {
+  font-size: 34px;
+  display: block;
+  animation: flutuar 4s infinite ease-in-out;
+}
+
+.logo h1 {
+  font-family: 'Playfair Display', serif;
+  color: var(--escuro);
+  font-size: 22px;
+  margin-top: 8px;
 }
 
 .logo p {
-  font-size: 12px;
-  color: var(--muted);
+  color: var(--cinza);
+  font-size: 11px;
+  margin-top: 5px;
 }
 
-.nav button {
-  display: block;
-  width: 100%;
-  text-align: left;
-  padding: 13px;
-  margin: 6px 0;
-  border-radius: 12px;
+.menu {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.menu button {
+  border: 0;
   background: transparent;
-  color: var(--text);
+  color: var(--cinza);
+  padding: 14px;
+  border-radius: 13px;
+  text-align: left;
+  cursor: pointer;
+  transition: .3s;
 }
 
-.nav button.active,
-.nav button:hover {
-  background: var(--soft);
-  color: var(--pink-dark);
+.menu button:hover,
+.menu button.active {
+  background: var(--claro);
+  color: var(--escuro);
+  transform: translateX(4px);
 }
 
 .main {
-  flex: 1;
-  padding: 28px;
-  max-width: 1250px;
+  margin-left: 245px;
+  width: calc(100% - 245px);
+  padding: 35px;
+  max-width: 1500px;
 }
 
-header {
-  margin-bottom: 24px;
+.topo {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 30px;
+  gap: 15px;
 }
 
-header h1 {
-  margin: 0 0 8px;
-  font-size: 28px;
+.topo small {
+  color: var(--rosa);
+  font-weight: 700;
 }
 
-.subtitle {
-  color: var(--muted);
+.topo h2 {
+  font-family: 'Playfair Display', serif;
+  font-size: 36px;
+  margin-top: 6px;
 }
 
-.page {
+.topo p {
+  color: var(--cinza);
+  font-size: 14px;
+  margin-top: 6px;
+}
+
+.data {
+  background: white;
+  padding: 12px 18px;
+  border: 1px solid var(--borda);
+  border-radius: 30px;
+  color: var(--escuro);
+  font-size: 13px;
+}
+
+.pagina {
   display: none;
+  animation: aparecer .5s ease;
 }
 
-.page.active {
+.pagina.ativa {
   display: block;
 }
 
-.grid {
+.cards {
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 16px;
-  margin-bottom: 22px;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 18px;
+  margin-bottom: 25px;
 }
 
-.card, .panel {
-  background: var(--card);
-  border: 1px solid var(--border);
-  border-radius: 18px;
-  padding: 20px;
+.card,
+.caixa {
+  background: #ffffffed;
+  border: 1px solid var(--borda);
+  border-radius: 20px;
+  padding: 23px;
+  box-shadow: 0 10px 35px #b15c8212;
+}
+
+.card {
+  transition: .3s;
+}
+
+.card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 15px 40px #b15c8225;
+}
+
+.card .icone {
+  font-size: 24px;
+  margin-bottom: 12px;
+}
+
+.card p {
+  color: var(--cinza);
+  font-size: 12px;
+}
+
+.card h3 {
+  color: var(--escuro);
+  font-size: 30px;
+  margin-top: 5px;
+}
+
+.grade {
+  display: grid;
+  grid-template-columns: 1.3fr 1fr;
+  gap: 22px;
+}
+
+.caixa h3 {
+  font-family: 'Playfair Display', serif;
+  font-size: 22px;
   margin-bottom: 18px;
-  box-shadow: 0 5px 18px #35305b0b;
 }
 
-.card .label {
-  color: var(--muted);
-  font-size: 14px;
+.caixa p {
+  color: var(--cinza);
+  font-size: 13px;
+  line-height: 1.7;
 }
 
-.stat {
-  font-size: 32px;
-  font-weight: bold;
-  margin-top: 8px;
-  color: var(--pink-dark);
+.barra {
+  height: 12px;
+  background: #f8e5ee;
+  border-radius: 20px;
+  overflow: hidden;
+  margin: 16px 0;
 }
 
-h2 {
-  margin-top: 0;
-  font-size: 20px;
+.barra div {
+  width: 0%;
+  height: 100%;
+  background: linear-gradient(90deg, #d978a0, #efb2ca);
+  border-radius: 20px;
+  transition: width .8s;
 }
 
-h3 {
-  margin-top: 0;
+.linha {
+  display: flex;
+  justify-content: space-between;
+  font-size: 12px;
+  color: var(--cinza);
 }
 
-form {
+.formulario {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
   gap: 14px;
 }
 
-label {
+.campo {
   display: flex;
   flex-direction: column;
-  gap: 6px;
-  font-size: 14px;
-  font-weight: bold;
+  gap: 7px;
 }
 
-input, select, textarea {
-  width: 100%;
-  padding: 11px;
-  border: 1px solid var(--border);
-  border-radius: 10px;
-  background: white;
-  color: var(--text);
-}
-
-textarea {
-  min-height: 90px;
-  resize: vertical;
-}
-
-.full {
+.campo.full {
   grid-column: 1 / -1;
 }
 
-.btn {
-  padding: 12px 16px;
-  border-radius: 10px;
-  background: var(--pink);
+.campo label {
+  font-size: 12px;
+  font-weight: 700;
+  color: var(--escuro);
+}
+
+.campo input,
+.campo select,
+.campo textarea {
+  padding: 12px;
+  border: 1px solid var(--borda);
+  border-radius: 12px;
+  background: #fffafd;
+  outline: none;
+  color: var(--texto);
+}
+
+.campo textarea {
+  min-height: 100px;
+  resize: vertical;
+}
+
+.campo input:focus,
+.campo select:focus,
+.campo textarea:focus {
+  border-color: var(--rosa);
+  box-shadow: 0 0 0 3px var(--claro);
+}
+
+.botao {
+  border: none;
+  background: linear-gradient(135deg, #d978a0, #b75b83);
   color: white;
-  font-weight: bold;
+  border-radius: 12px;
+  padding: 13px 20px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: .3s;
 }
 
-.btn.secondary {
-  background: #f2eafa;
-  color: #73558e;
+.botao:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 20px #d978a044;
 }
 
-.btn.green {
-  background: #e4f6eb;
-  color: #338051;
-}
-
-.btn.delete {
-  background: #ffe8ed;
-  color: #b52d4b;
-}
-
-.filters {
+.lista {
   display: flex;
-  gap: 10px;
-  flex-wrap: wrap;
-  margin-bottom: 16px;
-}
-
-.filters > * {
-  flex: 1;
-  min-width: 150px;
+  flex-direction: column;
+  gap: 12px;
+  margin-top: 20px;
 }
 
 .item {
-  border: 1px solid var(--border);
-  border-radius: 14px;
+  background: white;
+  border: 1px solid var(--borda);
+  border-radius: 15px;
   padding: 16px;
-  margin: 12px 0;
 }
 
-.item-top {
-  display: flex;
-  justify-content: space-between;
-  gap: 10px;
-  align-items: center;
-  flex-wrap: wrap;
+.item strong {
+  font-size: 14px;
 }
 
-.badge {
-  display: inline-block;
-  background: var(--soft);
-  color: var(--pink-dark);
-  padding: 5px 9px;
-  border-radius: 999px;
+.item p {
+  color: var(--cinza);
   font-size: 12px;
+  margin-top: 7px;
 }
 
-.badge.done {
-  background: #e4f6eb;
-  color: #338051;
-}
-
-.actions {
-  display: flex;
-  gap: 8px;
-  flex-wrap: wrap;
+.item button {
   margin-top: 12px;
-}
-
-.progress {
-  height: 12px;
-  background: #f8e4ed;
-  border-radius: 999px;
-  overflow: hidden;
-  margin: 12px 0;
-}
-
-.progress-bar {
-  height: 100%;
-  background: var(--pink);
-  width: 0%;
-  transition: width .3s;
-}
-
-.empty {
-  text-align: center;
-  padding: 24px;
-  color: var(--muted);
+  padding: 7px 10px;
+  border: 1px solid var(--borda);
+  border-radius: 8px;
+  background: white;
+  color: var(--escuro);
+  cursor: pointer;
 }
 
 .timer {
   text-align: center;
-  padding: 28px;
+  padding: 25px;
 }
 
-.timer-display {
-  font-size: 64px;
-  font-weight: bold;
-  color: var(--pink-dark);
+.timer h4 {
+  color: var(--rosa);
+}
+
+.relogio {
+  color: var(--escuro);
+  font-size: 75px;
+  font-weight: 700;
   margin: 20px 0;
 }
 
-.timer-mode {
-  color: var(--muted);
-  font-weight: bold;
+@keyframes aparecer {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
-.timer-buttons {
-  display: flex;
-  justify-content: center;
-  gap: 10px;
-  flex-wrap: wrap;
+@keyframes flutuar {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-8px); }
 }
 
-.note {
-  background: var(--soft);
-  border-radius: 12px;
-  padding: 14px;
-  color: var(--pink-dark);
-  font-size: 14px;
+@media (max-width: 1000px) {
+  .cards {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .grade {
+    grid-template-columns: 1fr;
+  }
 }
 
-@media (max-width: 800px) {
-  .app {
+@media (max-width: 700px) {
+  .sidebar {
+    position: static;
+    width: 100%;
+    height: auto;
+  }
+
+  .layout {
     display: block;
   }
 
-  .sidebar {
-    width: 100%;
-    border-right: 0;
-    border-bottom: 1px solid var(--border);
-    padding: 14px;
-  }
-
-  .logo {
-    margin-bottom: 10px;
-  }
-
-  .nav {
-    display: flex;
-    gap: 6px;
-    overflow-x: auto;
-  }
-
-  .nav button {
-    white-space: nowrap;
-    width: auto;
-    flex-shrink: 0;
-  }
-
   .main {
-    padding: 16px;
+    margin-left: 0;
+    width: 100%;
+    padding: 20px 15px;
   }
 
-  .grid {
+  .topo {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+
+  .topo h2 {
+    font-size: 29px;
+  }
+
+  .cards {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 10px;
+  }
+
+  .card,
+  .caixa {
+    padding: 17px;
+  }
+
+  .formulario {
     grid-template-columns: 1fr;
   }
 
-  form {
-    grid-template-columns: 1fr;
-  }
-
-  .full {
+  .campo.full {
     grid-column: auto;
-  }
-
-  .timer-display {
-    font-size: 48px;
   }
 }
 </style>
@@ -357,607 +427,383 @@ textarea {
 
 <body>
 
-<div class="app">
+<div class="layout">
 
 <aside class="sidebar">
   <div class="logo">
-    <div style="font-size:35px">🌸</div>
-    <h2>Meu Cantinho</h2>
-    <p>Estude com carinho 💗</p>
+    <span>🌷</span>
+    <h1>Meu Cantinho</h1>
+    <p>Um espaço para florescer ✨</p>
   </div>
 
-  <nav class="nav">
-    <button class="active" data-page="inicio">🏠 Início</button>
-    <button data-page="questoes">📚 Questões</button>
-    <button data-page="cronograma">📅 Cronograma</button>
-    <button data-page="foco">⏱️ Foco</button>
-    <button data-page="progresso">📊 Progresso</button>
+  <nav class="menu">
+    <button class="active" onclick="abrir('inicio', this)">🏡 Início</button>
+    <button onclick="abrir('questoes', this)">📚 Questões</button>
+    <button onclick="abrir('cronograma', this)">🗓️ Cronograma</button>
+    <button onclick="abrir('foco', this)">⏳ Foco</button>
+    <button onclick="abrir('progresso', this)">📊 Progresso</button>
   </nav>
 </aside>
 
 <main class="main">
 
-<header>
-  <h1 id="pageTitle">Olá, estudante! 🌷</h1>
-  <div class="subtitle">Pequenos passos todos os dias fazem a diferença.</div>
+<header class="topo">
+  <div>
+    <small>SEU MOMENTO DE CRESCER ✨</small>
+    <h2>Olá, estudante! 💗</h2>
+    <p>Pequenos passos também constroem grandes sonhos.</p>
+  </div>
+
+  <div class="data" id="data"></div>
 </header>
 
-<!-- INÍCIO -->
-<section class="page active" id="inicio">
+<section id="inicio" class="pagina ativa">
 
-  <div class="grid">
+  <div class="cards">
     <div class="card">
-      <div class="label">Questões cadastradas</div>
-      <div class="stat" id="total">0</div>
-    </div>
-
-    <div class="card">
-      <div class="label">Para revisar</div>
-      <div class="stat" id="pending">0</div>
+      <div class="icone">📚</div>
+      <p>Questões cadastradas</p>
+      <h3 id="total">0</h3>
     </div>
 
     <div class="card">
-      <div class="label">Tarefas concluídas</div>
-      <div class="stat" id="completed">0</div>
+      <div class="icone">🎯</div>
+      <p>Questões revisadas</p>
+      <h3 id="revisadas">0</h3>
+    </div>
+
+    <div class="card">
+      <div class="icone">📝</div>
+      <p>Tarefas concluídas</p>
+      <h3 id="tarefas">0</h3>
+    </div>
+
+    <div class="card">
+      <div class="icone">🌸</div>
+      <p>Seu progresso</p>
+      <h3 id="porcentagem">0%</h3>
     </div>
   </div>
 
-  <div class="panel">
-    <h2>💌 Mensagem do dia</h2>
-    <div class="note">
-      Você não precisa aprender tudo de uma vez. Continue, respeite seu ritmo e valorize cada conquista. 🌷
+  <div class="grade">
+    <div class="caixa">
+      <h3>✨ Seu progresso</h3>
+      <p>Continue estudando no seu ritmo. Cada questão resolvida é uma conquista!</p>
+
+      <div class="barra">
+        <div id="barraProgresso"></div>
+      </div>
+
+      <div class="linha">
+        <span>Progresso geral</span>
+        <strong id="textoProgresso">0%</strong>
+      </div>
     </div>
-  </div>
 
-  <div class="panel">
-    <h2>📋 Minhas próximas tarefas</h2>
-    <div id="homeTasks"></div>
-  </div>
-
-  <div class="panel">
-    <h2>📈 Meu progresso geral</h2>
-    <div id="homeProgressText">0% concluído</div>
-    <div class="progress">
-      <div class="progress-bar" id="homeProgressBar"></div>
+    <div class="caixa">
+      <h3>🌷 Mensagem do dia</h3>
+      <p>
+        Você não precisa fazer tudo perfeitamente.
+        Precisa apenas continuar, aprender com os erros
+        e acreditar no seu processo.
+      </p>
     </div>
   </div>
 
 </section>
 
-<!-- QUESTÕES -->
-<section class="page" id="questoes">
+<section id="questoes" class="pagina">
+  <div class="caixa">
+    <h3>📚 Cadastrar questão</h3>
 
-  <div class="panel">
-    <h2>➕ Cadastrar questão</h2>
+    <form id="formQuestao">
+      <div class="formulario">
 
-    <form id="questionForm">
+        <div class="campo">
+          <label>Matéria</label>
+          <select id="materia" required>
+            <option value="">Selecione</option>
+            <option>Matemática</option>
+            <option>Português</option>
+            <option>Biologia</option>
+            <option>Química</option>
+            <option>Física</option>
+            <option>História</option>
+            <option>Geografia</option>
+            <option>Filosofia</option>
+            <option>Sociologia</option>
+            <option>Redação</option>
+          </select>
+        </div>
 
-      <label>Matéria
-        <input id="materia" required placeholder="Ex.: Matemática">
-      </label>
+        <div class="campo">
+          <label>Assunto</label>
+          <input id="assunto" placeholder="Ex.: Função do 1º grau" required>
+        </div>
 
-      <label>Assunto
-        <input id="assunto" required placeholder="Ex.: Porcentagem">
-      </label>
+        <div class="campo full">
+          <label>Enunciado da questão</label>
+          <textarea id="enunciado" placeholder="Digite a questão..." required></textarea>
+        </div>
 
-      <label>Tipo de erro
-        <select id="tipo">
-          <option>Não sabia o conteúdo</option>
-          <option>Falta de atenção</option>
-          <option>Interpretação</option>
-          <option>Erro de cálculo</option>
-          <option>Chute</option>
-          <option>Outro</option>
-        </select>
-      </label>
+        <div class="campo full">
+          <label>Explicação ou aprendizado</label>
+          <textarea id="explicacao" placeholder="O que você aprendeu?"></textarea>
+        </div>
 
-      <label>Dificuldade
-        <select id="dificuldade">
-          <option>Fácil</option>
-          <option selected>Média</option>
-          <option>Difícil</option>
-        </select>
-      </label>
-
-      <label class="full">Enunciado
-        <textarea id="enunciado" required placeholder="Escreva a questão..."></textarea>
-      </label>
-
-      <label class="full">Minha anotação
-        <textarea id="explicacao" placeholder="Por que errei? O que preciso revisar?"></textarea>
-      </label>
-
-      <label class="full">Etiqueta
-        <input id="etiqueta" placeholder="Ex.: UFU, prioridade alta">
-      </label>
-
-      <div class="full">
-        <button class="btn" type="submit">Salvar questão 💗</button>
       </div>
 
+      <button class="botao" type="submit">+ Salvar questão</button>
     </form>
+
+    <div class="lista" id="listaQuestoes"></div>
   </div>
-
-  <div class="panel">
-    <h2>🔎 Minhas questões</h2>
-
-    <div class="filters">
-      <input id="busca" placeholder="Pesquisar..." />
-      <select id="filtroMateria">
-        <option value="">Todas as matérias</option>
-      </select>
-      <select id="filtroStatus">
-        <option value="">Todos os status</option>
-        <option value="pending">Para revisar</option>
-        <option value="done">Revisadas</option>
-      </select>
-    </div>
-
-    <div id="lista"></div>
-  </div>
-
 </section>
 
-<!-- CRONOGRAMA -->
-<section class="page" id="cronograma">
+<section id="cronograma" class="pagina">
+  <div class="caixa">
+    <h3>🗓️ Meu cronograma</h3>
 
-  <div class="panel">
-    <h2>📅 Planejar meus estudos</h2>
+    <form id="formTarefa">
+      <div class="formulario">
+        <div class="campo">
+          <label>Tarefa</label>
+          <input id="nomeTarefa" placeholder="Ex.: Estudar matemática" required>
+        </div>
 
-    <form id="taskForm">
-
-      <label>Nome da tarefa
-        <input id="taskName" required placeholder="Ex.: Estudar funções">
-      </label>
-
-      <label>Matéria
-        <input id="taskSubject" required placeholder="Ex.: Matemática">
-      </label>
-
-      <label>Data
-        <input id="taskDate" type="date" required>
-      </label>
-
-      <label>Prioridade
-        <select id="taskPriority">
-          <option>Normal</option>
-          <option>Alta</option>
-          <option>Baixa</option>
-        </select>
-      </label>
-
-      <div class="full">
-        <button class="btn" type="submit">Adicionar ao cronograma 🌸</button>
+        <div class="campo">
+          <label>Data</label>
+          <input id="dataTarefa" type="date" required>
+        </div>
       </div>
 
+      <button class="botao" type="submit">+ Adicionar tarefa</button>
     </form>
-  </div>
 
-  <div class="panel">
-    <h2>📝 Minhas tarefas</h2>
-    <div id="taskList"></div>
+    <div class="lista" id="listaTarefas"></div>
   </div>
-
 </section>
 
-<!-- FOCO -->
-<section class="page" id="foco">
+<section id="foco" class="pagina">
+  <div class="caixa timer">
+    <h3>⏳ Momento de foco</h3>
+    <h4 id="modo">FOCO</h4>
+    <div class="relogio" id="relogio">25:00</div>
 
-  <div class="panel timer">
-    <h2>⏱️ Meu momento de foco</h2>
-    <p class="timer-mode" id="timerMode">Foco • 25 minutos</p>
-
-    <div class="timer-display" id="timerDisplay">25:00</div>
-
-    <div class="timer-buttons">
-      <button class="btn" id="startTimer">Começar</button>
-      <button class="btn secondary" id="pauseTimer">Pausar</button>
-      <button class="btn secondary" id="resetTimer">Reiniciar</button>
-    </div>
-
-    <br>
-
-    <button class="btn secondary" id="switchTimer">Alternar foco / descanso</button>
-
-    <p class="subtitle" id="timerStatus">Você consegue! Um passo de cada vez. 💗</p>
+    <button class="botao" onclick="iniciar()">Iniciar</button>
+    <button class="botao" onclick="pausar()">Pausar</button>
+    <button class="botao" onclick="reiniciar()">Reiniciar</button>
   </div>
-
 </section>
 
-<!-- PROGRESSO -->
-<section class="page" id="progresso">
+<section id="progresso" class="pagina">
+  <div class="caixa">
+    <h3>📊 Meu progresso</h3>
+    <p>Continue cadastrando questões e concluindo suas tarefas para acompanhar sua evolução.</p>
 
-  <div class="panel">
-    <h2>📊 Meu progresso</h2>
-
-    <div class="grid">
-      <div class="card">
-        <div class="label">Total de tarefas</div>
-        <div class="stat" id="progressTotal">0</div>
-      </div>
-
-      <div class="card">
-        <div class="label">Concluídas</div>
-        <div class="stat" id="progressDone">0</div>
-      </div>
-
-      <div class="card">
-        <div class="label">Percentual</div>
-        <div class="stat" id="progressPercent">0%</div>
-      </div>
+    <div class="barra">
+      <div id="barraFinal"></div>
     </div>
 
-    <h3>✨ Progresso das tarefas</h3>
-
-    <div class="progress">
-      <div class="progress-bar" id="progressBar"></div>
+    <div class="linha">
+      <span>Progresso das tarefas</span>
+      <strong id="finalTexto">0%</strong>
     </div>
-
-    <p id="progressDescription">Comece adicionando uma tarefa ao seu cronograma.</p>
   </div>
-
-  <div class="panel">
-    <h2>📚 Questões por matéria</h2>
-    <div id="subjectStats"></div>
-  </div>
-
 </section>
 
 </main>
 </div>
 
 <script>
-const $ = id => document.getElementById(id);
+let questoes = JSON.parse(localStorage.getItem("questoesElegantes")) || [];
+let tarefas = JSON.parse(localStorage.getItem("tarefasElegantes")) || [];
 
-let questoes = JSON.parse(localStorage.getItem("questoesEstudo") || "[]");
-let tarefas = JSON.parse(localStorage.getItem("tarefasEstudo") || "[]");
+function abrir(id, botao) {
+  document.querySelectorAll(".pagina").forEach(p => p.classList.remove("ativa"));
+  document.getElementById(id).classList.add("ativa");
 
-function save() {
-  localStorage.setItem("questoesEstudo", JSON.stringify(questoes));
-  localStorage.setItem("tarefasEstudo", JSON.stringify(tarefas));
+  document.querySelectorAll(".menu button").forEach(b => b.classList.remove("active"));
+  botao.classList.add("active");
 }
 
-function escapeHTML(value) {
-  return String(value ?? "").replace(/[&<>"']/g, char => ({
-    "&": "&amp;",
-    "<": "&lt;",
-    ">": "&gt;",
-    '"': "&quot;",
-    "'": "&#039;"
-  }[char]));
+function salvar() {
+  localStorage.setItem("questoesElegantes", JSON.stringify(questoes));
+  localStorage.setItem("tarefasElegantes", JSON.stringify(tarefas));
 }
 
-function formatText(value) {
-  return escapeHTML(value).replace(/\n/g, "<br>");
-}
-
-function updateStats() {
-  $("total").textContent = questoes.length;
-  $("pending").textContent = questoes.filter(q => !q.revisada).length;
-  $("completed").textContent = tarefas.filter(t => t.concluida).length;
-
-  $("progressTotal").textContent = tarefas.length;
-  $("progressDone").textContent = tarefas.filter(t => t.concluida).length;
-
-  const percent = tarefas.length
-    ? Math.round(tarefas.filter(t => t.concluida).length / tarefas.length * 100)
+function atualizar() {
+  const total = questoes.length;
+  const revisadas = questoes.filter(q => q.revisada).length;
+  const concluidas = tarefas.filter(t => t.concluida).length;
+  const porcentagem = tarefas.length
+    ? Math.round(concluidas / tarefas.length * 100)
     : 0;
 
-  $("progressPercent").textContent = percent + "%";
-  $("progressBar").style.width = percent + "%";
-  $("homeProgressBar").style.width = percent + "%";
-  $("homeProgressText").textContent = percent + "% concluído";
-  $("progressDescription").textContent = tarefas.length
-    ? `Você concluiu ${percent}% das suas tarefas. Continue! 🌷`
-    : "Comece adicionando uma tarefa ao seu cronograma.";
+  document.getElementById("total").textContent = total;
+  document.getElementById("revisadas").textContent = revisadas;
+  document.getElementById("tarefas").textContent = concluidas;
+  document.getElementById("porcentagem").textContent = porcentagem + "%";
+  document.getElementById("textoProgresso").textContent = porcentagem + "%";
+  document.getElementById("finalTexto").textContent = porcentagem + "%";
+  document.getElementById("barraProgresso").style.width = porcentagem + "%";
+  document.getElementById("barraFinal").style.width = porcentagem + "%";
 }
 
-function updateMateriaFilter() {
-  const select = $("filtroMateria");
-  const current = select.value;
+function mostrarQuestoes() {
+  const lista = document.getElementById("listaQuestoes");
 
-  const materias = [...new Set(questoes.map(q => q.materia))]
-    .sort((a, b) => a.localeCompare(b));
-
-  select.innerHTML = '<option value="">Todas as matérias</option>' +
-    materias.map(m => `<option value="${escapeHTML(m)}">${escapeHTML(m)}</option>`).join("");
-
-  select.value = current;
-}
-
-function renderQuestions() {
-  updateMateriaFilter();
-
-  const busca = $("busca").value.toLowerCase();
-  const materia = $("filtroMateria").value;
-  const status = $("filtroStatus").value;
-
-  const filtradas = questoes.filter(q => {
-    const matchesSearch = JSON.stringify(q).toLowerCase().includes(busca);
-    const matchesMateria = !materia || q.materia === materia;
-    const matchesStatus = !status ||
-      (status === "done" ? q.revisada : !q.revisada);
-
-    return matchesSearch && matchesMateria && matchesStatus;
-  });
-
-  if (!filtradas.length) {
-    $("lista").innerHTML = '<div class="empty">Nenhuma questão encontrada. 🌷</div>';
+  if (!questoes.length) {
+    lista.innerHTML = "<p>Nenhuma questão cadastrada ainda. 🌸</p>";
     return;
   }
 
-  $("lista").innerHTML = filtradas.slice().reverse().map(q => `
-    <article class="item">
-      <div class="item-top">
-        <strong>${escapeHTML(q.materia)} — ${escapeHTML(q.assunto)}</strong>
-        <span class="badge ${q.revisada ? "done" : ""}">
-          ${q.revisada ? "Revisada" : "Para revisar"}
-        </span>
-      </div>
-
-      <p>${formatText(q.enunciado)}</p>
-
-      <span class="badge">${escapeHTML(q.tipo)}</span>
-      <span class="badge">${escapeHTML(q.dificuldade)}</span>
-      ${q.etiqueta ? `<span class="badge">${escapeHTML(q.etiqueta)}</span>` : ""}
-
-      ${q.explicacao ? `<p class="subtitle"><strong>Anotação:</strong> ${formatText(q.explicacao)}</p>` : ""}
-
-      <div class="actions">
-        <button class="btn secondary" onclick="toggleReview('${q.id}')">
-          ${q.revisada ? "Marcar para revisar" : "Marcar como revisada"}
-        </button>
-        <button class="btn delete" onclick="removeQuestion('${q.id}')">Excluir</button>
-      </div>
-    </article>
+  lista.innerHTML = questoes.map((q, i) => `
+    <div class="item">
+      <strong>${q.materia} — ${q.assunto}</strong>
+      <p>${q.enunciado}</p>
+      <p>${q.explicacao || "Sem explicação adicionada."}</p>
+      <button onclick="revisar(${i})">
+        ${q.revisada ? "✓ Revisada" : "Marcar como revisada"}
+      </button>
+      <button onclick="excluirQuestao(${i})">Excluir</button>
+    </div>
   `).join("");
 }
 
-$("questionForm").addEventListener("submit", event => {
-  event.preventDefault();
+function mostrarTarefas() {
+  const lista = document.getElementById("listaTarefas");
+
+  if (!tarefas.length) {
+    lista.innerHTML = "<p>Nenhuma tarefa cadastrada ainda. 🌷</p>";
+    return;
+  }
+
+  lista.innerHTML = tarefas.map((t, i) => `
+    <div class="item">
+      <strong>${t.nome}</strong>
+      <p>📅 ${t.data}</p>
+      <p>${t.concluida ? "✨ Tarefa concluída!" : "⏰ Pendente"}</p>
+      <button onclick="concluir(${i})">
+        ${t.concluida ? "Desmarcar" : "Concluir"}
+      </button>
+      <button onclick="excluirTarefa(${i})">Excluir</button>
+    </div>
+  `).join("");
+}
+
+document.getElementById("formQuestao").addEventListener("submit", function(e) {
+  e.preventDefault();
 
   questoes.push({
-    id: Date.now().toString(),
-    materia: $("materia").value.trim(),
-    assunto: $("assunto").value.trim(),
-    tipo: $("tipo").value,
-    dificuldade: $("dificuldade").value,
-    enunciado: $("enunciado").value.trim(),
-    explicacao: $("explicacao").value.trim(),
-    etiqueta: $("etiqueta").value.trim(),
+    materia: document.getElementById("materia").value,
+    assunto: document.getElementById("assunto").value,
+    enunciado: document.getElementById("enunciado").value,
+    explicacao: document.getElementById("explicacao").value,
     revisada: false
   });
 
-  save();
-  event.target.reset();
-  renderAll();
-  alert("Questão salva com sucesso! 💗");
+  salvar();
+  mostrarQuestoes();
+  atualizar();
+  this.reset();
+  alert("Questão salva com carinho! 💗");
 });
 
-function toggleReview(id) {
-  const q = questoes.find(q => q.id === id);
-  if (q) q.revisada = !q.revisada;
-
-  save();
-  renderAll();
-}
-
-function removeQuestion(id) {
-  if (!confirm("Excluir esta questão?")) return;
-
-  questoes = questoes.filter(q => q.id !== id);
-  save();
-  renderAll();
-}
-
-function renderTasks() {
-  const sorted = tarefas.slice().sort((a, b) => {
-    if (a.concluida !== b.concluida) return a.concluida ? 1 : -1;
-    return (a.data || "").localeCompare(b.data || "");
-  });
-
-  if (!sorted.length) {
-    $("taskList").innerHTML = '<div class="empty">Nenhuma tarefa cadastrada. 📚</div>';
-  } else {
-    $("taskList").innerHTML = sorted.map(t => `
-      <article class="item">
-        <div class="item-top">
-          <strong>${escapeHTML(t.nome)}</strong>
-          <span class="badge ${t.concluida ? "done" : ""}">
-            ${t.concluida ? "Concluída" : "Pendente"}
-          </span>
-        </div>
-
-        <p class="subtitle">
-          ${escapeHTML(t.materia)} • ${escapeHTML(t.data || "Sem data")}
-        </p>
-
-        <span class="badge">Prioridade: ${escapeHTML(t.prioridade)}</span>
-
-        <div class="actions">
-          <button class="btn ${t.concluida ? "secondary" : "green"}"
-            onclick="toggleTask('${t.id}')">
-            ${t.concluida ? "Desmarcar" : "Concluir tarefa"}
-          </button>
-
-          <button class="btn delete" onclick="removeTask('${t.id}')">Excluir</button>
-        </div>
-      </article>
-    `).join("");
-  }
-
-  renderHomeTasks();
-}
-
-$("taskForm").addEventListener("submit", event => {
-  event.preventDefault();
+document.getElementById("formTarefa").addEventListener("submit", function(e) {
+  e.preventDefault();
 
   tarefas.push({
-    id: Date.now().toString(),
-    nome: $("taskName").value.trim(),
-    materia: $("taskSubject").value.trim(),
-    data: $("taskDate").value,
-    prioridade: $("taskPriority").value,
+    nome: document.getElementById("nomeTarefa").value,
+    data: document.getElementById("dataTarefa").value,
     concluida: false
   });
 
-  save();
-  event.target.reset();
-  renderAll();
-  alert("Tarefa adicionada ao cronograma! 🌸");
+  salvar();
+  mostrarTarefas();
+  atualizar();
+  this.reset();
+  alert("Tarefa adicionada! 🌸");
 });
 
-function toggleTask(id) {
-  const t = tarefas.find(t => t.id === id);
-  if (t) t.concluida = !t.concluida;
-
-  save();
-  renderAll();
+function revisar(i) {
+  questoes[i].revisada = !questoes[i].revisada;
+  salvar();
+  mostrarQuestoes();
+  atualizar();
 }
 
-function removeTask(id) {
-  if (!confirm("Excluir esta tarefa?")) return;
-
-  tarefas = tarefas.filter(t => t.id !== id);
-  save();
-  renderAll();
+function excluirQuestao(i) {
+  questoes.splice(i, 1);
+  salvar();
+  mostrarQuestoes();
+  atualizar();
 }
 
-function renderHomeTasks() {
-  const pending = tarefas.filter(t => !t.concluida).slice(0, 5);
-
-  if (!pending.length) {
-    $("homeTasks").innerHTML = '<div class="empty">Você não tem tarefas pendentes. 🌷</div>';
-    return;
-  }
-
-  $("homeTasks").innerHTML = pending.map(t => `
-    <div class="item">
-      <strong>${escapeHTML(t.nome)}</strong>
-      <p class="subtitle">${escapeHTML(t.materia)} • ${escapeHTML(t.data || "Sem data")}</p>
-    </div>
-  `).join("");
+function concluir(i) {
+  tarefas[i].concluida = !tarefas[i].concluida;
+  salvar();
+  mostrarTarefas();
+  atualizar();
 }
 
-function renderSubjectStats() {
-  const counts = {};
-
-  questoes.forEach(q => {
-    counts[q.materia] = (counts[q.materia] || 0) + 1;
-  });
-
-  const entries = Object.entries(counts).sort((a, b) => b[1] - a[1]);
-
-  if (!entries.length) {
-    $("subjectStats").innerHTML = '<div class="empty">Cadastre questões para ver suas matérias. 📚</div>';
-    return;
-  }
-
-  $("subjectStats").innerHTML = entries.map(([subject, count]) => `
-    <div class="item">
-      <div class="item-top">
-        <strong>${escapeHTML(subject)}</strong>
-        <span class="badge">${count} questão(ões)</span>
-      </div>
-    </div>
-  `).join("");
+function excluirTarefa(i) {
+  tarefas.splice(i, 1);
+  salvar();
+  mostrarTarefas();
+  atualizar();
 }
 
-// Navegação
-document.querySelectorAll(".nav button").forEach(button => {
-  button.addEventListener("click", () => {
-    const page = button.dataset.page;
+let segundos = 1500;
+let intervalo = null;
 
-    document.querySelectorAll(".nav button").forEach(b => b.classList.remove("active"));
-    button.classList.add("active");
+function mostrarTempo() {
+  const minutos = Math.floor(segundos / 60);
+  const segundosRestantes = segundos % 60;
 
-    document.querySelectorAll(".page").forEach(section => {
-      section.classList.toggle("active", section.id === page);
-    });
-
-    const titles = {
-      inicio: "Olá, estudante! 🌷",
-      questoes: "Meu banco de questões 📚",
-      cronograma: "Meu cronograma de estudos 📅",
-      foco: "Meu momento de foco ⏱️",
-      progresso: "Meu progresso 📊"
-    };
-
-    $("pageTitle").textContent = titles[page];
-  });
-});
-
-// Filtros
-$("busca").addEventListener("input", renderQuestions);
-$("filtroMateria").addEventListener("change", renderQuestions);
-$("filtroStatus").addEventListener("change", renderQuestions);
-
-// Cronômetro Pomodoro
-let timerSeconds = 25 * 60;
-let timerInterval = null;
-let timerFocus = true;
-
-function updateTimer() {
-  const minutes = Math.floor(timerSeconds / 60).toString().padStart(2, "0");
-  const seconds = (timerSeconds % 60).toString().padStart(2, "0");
-
-  $("timerDisplay").textContent = `${minutes}:${seconds}`;
-  $("timerMode").textContent = timerFocus
-    ? "Foco • 25 minutos"
-    : "Descanso • 5 minutos";
+  document.getElementById("relogio").textContent =
+    String(minutos).padStart(2, "0") + ":" +
+    String(segundosRestantes).padStart(2, "0");
 }
 
-$("startTimer").addEventListener("click", () => {
-  if (timerInterval) return;
+function iniciar() {
+  if (intervalo) return;
 
-  timerInterval = setInterval(() => {
-    if (timerSeconds > 0) {
-      timerSeconds--;
-      updateTimer();
+  intervalo = setInterval(() => {
+    if (segundos > 0) {
+      segundos--;
+      mostrarTempo();
     } else {
-      clearInterval(timerInterval);
-      timerInterval = null;
-      $("timerStatus").textContent = "Tempo encerrado! Você conseguiu! 🌸";
-      alert("Tempo encerrado! Faça uma pausa. 💗");
+      clearInterval(intervalo);
+      intervalo = null;
+      alert("Parabéns! Sua sessão terminou. ✨");
     }
   }, 1000);
-
-  $("timerStatus").textContent = "Foco nos estudos! 📚";
-});
-
-$("pauseTimer").addEventListener("click", () => {
-  clearInterval(timerInterval);
-  timerInterval = null;
-  $("timerStatus").textContent = "Cronômetro pausado.";
-});
-
-$("resetTimer").addEventListener("click", () => {
-  clearInterval(timerInterval);
-  timerInterval = null;
-  timerSeconds = timerFocus ? 25 * 60 : 5 * 60;
-  updateTimer();
-  $("timerStatus").textContent = "Pronta para recomeçar? 🌷";
-});
-
-$("switchTimer").addEventListener("click", () => {
-  clearInterval(timerInterval);
-  timerInterval = null;
-  timerFocus = !timerFocus;
-  timerSeconds = timerFocus ? 25 * 60 : 5 * 60;
-  updateTimer();
-  $("timerStatus").textContent = timerFocus ? "Hora de estudar!" : "Hora de descansar!";
-});
-
-function renderAll() {
-  updateStats();
-  renderQuestions();
-  renderTasks();
-  renderSubjectStats();
 }
 
-updateTimer();
-renderAll();
+function pausar() {
+  clearInterval(intervalo);
+  intervalo = null;
+}
+
+function reiniciar() {
+  pausar();
+  segundos = 1500;
+  mostrarTempo();
+}
+
+document.getElementById("data").textContent =
+  new Date().toLocaleDateString("pt-BR", {
+    day: "numeric",
+    month: "long",
+    year: "numeric"
+  });
+
+mostrarQuestoes();
+mostrarTarefas();
+atualizar();
+mostrarTempo();
 </script>
 
 </body>
-</html>
+</html> 
