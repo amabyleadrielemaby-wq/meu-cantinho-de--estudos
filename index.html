@@ -2,523 +2,400 @@
 <html lang="pt-BR">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Meu Cantinho de Estudos 🧸</title>
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Mundo da Amábyle 🧸</title>
 
 <style>
-@import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:wght@600;700&display=swap');
-
-:root {
-  --pink: #e875a2;
-  --dark: #9d416b;
-  --soft: #fff0f6;
-  --bg: #fffafd;
-  --ink: #553644;
-  --muted: #a17f90;
-  --line: #f2d9e5;
-  --card: #ffffff;
+:root{
+  --rosa:#e879a7;
+  --escuro:#98466d;
+  --fundo:#fff8fc;
+  --cartao:#ffffff;
+  --texto:#563646;
+  --linha:#f1d7e4;
 }
 
-* {
-  box-sizing: border-box;
+*{box-sizing:border-box}
+
+body{
+  margin:0;
+  background:var(--fundo);
+  color:var(--texto);
+  font-family:Arial,sans-serif;
 }
 
-body {
-  margin: 0;
-  background: var(--bg);
-  color: var(--ink);
-  font-family: "DM Sans", sans-serif;
+button,input,textarea,select{
+  font:inherit;
 }
 
-button,
-input,
-textarea,
-select {
-  font: inherit;
+button{
+  cursor:pointer;
 }
 
-button {
-  cursor: pointer;
+.app{
+  display:flex;
+  min-height:100vh;
 }
 
-.app {
-  display: flex;
-  min-height: 100vh;
+.sidebar{
+  width:250px;
+  position:fixed;
+  inset:0 auto 0 0;
+  padding:25px 15px;
+  background:#fffafd;
+  border-right:1px solid var(--linha);
+  overflow:auto;
 }
 
-.sidebar {
-  width: 245px;
-  position: fixed;
-  inset: 0 auto 0 0;
-  padding: 26px 16px;
-  background: #fff9fcf2;
-  border-right: 1px solid var(--line);
-  z-index: 3;
+.brand{
+  text-align:center;
+  margin-bottom:25px;
 }
 
-.brand {
-  text-align: center;
-  margin-bottom: 25px;
+.brand .bear{
+  font-size:55px;
 }
 
-.brand .bear {
-  font-size: 48px;
+.brand h1{
+  color:var(--escuro);
+  font-family:Georgia,serif;
+  font-size:24px;
 }
 
-.brand h1 {
-  font: 700 23px "Playfair Display";
-  color: var(--dark);
-  margin: 4px 0;
+.brand p{
+  color:#a17f90;
+  font-size:12px;
 }
 
-.brand p {
-  font-size: 11px;
-  color: var(--muted);
+nav{
+  display:grid;
+  gap:7px;
 }
 
-nav {
-  display: grid;
-  gap: 7px;
-}
-
-nav button {
-  border: 0;
-  background: transparent;
-  color: var(--muted);
-  text-align: left;
-  padding: 12px 13px;
-  border-radius: 13px;
+nav button{
+  padding:12px;
+  border:0;
+  border-radius:13px;
+  background:transparent;
+  color:#a17f90;
+  text-align:left;
 }
 
 nav button:hover,
-nav button.active {
-  background: var(--soft);
-  color: var(--dark);
+nav button.active{
+  background:#ffeaf3;
+  color:var(--escuro);
 }
 
-.main {
-  margin-left: 245px;
-  width: calc(100% - 245px);
-  padding: 30px;
-  max-width: 1500px;
+.main{
+  margin-left:250px;
+  width:calc(100% - 250px);
+  padding:30px;
 }
 
-.top {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  gap: 15px;
-  margin-bottom: 24px;
+.top{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  margin-bottom:25px;
 }
 
-.top small {
-  color: var(--pink);
-  font-weight: 700;
+h2,h3{
+  font-family:Georgia,serif;
+  color:var(--escuro);
 }
 
-.top h2 {
-  font: 700 clamp(27px, 4vw, 39px) "Playfair Display";
-  margin: 6px 0;
+h2{
+  font-size:36px;
 }
 
-.top p {
-  color: var(--muted);
-  font-size: 14px;
-  margin: 0;
+.page{
+  display:none;
 }
 
-.date {
-  border: 1px solid var(--line);
-  border-radius: 30px;
-  padding: 11px 15px;
-  background: white;
-  color: var(--dark);
-  font-size: 12px;
+.page.active{
+  display:block;
 }
 
-.page {
-  display: none;
-  animation: fade .4s;
+.cards{
+  display:grid;
+  grid-template-columns:repeat(4,1fr);
+  gap:15px;
 }
 
-.page.active {
-  display: block;
+.card,.panel{
+  background:var(--cartao);
+  border:1px solid var(--linha);
+  border-radius:22px;
+  padding:20px;
+  box-shadow:0 8px 25px #a84e7810;
 }
 
-.cards {
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  gap: 16px;
-  margin-bottom: 20px;
+.card strong{
+  display:block;
+  font-size:30px;
+  color:var(--escuro);
+  margin-top:8px;
 }
 
-.card,
-.panel {
-  background: #ffffffed;
-  border: 1px solid var(--line);
-  border-radius: 22px;
-  padding: 21px;
-  box-shadow: 0 10px 30px #b95c8010;
+.card small{
+  color:#a17f90;
 }
 
-.card {
-  transition: .25s;
+.grid{
+  display:grid;
+  grid-template-columns:repeat(2,1fr);
+  gap:18px;
+  margin-top:18px;
 }
 
-.card:hover {
-  transform: translateY(-4px);
+.hero{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  background:linear-gradient(135deg,#fff0f6,#fffaff);
 }
 
-.card .icon {
-  font-size: 25px;
+.hero span{
+  font-size:90px;
 }
 
-.card small {
-  display: block;
-  color: var(--muted);
-  margin-top: 10px;
+.btn{
+  padding:12px 17px;
+  border:0;
+  border-radius:12px;
+  color:white;
+  font-weight:bold;
+  background:linear-gradient(135deg,#e879a7,#b85883);
 }
 
-.card strong {
-  display: block;
-  font-size: 29px;
-  color: var(--dark);
-  margin-top: 4px;
+.alt{
+  background:#fff0f6;
+  color:var(--escuro);
+  border:1px solid var(--linha);
 }
 
-.grid {
-  display: grid;
-  grid-template-columns: 1.25fr 1fr;
-  gap: 18px;
-  margin-bottom: 18px;
+form{
+  display:grid;
+  gap:12px;
 }
 
-.panel h3 {
-  font: 700 22px "Playfair Display";
-  margin: 0 0 15px;
-  color: var(--dark);
+.fields{
+  display:grid;
+  grid-template-columns:repeat(2,1fr);
+  gap:12px;
 }
 
-.panel p {
-  font-size: 13px;
-  color: var(--muted);
-  line-height: 1.7;
+.field{
+  display:grid;
+  gap:6px;
 }
 
-.hero {
-  background: linear-gradient(135deg, #fff0f6, #fff8fc);
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  gap: 20px;
+.field.full{
+  grid-column:1/-1;
 }
 
-.hero h2 {
-  font: 700 29px "Playfair Display";
-  color: var(--dark);
-  margin: 5px 0;
+label{
+  font-size:12px;
+  font-weight:bold;
+  color:var(--escuro);
 }
 
-.hero .bigbear {
-  font-size: 110px;
+input,textarea,select{
+  width:100%;
+  padding:11px;
+  border:1px solid var(--linha);
+  border-radius:12px;
+  background:#fffafd;
+  color:var(--texto);
 }
 
-.progress {
-  height: 12px;
-  background: #f9e2ed;
-  border-radius: 20px;
-  overflow: hidden;
-  margin: 13px 0;
+textarea{
+  min-height:130px;
 }
 
-.progress > div {
-  height: 100%;
-  width: 0;
-  background: linear-gradient(90deg, #df6f9c, #f5b4cd);
-  border-radius: 20px;
-  transition: .6s;
+.list{
+  display:grid;
+  gap:10px;
+  margin-top:17px;
 }
 
-.row {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  gap: 10px;
+.item{
+  padding:14px;
+  border:1px solid var(--linha);
+  border-radius:15px;
+  background:white;
 }
 
-.tags {
-  display: flex;
-  gap: 8px;
-  flex-wrap: wrap;
+.item p{
+  font-size:13px;
+  line-height:1.6;
 }
 
-.tag {
-  border: 1px solid #f0cddd;
-  background: #fff2f7;
-  color: var(--dark);
-  border-radius: 30px;
-  padding: 7px 11px;
-  font-size: 12px;
+.quote{
+  padding:22px;
+  background:#fff0f6;
+  border-radius:17px;
+  color:var(--escuro);
+  font-family:Georgia,serif;
+  font-size:19px;
+  text-align:center;
 }
 
-form {
-  display: grid;
-  gap: 12px;
+.progress{
+  height:12px;
+  background:#f8e1eb;
+  border-radius:20px;
+  overflow:hidden;
 }
 
-.formgrid {
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: 12px;
+.progress div{
+  width:0;
+  height:100%;
+  background:linear-gradient(90deg,#df6f9c,#f7b8d2);
 }
 
-.field {
-  display: grid;
-  gap: 6px;
-}
-
-.field.full {
-  grid-column: 1 / -1;
-}
-
-.field label {
-  font-size: 12px;
-  font-weight: 700;
-  color: var(--dark);
-}
-
-input,
-textarea,
-select {
-  width: 100%;
-  border: 1px solid var(--line);
-  border-radius: 12px;
-  padding: 11px;
-  background: #fffafd;
-  color: var(--ink);
-  outline: none;
-}
-
-textarea {
-  min-height: 100px;
-  resize: vertical;
-}
-
-input:focus,
-textarea:focus,
-select:focus {
-  border-color: var(--pink);
-  box-shadow: 0 0 0 3px var(--soft);
-}
-
-.btn {
-  border: 0;
-  border-radius: 12px;
-  padding: 12px 16px;
-  background: linear-gradient(135deg, #e875a2, #bd5c87);
-  color: #fff;
-  font-weight: 700;
-}
-
-.btn.alt {
-  background: #fff0f6;
-  color: var(--dark);
-  border: 1px solid #f2cddd;
-}
-
-.list {
-  display: grid;
-  gap: 10px;
-  margin-top: 17px;
-}
-
-.item {
-  border: 1px solid var(--line);
-  border-radius: 15px;
-  padding: 14px;
-  background: white;
-}
-
-.item strong {
-  color: var(--dark);
-  font-size: 14px;
-}
-
-.item p {
-  margin: 6px 0;
-  font-size: 12px;
-}
-
-.item button {
-  border: 1px solid var(--line);
-  background: white;
-  color: var(--dark);
-  border-radius: 9px;
-  padding: 7px 10px;
-  font-size: 11px;
-}
-
-.timer {
-  text-align: center;
-}
-
-.clock {
-  font-size: 76px;
-  font-weight: 700;
-  color: var(--pink);
-  letter-spacing: 2px;
-  margin: 15px 0;
-}
-
-.center {
-  display: flex;
-  justify-content: center;
-  gap: 8px;
-  flex-wrap: wrap;
-}
-
-.quote {
-  padding: 20px;
-  text-align: center;
-  background: linear-gradient(135deg, #fff0f6, #f8efff);
-  border-radius: 18px;
-  font: 700 19px "Playfair Display";
-  color: var(--dark);
-}
-
-@keyframes fade {
-  from {
-    opacity: 0;
-    transform: translateY(8px);
+@media(max-width:950px){
+  .cards{
+    grid-template-columns:repeat(2,1fr);
   }
 
-  to {
-    opacity: 1;
-    transform: translateY(0);
+  .grid{
+    grid-template-columns:1fr;
   }
 }
 
-@media (max-width: 1000px) {
-  .cards {
-    grid-template-columns: repeat(2, 1fr);
+@media(max-width:700px){
+  .app{
+    display:block;
   }
 
-  .grid {
-    grid-template-columns: 1fr;
-  }
-}
-
-@media (max-width: 700px) {
-  .app {
-    display: block;
+  .sidebar{
+    position:static;
+    width:100%;
   }
 
-  .sidebar {
-    position: static;
-    width: 100%;
-    height: auto;
-    border-right: 0;
-    border-bottom: 1px solid var(--line);
+  .main{
+    margin:0;
+    width:100%;
+    padding:15px;
   }
 
-  .main {
-    margin: 0;
-    width: 100%;
-    padding: 18px 13px;
+  .fields{
+    grid-template-columns:1fr;
   }
 
-  .top {
-    align-items: flex-start;
-    flex-direction: column;
+  .field.full{
+    grid-column:auto;
   }
 
-  .formgrid {
-    grid-template-columns: 1fr;
+  .top{
+    display:block;
   }
 
-  .field.full {
-    grid-column: auto;
-  }
-
-  .hero .bigbear {
-    font-size: 70px;
+  .hero span{
+    font-size:60px;
   }
 }
 </style>
 </head>
 
 <body>
+
 <div class="app">
 
 <aside class="sidebar">
+
 <div class="brand">
 <div class="bear">🧸</div>
-<h1>Meu Cantinho</h1>
-<p>de estudos, sonhos e conquistas 🎀</p>
+<h1>Mundo da Amábyle</h1>
+<p>Estudos, sonhos e conquistas 🎀</p>
 </div>
 
 <nav>
-<button class="active" onclick="openPage('dashboard',this)">🏡 Dashboard</button>
+<button class="active" onclick="openPage('inicio',this)">🏡 Início</button>
 <button onclick="openPage('biblioteca',this)">📖 Biblioteca</button>
-<button onclick="openPage('diario',this)">📝 Diário</button>
 <button onclick="openPage('redacao',this)">✍️ Redação</button>
 <button onclick="openPage('questoes',this)">🧠 Questões</button>
-<button onclick="openPage('conquistas',this)">🏆 Conquistas</button>
-<button onclick="openPage('foco',this)">🌙 Modo estudo</button>
-<button onclick="openPage('graficos',this)">📊 Desempenho</button>
+<button onclick="openPage('flashcards',this)">🃏 Flashcards</button>
+<button onclick="openPage('simulado',this)">🎓 Simulado</button>
+<button onclick="openPage('planejamento',this)">📅 Planejamento</button>
+<button onclick="openPage('missoes',this)">🎮 Missões</button>
+<button onclick="openPage('habitos',this)">🌸 Hábitos</button>
+<button onclick="openPage('foco',this)">🎧 Modo foco</button>
+<button onclick="openPage('metas',this)">💭 Metas</button>
+<button onclick="openPage('ufu',this)">🎓 Jornada UFU</button>
+<button onclick="openPage('capsula',this)">💌 Cápsula do tempo</button>
+<button onclick="openPage('quarto',this)">🏡 Quarto virtual</button>
+<button onclick="openPage('recompensas',this)">🎁 Recompensas</button>
+<button onclick="openPage('desempenho',this)">📊 Desempenho</button>
+<button onclick="openPage('revisao',this)">🔁 Revisão de erros</button>
 <button onclick="openPage('personalizar',this)">🎀 Personalizar</button>
-<button onclick="openPage('perfil',this)">🌸 Perfil</button>
 </nav>
+
 </aside>
 
 <main class="main">
 
 <header class="top">
 <div>
-<small>SEU ESPAÇO DE CRESCIMENTO ✨</small>
-<h2 id="hello">Olá, estudante! 💗</h2>
-<p>Um pouquinho todos os dias faz diferença.</p>
+<small style="color:var(--rosa)">
+SEU ESPAÇO DE CRESCIMENTO ✨
+</small>
+
+<h2 id="hello">Olá, Amábyle! 💗</h2>
+
+<p style="color:#a17f90">
+Seu futuro está sendo construído hoje.
+</p>
 </div>
 
-<div class="date" id="today"></div>
+<span id="date"></span>
 </header>
 
-<section id="dashboard" class="page active">
+<section id="inicio" class="page active">
 
 <div class="panel hero">
+
 <div>
-<small>SEU OBJETIVO MERECE CUIDADO 💕</small>
-<h2>Você consegue, um passo por vez!</h2>
-<p>Organize sua rotina e acompanhe sua evolução.</p>
+<h2>Você consegue! 🌷</h2>
+<p>Um passo de cada vez, rumo aos seus sonhos.</p>
+
+<div class="progress">
+<div id="mainProgress"></div>
 </div>
 
-<div class="bigbear">🧸📚</div>
+<small id="progressText">0% concluído</small>
+</div>
+
+<span>🧸📚</span>
+
 </div>
 
 <div class="cards" style="margin-top:18px">
 
 <div class="card">
-<div class="icon">📖</div>
+📚
 <small>Materiais</small>
 <strong id="statMaterials">0</strong>
 </div>
 
 <div class="card">
-<div class="icon">📝</div>
-<small>Registros</small>
-<strong id="statDiary">0</strong>
-</div>
-
-<div class="card">
-<div class="icon">⭐</div>
+⭐
 <small>Pontos</small>
 <strong id="statPoints">0</strong>
 </div>
 
 <div class="card">
-<div class="icon">🏆</div>
+🏆
 <small>Nível</small>
 <strong id="statLevel">1</strong>
+</div>
+
+<div class="card">
+✅
+<small>Missões concluídas</small>
+<strong id="statMissions">0</strong>
 </div>
 
 </div>
@@ -526,24 +403,190 @@ select:focus {
 <div class="grid">
 
 <div class="panel">
-<h3>🎀 Seu progresso</h3>
-<p id="goalText">Defina seu objetivo no perfil.</p>
-
-<div class="progress">
-<div id="goalBar"></div>
-</div>
-
-<div class="row">
-<small id="goalPercent">0%</small>
-<small>Continue assim ✨</small>
-</div>
+<h3>💌 Mensagem do dia</h3>
+<div class="quote" id="dailyQuote"></div>
+<br>
+<button class="btn" onclick="newQuote()">Nova mensagem</button>
 </div>
 
 <div class="panel">
-<h3>💌 Mensagem para você</h3>
-<div class="quote" id="dailyQuote"></div>
+<h3>🎓 Minha jornada</h3>
+<p id="journeyPreview">
+Seu sonho merece dedicação e carinho.
+</p>
 </div>
 
 </div>
 
 </section>
+
+<section id="biblioteca" class="page">
+<div class="panel">
+<h3>📖 Biblioteca</h3>
+<p>Esta área receberá seus livros, PDFs, resumos e materiais de estudo.</p>
+</div>
+</section>
+
+<section id="redacao" class="page">
+<div class="panel">
+<h3>✍️ Área de redação</h3>
+<p>Você poderá escrever, salvar e revisar suas redações.</p>
+</div>
+</section>
+
+<section id="questoes" class="page">
+<div class="panel">
+<h3>🧠 Banco de questões</h3>
+<p>Cadastre questões, alternativas e respostas.</p>
+</div>
+</section>
+
+<section id="flashcards" class="page">
+<div class="panel">
+<h3>🃏 Flashcards</h3>
+<p>Crie cartões para memorizar conteúdos.</p>
+</div>
+</section>
+
+<section id="simulado" class="page">
+<div class="panel">
+<h3>🎓 Simulado ENEM/UFU</h3>
+<p>Área para simulados e resultados.</p>
+</div>
+</section>
+
+<section id="planejamento" class="page">
+<div class="panel">
+<h3>📅 Planejamento semanal</h3>
+<p>Organize suas tarefas e horários.</p>
+</div>
+</section>
+
+<section id="missoes" class="page">
+<div class="panel">
+<h3>🎮 Missões diárias</h3>
+<p>Complete desafios e ganhe pontos.</p>
+</div>
+</section>
+
+<section id="habitos" class="page">
+<div class="panel">
+<h3>🌸 Rastreador de hábitos</h3>
+<p>Acompanhe sua rotina de estudos.</p>
+</div>
+</section>
+
+<section id="foco" class="page">
+<div class="panel">
+<h3>🎧 Modo foco</h3>
+<p>Use o cronômetro para suas sessões de estudo.</p>
+</div>
+</section>
+
+<section id="metas" class="page">
+<div class="panel">
+<h3>💭 Metas e desejos</h3>
+<p>Registre seus objetivos pessoais e acadêmicos.</p>
+</div>
+</section>
+
+<section id="ufu" class="page">
+<div class="panel">
+<h3>🎓 Minha jornada até a UFU</h3>
+<p>Acompanhe seu objetivo de ingresso na universidade.</p>
+</div>
+</section>
+
+<section id="capsula" class="page">
+<div class="panel">
+<h3>💌 Cápsula do tempo</h3>
+<p>Escreva uma mensagem para seu futuro.</p>
+</div>
+</section>
+
+<section id="quarto" class="page">
+<div class="panel">
+<h3>🏡 Meu quarto virtual</h3>
+<p>Decore seu espaço e desbloqueie itens.</p>
+</div>
+</section>
+
+<section id="recompensas" class="page">
+<div class="panel">
+<h3>🎁 Loja de recompensas</h3>
+<p>Use seus pontos para desbloquear recompensas.</p>
+</div>
+</section>
+
+<section id="desempenho" class="page">
+<div class="panel">
+<h3>📊 Desempenho</h3>
+<p>Acompanhe sua evolução nos estudos.</p>
+</div>
+</section>
+
+<section id="revisao" class="page">
+<div class="panel">
+<h3>🔁 Revisão de erros</h3>
+<p>Guarde os conteúdos que precisam de mais atenção.</p>
+</div>
+</section>
+
+<section id="personalizar" class="page">
+<div class="panel">
+<h3>🎀 Personalizar</h3>
+<p>Escolha cores e detalhes para seu cantinho.</p>
+</div>
+</section>
+
+</main>
+</div>
+
+<script>
+
+const $=id=>document.getElementById(id);
+
+function openPage(id,button){
+
+document.querySelectorAll('.page')
+.forEach(p=>p.classList.remove('active'));
+
+$(id).classList.add('active');
+
+document.querySelectorAll('nav button')
+.forEach(b=>b.classList.remove('active'));
+
+button.classList.add('active');
+
+}
+
+const quotes=[
+'Você é capaz de aprender coisas incríveis. 🌷',
+'Pequenos passos também são progresso. 🎀',
+'Seu esforço de hoje merece orgulho. 🧸',
+'Você não precisa ser perfeita, apenas continuar. 💗'
+];
+
+let quoteIndex=0;
+
+function newQuote(){
+
+quoteIndex=(quoteIndex+1)%quotes.length;
+
+$('dailyQuote').textContent=quotes[quoteIndex];
+
+}
+
+$('dailyQuote').textContent=quotes[0];
+
+$('date').textContent=new Date()
+.toLocaleDateString('pt-BR',{
+day:'numeric',
+month:'long',
+year:'numeric'
+});
+
+</script>
+
+</body>
+</html>
