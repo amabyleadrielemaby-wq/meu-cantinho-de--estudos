@@ -3,50 +3,443 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Meu Cantinho de Estudos</title>
+<title>Meu Cantinho de Estudos 🌸</title>
+
 <style>
-:root{--bg:#fff5f9;--card:#ffffff;--text:#4a2c3a;--muted:#a4778d;--primary:#e88caf;--danger:#d96b87;--border:#f3d5e1}
-*{box-sizing:border-box}body{margin:0;font-family:Arial,sans-serif;background:var(--bg);color:var(--text)}
-.container{max-width:1050px;margin:auto;padding:24px}.header{display:flex;justify-content:space-between;align-items:center;gap:12px;margin-bottom:24px}
-h1{margin:0;font-size:28px}.subtitle{color:var(--muted);margin-top:6px}.grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-bottom:20px}
-.card,.panel{background:var(--card);border:1px solid var(--border);border-radius:18px;padding:18px;box-shadow:0 5px 18px #35305b0b}
-.stat{font-size:30px;font-weight:bold;margin-top:8px}.muted{color:var(--muted);font-size:14px}
-.panel{margin-bottom:20px}.panel h2{margin-top:0;font-size:20px}
-form{display:grid;grid-template-columns:repeat(2,1fr);gap:12px}label{font-weight:bold;font-size:14px;display:flex;flex-direction:column;gap:6px}
-input,select,textarea{font:inherit;padding:11px;border:1px solid var(--border);border-radius:10px;background:#fff;color:var(--text)}
-textarea{min-height:90px;resize:vertical}.full{grid-column:1/-1}
-button{border:0;border-radius:10px;padding:12px 16px;background:var(--primary);color:white;font-weight:bold;cursor:pointer}
-button.secondary{background:#eeeefe;color:#5147bb}button.delete{background:#ffe8ed;color:#b52d4b;padding:8px}
-.filters{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:14px}.filters>*{flex:1;min-width:150px}
-.question{border:1px solid var(--border);border-radius:14px;padding:16px;margin:12px 0}.question-top{display:flex;justify-content:space-between;gap:10px;align-items:center}
-.badge{display:inline-block;padding:5px 9px;border-radius:999px;background:#eeeefe;color:#5147bb;font-size:12px;margin:3px 3px 0 0}
-.badge.reviewed{background:#e5f8ed;color:#21834b}.actions{display:flex;gap:8px;margin-top:12px;flex-wrap:wrap}
-.empty{text-align:center;color:var(--muted);padding:30px}
-@media(max-width:700px){.grid{grid-template-columns:1fr}form{grid-template-columns:1fr}.container{padding:16px}.header{align-items:flex-start;flex-direction:column}}
+:root {
+  --bg: #fff5fa;
+  --card: #ffffff;
+  --pink: #e88caf;
+  --pink-dark: #c95f87;
+  --text: #4a2c3a;
+  --muted: #a4778d;
+  --border: #f3d5e1;
+  --soft: #fff0f6;
+  --green: #58a77c;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: Arial, sans-serif;
+  background: var(--bg);
+  color: var(--text);
+}
+
+button, input, select, textarea {
+  font: inherit;
+}
+
+button {
+  cursor: pointer;
+  border: 0;
+}
+
+.app {
+  display: flex;
+  min-height: 100vh;
+}
+
+.sidebar {
+  width: 245px;
+  background: white;
+  border-right: 1px solid var(--border);
+  padding: 24px 16px;
+  flex-shrink: 0;
+}
+
+.logo {
+  text-align: center;
+  margin-bottom: 28px;
+}
+
+.logo h2 {
+  color: var(--pink-dark);
+  margin: 8px 0;
+  font-size: 20px;
+}
+
+.logo p {
+  font-size: 12px;
+  color: var(--muted);
+}
+
+.nav button {
+  display: block;
+  width: 100%;
+  text-align: left;
+  padding: 13px;
+  margin: 6px 0;
+  border-radius: 12px;
+  background: transparent;
+  color: var(--text);
+}
+
+.nav button.active,
+.nav button:hover {
+  background: var(--soft);
+  color: var(--pink-dark);
+}
+
+.main {
+  flex: 1;
+  padding: 28px;
+  max-width: 1250px;
+}
+
+header {
+  margin-bottom: 24px;
+}
+
+header h1 {
+  margin: 0 0 8px;
+  font-size: 28px;
+}
+
+.subtitle {
+  color: var(--muted);
+}
+
+.page {
+  display: none;
+}
+
+.page.active {
+  display: block;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 16px;
+  margin-bottom: 22px;
+}
+
+.card, .panel {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 18px;
+  padding: 20px;
+  margin-bottom: 18px;
+  box-shadow: 0 5px 18px #35305b0b;
+}
+
+.card .label {
+  color: var(--muted);
+  font-size: 14px;
+}
+
+.stat {
+  font-size: 32px;
+  font-weight: bold;
+  margin-top: 8px;
+  color: var(--pink-dark);
+}
+
+h2 {
+  margin-top: 0;
+  font-size: 20px;
+}
+
+h3 {
+  margin-top: 0;
+}
+
+form {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 14px;
+}
+
+label {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  font-size: 14px;
+  font-weight: bold;
+}
+
+input, select, textarea {
+  width: 100%;
+  padding: 11px;
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  background: white;
+  color: var(--text);
+}
+
+textarea {
+  min-height: 90px;
+  resize: vertical;
+}
+
+.full {
+  grid-column: 1 / -1;
+}
+
+.btn {
+  padding: 12px 16px;
+  border-radius: 10px;
+  background: var(--pink);
+  color: white;
+  font-weight: bold;
+}
+
+.btn.secondary {
+  background: #f2eafa;
+  color: #73558e;
+}
+
+.btn.green {
+  background: #e4f6eb;
+  color: #338051;
+}
+
+.btn.delete {
+  background: #ffe8ed;
+  color: #b52d4b;
+}
+
+.filters {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+  margin-bottom: 16px;
+}
+
+.filters > * {
+  flex: 1;
+  min-width: 150px;
+}
+
+.item {
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  padding: 16px;
+  margin: 12px 0;
+}
+
+.item-top {
+  display: flex;
+  justify-content: space-between;
+  gap: 10px;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+.badge {
+  display: inline-block;
+  background: var(--soft);
+  color: var(--pink-dark);
+  padding: 5px 9px;
+  border-radius: 999px;
+  font-size: 12px;
+}
+
+.badge.done {
+  background: #e4f6eb;
+  color: #338051;
+}
+
+.actions {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+  margin-top: 12px;
+}
+
+.progress {
+  height: 12px;
+  background: #f8e4ed;
+  border-radius: 999px;
+  overflow: hidden;
+  margin: 12px 0;
+}
+
+.progress-bar {
+  height: 100%;
+  background: var(--pink);
+  width: 0%;
+  transition: width .3s;
+}
+
+.empty {
+  text-align: center;
+  padding: 24px;
+  color: var(--muted);
+}
+
+.timer {
+  text-align: center;
+  padding: 28px;
+}
+
+.timer-display {
+  font-size: 64px;
+  font-weight: bold;
+  color: var(--pink-dark);
+  margin: 20px 0;
+}
+
+.timer-mode {
+  color: var(--muted);
+  font-weight: bold;
+}
+
+.timer-buttons {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.note {
+  background: var(--soft);
+  border-radius: 12px;
+  padding: 14px;
+  color: var(--pink-dark);
+  font-size: 14px;
+}
+
+@media (max-width: 800px) {
+  .app {
+    display: block;
+  }
+
+  .sidebar {
+    width: 100%;
+    border-right: 0;
+    border-bottom: 1px solid var(--border);
+    padding: 14px;
+  }
+
+  .logo {
+    margin-bottom: 10px;
+  }
+
+  .nav {
+    display: flex;
+    gap: 6px;
+    overflow-x: auto;
+  }
+
+  .nav button {
+    white-space: nowrap;
+    width: auto;
+    flex-shrink: 0;
+  }
+
+  .main {
+    padding: 16px;
+  }
+
+  .grid {
+    grid-template-columns: 1fr;
+  }
+
+  form {
+    grid-template-columns: 1fr;
+  }
+
+  .full {
+    grid-column: auto;
+  }
+
+  .timer-display {
+    font-size: 48px;
+  }
+}
 </style>
 </head>
+
 <body>
-<div class="container">
-  <header class="header">
-    <div><h1>📚 Meu Cantinho de Estudos</h1><div class="subtitle">Organize seus erros e evolua todos os dias.</div></div>
-    <button onclick="document.getElementById('materia').focus()">+ Nova questão</button>
-  </header>
 
-  <section class="grid">
-    <div class="card"><div class="muted">Questões cadastradas</div><div class="stat" id="total">0</div></div>
-    <div class="card"><div class="muted">Para revisar</div><div class="stat" id="pending">0</div></div>
-    <div class="card"><div class="muted">Revisadas</div><div class="stat" id="done">0</div></div>
-  </section>
+<div class="app">
 
-  <section class="panel">
+<aside class="sidebar">
+  <div class="logo">
+    <div style="font-size:35px">🌸</div>
+    <h2>Meu Cantinho</h2>
+    <p>Estude com carinho 💗</p>
+  </div>
+
+  <nav class="nav">
+    <button class="active" data-page="inicio">🏠 Início</button>
+    <button data-page="questoes">📚 Questões</button>
+    <button data-page="cronograma">📅 Cronograma</button>
+    <button data-page="foco">⏱️ Foco</button>
+    <button data-page="progresso">📊 Progresso</button>
+  </nav>
+</aside>
+
+<main class="main">
+
+<header>
+  <h1 id="pageTitle">Olá, estudante! 🌷</h1>
+  <div class="subtitle">Pequenos passos todos os dias fazem a diferença.</div>
+</header>
+
+<!-- INÍCIO -->
+<section class="page active" id="inicio">
+
+  <div class="grid">
+    <div class="card">
+      <div class="label">Questões cadastradas</div>
+      <div class="stat" id="total">0</div>
+    </div>
+
+    <div class="card">
+      <div class="label">Para revisar</div>
+      <div class="stat" id="pending">0</div>
+    </div>
+
+    <div class="card">
+      <div class="label">Tarefas concluídas</div>
+      <div class="stat" id="completed">0</div>
+    </div>
+  </div>
+
+  <div class="panel">
+    <h2>💌 Mensagem do dia</h2>
+    <div class="note">
+      Você não precisa aprender tudo de uma vez. Continue, respeite seu ritmo e valorize cada conquista. 🌷
+    </div>
+  </div>
+
+  <div class="panel">
+    <h2>📋 Minhas próximas tarefas</h2>
+    <div id="homeTasks"></div>
+  </div>
+
+  <div class="panel">
+    <h2>📈 Meu progresso geral</h2>
+    <div id="homeProgressText">0% concluído</div>
+    <div class="progress">
+      <div class="progress-bar" id="homeProgressBar"></div>
+    </div>
+  </div>
+
+</section>
+
+<!-- QUESTÕES -->
+<section class="page" id="questoes">
+
+  <div class="panel">
     <h2>➕ Cadastrar questão</h2>
+
     <form id="questionForm">
+
       <label>Matéria
         <input id="materia" required placeholder="Ex.: Matemática">
       </label>
+
       <label>Assunto
         <input id="assunto" required placeholder="Ex.: Porcentagem">
       </label>
+
       <label>Tipo de erro
         <select id="tipo">
           <option>Não sabia o conteúdo</option>
@@ -57,78 +450,514 @@ button.secondary{background:#eeeefe;color:#5147bb}button.delete{background:#ffe8
           <option>Outro</option>
         </select>
       </label>
-      <label>Dificuldade
-        <select id="dificuldade"><option>Fácil</option><option selected>Média</option><option>Difícil</option></select>
-      </label>
-      <label class="full">Enunciado da questão
-        <textarea id="enunciado" required placeholder="Cole ou escreva a questão aqui..."></textarea>
-      </label>
-      <label class="full">Por que eu errei?
-        <textarea id="explicacao" placeholder="Explique seu erro e o que precisa estudar..."></textarea>
-      </label>
-      <label class="full">Etiqueta extra
-        <input id="etiqueta" placeholder="Ex.: Revisar fórmula, UFU, prioridade alta">
-      </label>
-      <div class="full"><button type="submit">Salvar questão</button></div>
-    </form>
-  </section>
 
-  <section class="panel">
+      <label>Dificuldade
+        <select id="dificuldade">
+          <option>Fácil</option>
+          <option selected>Média</option>
+          <option>Difícil</option>
+        </select>
+      </label>
+
+      <label class="full">Enunciado
+        <textarea id="enunciado" required placeholder="Escreva a questão..."></textarea>
+      </label>
+
+      <label class="full">Minha anotação
+        <textarea id="explicacao" placeholder="Por que errei? O que preciso revisar?"></textarea>
+      </label>
+
+      <label class="full">Etiqueta
+        <input id="etiqueta" placeholder="Ex.: UFU, prioridade alta">
+      </label>
+
+      <div class="full">
+        <button class="btn" type="submit">Salvar questão 💗</button>
+      </div>
+
+    </form>
+  </div>
+
+  <div class="panel">
     <h2>🔎 Minhas questões</h2>
+
     <div class="filters">
-      <input id="busca" placeholder="Pesquisar..." oninput="render()">
-      <select id="filtroMateria" onchange="render()"><option value="">Todas as matérias</option></select>
-      <select id="filtroStatus" onchange="render()"><option value="">Todos os status</option><option value="pending">Para revisar</option><option value="done">Revisadas</option></select>
+      <input id="busca" placeholder="Pesquisar..." />
+      <select id="filtroMateria">
+        <option value="">Todas as matérias</option>
+      </select>
+      <select id="filtroStatus">
+        <option value="">Todos os status</option>
+        <option value="pending">Para revisar</option>
+        <option value="done">Revisadas</option>
+      </select>
     </div>
+
     <div id="lista"></div>
-  </section>
+  </div>
+
+</section>
+
+<!-- CRONOGRAMA -->
+<section class="page" id="cronograma">
+
+  <div class="panel">
+    <h2>📅 Planejar meus estudos</h2>
+
+    <form id="taskForm">
+
+      <label>Nome da tarefa
+        <input id="taskName" required placeholder="Ex.: Estudar funções">
+      </label>
+
+      <label>Matéria
+        <input id="taskSubject" required placeholder="Ex.: Matemática">
+      </label>
+
+      <label>Data
+        <input id="taskDate" type="date" required>
+      </label>
+
+      <label>Prioridade
+        <select id="taskPriority">
+          <option>Normal</option>
+          <option>Alta</option>
+          <option>Baixa</option>
+        </select>
+      </label>
+
+      <div class="full">
+        <button class="btn" type="submit">Adicionar ao cronograma 🌸</button>
+      </div>
+
+    </form>
+  </div>
+
+  <div class="panel">
+    <h2>📝 Minhas tarefas</h2>
+    <div id="taskList"></div>
+  </div>
+
+</section>
+
+<!-- FOCO -->
+<section class="page" id="foco">
+
+  <div class="panel timer">
+    <h2>⏱️ Meu momento de foco</h2>
+    <p class="timer-mode" id="timerMode">Foco • 25 minutos</p>
+
+    <div class="timer-display" id="timerDisplay">25:00</div>
+
+    <div class="timer-buttons">
+      <button class="btn" id="startTimer">Começar</button>
+      <button class="btn secondary" id="pauseTimer">Pausar</button>
+      <button class="btn secondary" id="resetTimer">Reiniciar</button>
+    </div>
+
+    <br>
+
+    <button class="btn secondary" id="switchTimer">Alternar foco / descanso</button>
+
+    <p class="subtitle" id="timerStatus">Você consegue! Um passo de cada vez. 💗</p>
+  </div>
+
+</section>
+
+<!-- PROGRESSO -->
+<section class="page" id="progresso">
+
+  <div class="panel">
+    <h2>📊 Meu progresso</h2>
+
+    <div class="grid">
+      <div class="card">
+        <div class="label">Total de tarefas</div>
+        <div class="stat" id="progressTotal">0</div>
+      </div>
+
+      <div class="card">
+        <div class="label">Concluídas</div>
+        <div class="stat" id="progressDone">0</div>
+      </div>
+
+      <div class="card">
+        <div class="label">Percentual</div>
+        <div class="stat" id="progressPercent">0%</div>
+      </div>
+    </div>
+
+    <h3>✨ Progresso das tarefas</h3>
+
+    <div class="progress">
+      <div class="progress-bar" id="progressBar"></div>
+    </div>
+
+    <p id="progressDescription">Comece adicionando uma tarefa ao seu cronograma.</p>
+  </div>
+
+  <div class="panel">
+    <h2>📚 Questões por matéria</h2>
+    <div id="subjectStats"></div>
+  </div>
+
+</section>
+
+</main>
 </div>
 
 <script>
-let questoes = JSON.parse(localStorage.getItem('questoesEstudo') || '[]');
+const $ = id => document.getElementById(id);
 
-function save(){localStorage.setItem('questoesEstudo',JSON.stringify(questoes));}
-function escapeHTML(str){return String(str||'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#039;'}[c]));}
-function updateStats(){
-  document.getElementById('total').textContent=questoes.length;
-  document.getElementById('pending').textContent=questoes.filter(q=>!q.revisada).length;
-  document.getElementById('done').textContent=questoes.filter(q=>q.revisada).length;
-  const select=document.getElementById('filtroMateria'), current=select.value;
-  select.innerHTML='<option value="">Todas as matérias</option>'+[...new Set(questoes.map(q=>q.materia))].sort().map(m=>`<option>${escapeHTML(m)}</option>`).join('');
-  select.value=current;
+let questoes = JSON.parse(localStorage.getItem("questoesEstudo") || "[]");
+let tarefas = JSON.parse(localStorage.getItem("tarefasEstudo") || "[]");
+
+function save() {
+  localStorage.setItem("questoesEstudo", JSON.stringify(questoes));
+  localStorage.setItem("tarefasEstudo", JSON.stringify(tarefas));
 }
-function render(){
-  updateStats();
-  const busca=document.getElementById('busca').value.toLowerCase();
-  const materia=document.getElementById('filtroMateria').value;
-  const status=document.getElementById('filtroStatus').value;
-  const lista=document.getElementById('lista');
-  const filtradas=questoes.filter(q=>
-    (!materia||q.materia===materia)&&(!status||(status==='done'?q.revisada:!q.revisada))&&
-    (JSON.stringify(q).toLowerCase().includes(busca))
-  );
-  if(!filtradas.length){lista.innerHTML='<div class="empty">Nenhuma questão encontrada. Cadastre sua primeira questão acima! ✨</div>';return;}
-  lista.innerHTML=filtradas.slice().reverse().map(q=>`
-    <article class="question">
-      <div class="question-top"><strong>${escapeHTML(q.materia)} — ${escapeHTML(q.assunto)}</strong>
-      <span class="badge ${q.revisada?'reviewed':''}">${q.revisada?'Revisada':'Para revisar'}</span></div>
-      <p>${escapeHTML(q.enunciado).replace(/\n/g,'<br>')}</p>
-      <div><span class="badge">${escapeHTML(q.tipo)}</span><span class="badge">${escapeHTML(q.dificuldade)}</span>${q.etiqueta?`<span class="badge">${escapeHTML(q.etiqueta)}</span>`:''}</div>
-      ${q.explicacao?`<p class="muted"><strong>Minha anotação:</strong> ${escapeHTML(q.explicacao).replace(/\n/g,'<br>')}</p>`:''}
-      <div class="actions">
-        <button class="secondary" onclick="toggleReview('${q.id}')">${q.revisada?'Marcar para revisar':'Marcar como revisada'}</button>
-        <button class="delete" onclick="removeQuestion('${q.id}')">Excluir</button>
+
+function escapeHTML(value) {
+  return String(value ?? "").replace(/[&<>"']/g, char => ({
+    "&": "&amp;",
+    "<": "&lt;",
+    ">": "&gt;",
+    '"': "&quot;",
+    "'": "&#039;"
+  }[char]));
+}
+
+function formatText(value) {
+  return escapeHTML(value).replace(/\n/g, "<br>");
+}
+
+function updateStats() {
+  $("total").textContent = questoes.length;
+  $("pending").textContent = questoes.filter(q => !q.revisada).length;
+  $("completed").textContent = tarefas.filter(t => t.concluida).length;
+
+  $("progressTotal").textContent = tarefas.length;
+  $("progressDone").textContent = tarefas.filter(t => t.concluida).length;
+
+  const percent = tarefas.length
+    ? Math.round(tarefas.filter(t => t.concluida).length / tarefas.length * 100)
+    : 0;
+
+  $("progressPercent").textContent = percent + "%";
+  $("progressBar").style.width = percent + "%";
+  $("homeProgressBar").style.width = percent + "%";
+  $("homeProgressText").textContent = percent + "% concluído";
+  $("progressDescription").textContent = tarefas.length
+    ? `Você concluiu ${percent}% das suas tarefas. Continue! 🌷`
+    : "Comece adicionando uma tarefa ao seu cronograma.";
+}
+
+function updateMateriaFilter() {
+  const select = $("filtroMateria");
+  const current = select.value;
+
+  const materias = [...new Set(questoes.map(q => q.materia))]
+    .sort((a, b) => a.localeCompare(b));
+
+  select.innerHTML = '<option value="">Todas as matérias</option>' +
+    materias.map(m => `<option value="${escapeHTML(m)}">${escapeHTML(m)}</option>`).join("");
+
+  select.value = current;
+}
+
+function renderQuestions() {
+  updateMateriaFilter();
+
+  const busca = $("busca").value.toLowerCase();
+  const materia = $("filtroMateria").value;
+  const status = $("filtroStatus").value;
+
+  const filtradas = questoes.filter(q => {
+    const matchesSearch = JSON.stringify(q).toLowerCase().includes(busca);
+    const matchesMateria = !materia || q.materia === materia;
+    const matchesStatus = !status ||
+      (status === "done" ? q.revisada : !q.revisada);
+
+    return matchesSearch && matchesMateria && matchesStatus;
+  });
+
+  if (!filtradas.length) {
+    $("lista").innerHTML = '<div class="empty">Nenhuma questão encontrada. 🌷</div>';
+    return;
+  }
+
+  $("lista").innerHTML = filtradas.slice().reverse().map(q => `
+    <article class="item">
+      <div class="item-top">
+        <strong>${escapeHTML(q.materia)} — ${escapeHTML(q.assunto)}</strong>
+        <span class="badge ${q.revisada ? "done" : ""}">
+          ${q.revisada ? "Revisada" : "Para revisar"}
+        </span>
       </div>
-    </article>`).join('');
+
+      <p>${formatText(q.enunciado)}</p>
+
+      <span class="badge">${escapeHTML(q.tipo)}</span>
+      <span class="badge">${escapeHTML(q.dificuldade)}</span>
+      ${q.etiqueta ? `<span class="badge">${escapeHTML(q.etiqueta)}</span>` : ""}
+
+      ${q.explicacao ? `<p class="subtitle"><strong>Anotação:</strong> ${formatText(q.explicacao)}</p>` : ""}
+
+      <div class="actions">
+        <button class="btn secondary" onclick="toggleReview('${q.id}')">
+          ${q.revisada ? "Marcar para revisar" : "Marcar como revisada"}
+        </button>
+        <button class="btn delete" onclick="removeQuestion('${q.id}')">Excluir</button>
+      </div>
+    </article>
+  `).join("");
 }
-document.getElementById('questionForm').addEventListener('submit',e=>{
-  e.preventDefault();
-  questoes.push({id:Date.now().toString(),materia:materia.value.trim(),assunto:assunto.value.trim(),tipo:tipo.value,dificuldade:dificuldade.value,enunciado:enunciado.value.trim(),explicacao:explicacao.value.trim(),etiqueta:etiqueta.value.trim(),revisada:false});
-  save();e.target.reset();render();window.scrollTo({top:0,behavior:'smooth'});
+
+$("questionForm").addEventListener("submit", event => {
+  event.preventDefault();
+
+  questoes.push({
+    id: Date.now().toString(),
+    materia: $("materia").value.trim(),
+    assunto: $("assunto").value.trim(),
+    tipo: $("tipo").value,
+    dificuldade: $("dificuldade").value,
+    enunciado: $("enunciado").value.trim(),
+    explicacao: $("explicacao").value.trim(),
+    etiqueta: $("etiqueta").value.trim(),
+    revisada: false
+  });
+
+  save();
+  event.target.reset();
+  renderAll();
+  alert("Questão salva com sucesso! 💗");
 });
-function toggleReview(id){const q=questoes.find(q=>q.id===id);if(q)q.revisada=!q.revisada;save();render();}
-function removeQuestion(id){if(confirm('Excluir esta questão?')){questoes=questoes.filter(q=>q.id!==id);save();render();}}
-render();
+
+function toggleReview(id) {
+  const q = questoes.find(q => q.id === id);
+  if (q) q.revisada = !q.revisada;
+
+  save();
+  renderAll();
+}
+
+function removeQuestion(id) {
+  if (!confirm("Excluir esta questão?")) return;
+
+  questoes = questoes.filter(q => q.id !== id);
+  save();
+  renderAll();
+}
+
+function renderTasks() {
+  const sorted = tarefas.slice().sort((a, b) => {
+    if (a.concluida !== b.concluida) return a.concluida ? 1 : -1;
+    return (a.data || "").localeCompare(b.data || "");
+  });
+
+  if (!sorted.length) {
+    $("taskList").innerHTML = '<div class="empty">Nenhuma tarefa cadastrada. 📚</div>';
+  } else {
+    $("taskList").innerHTML = sorted.map(t => `
+      <article class="item">
+        <div class="item-top">
+          <strong>${escapeHTML(t.nome)}</strong>
+          <span class="badge ${t.concluida ? "done" : ""}">
+            ${t.concluida ? "Concluída" : "Pendente"}
+          </span>
+        </div>
+
+        <p class="subtitle">
+          ${escapeHTML(t.materia)} • ${escapeHTML(t.data || "Sem data")}
+        </p>
+
+        <span class="badge">Prioridade: ${escapeHTML(t.prioridade)}</span>
+
+        <div class="actions">
+          <button class="btn ${t.concluida ? "secondary" : "green"}"
+            onclick="toggleTask('${t.id}')">
+            ${t.concluida ? "Desmarcar" : "Concluir tarefa"}
+          </button>
+
+          <button class="btn delete" onclick="removeTask('${t.id}')">Excluir</button>
+        </div>
+      </article>
+    `).join("");
+  }
+
+  renderHomeTasks();
+}
+
+$("taskForm").addEventListener("submit", event => {
+  event.preventDefault();
+
+  tarefas.push({
+    id: Date.now().toString(),
+    nome: $("taskName").value.trim(),
+    materia: $("taskSubject").value.trim(),
+    data: $("taskDate").value,
+    prioridade: $("taskPriority").value,
+    concluida: false
+  });
+
+  save();
+  event.target.reset();
+  renderAll();
+  alert("Tarefa adicionada ao cronograma! 🌸");
+});
+
+function toggleTask(id) {
+  const t = tarefas.find(t => t.id === id);
+  if (t) t.concluida = !t.concluida;
+
+  save();
+  renderAll();
+}
+
+function removeTask(id) {
+  if (!confirm("Excluir esta tarefa?")) return;
+
+  tarefas = tarefas.filter(t => t.id !== id);
+  save();
+  renderAll();
+}
+
+function renderHomeTasks() {
+  const pending = tarefas.filter(t => !t.concluida).slice(0, 5);
+
+  if (!pending.length) {
+    $("homeTasks").innerHTML = '<div class="empty">Você não tem tarefas pendentes. 🌷</div>';
+    return;
+  }
+
+  $("homeTasks").innerHTML = pending.map(t => `
+    <div class="item">
+      <strong>${escapeHTML(t.nome)}</strong>
+      <p class="subtitle">${escapeHTML(t.materia)} • ${escapeHTML(t.data || "Sem data")}</p>
+    </div>
+  `).join("");
+}
+
+function renderSubjectStats() {
+  const counts = {};
+
+  questoes.forEach(q => {
+    counts[q.materia] = (counts[q.materia] || 0) + 1;
+  });
+
+  const entries = Object.entries(counts).sort((a, b) => b[1] - a[1]);
+
+  if (!entries.length) {
+    $("subjectStats").innerHTML = '<div class="empty">Cadastre questões para ver suas matérias. 📚</div>';
+    return;
+  }
+
+  $("subjectStats").innerHTML = entries.map(([subject, count]) => `
+    <div class="item">
+      <div class="item-top">
+        <strong>${escapeHTML(subject)}</strong>
+        <span class="badge">${count} questão(ões)</span>
+      </div>
+    </div>
+  `).join("");
+}
+
+// Navegação
+document.querySelectorAll(".nav button").forEach(button => {
+  button.addEventListener("click", () => {
+    const page = button.dataset.page;
+
+    document.querySelectorAll(".nav button").forEach(b => b.classList.remove("active"));
+    button.classList.add("active");
+
+    document.querySelectorAll(".page").forEach(section => {
+      section.classList.toggle("active", section.id === page);
+    });
+
+    const titles = {
+      inicio: "Olá, estudante! 🌷",
+      questoes: "Meu banco de questões 📚",
+      cronograma: "Meu cronograma de estudos 📅",
+      foco: "Meu momento de foco ⏱️",
+      progresso: "Meu progresso 📊"
+    };
+
+    $("pageTitle").textContent = titles[page];
+  });
+});
+
+// Filtros
+$("busca").addEventListener("input", renderQuestions);
+$("filtroMateria").addEventListener("change", renderQuestions);
+$("filtroStatus").addEventListener("change", renderQuestions);
+
+// Cronômetro Pomodoro
+let timerSeconds = 25 * 60;
+let timerInterval = null;
+let timerFocus = true;
+
+function updateTimer() {
+  const minutes = Math.floor(timerSeconds / 60).toString().padStart(2, "0");
+  const seconds = (timerSeconds % 60).toString().padStart(2, "0");
+
+  $("timerDisplay").textContent = `${minutes}:${seconds}`;
+  $("timerMode").textContent = timerFocus
+    ? "Foco • 25 minutos"
+    : "Descanso • 5 minutos";
+}
+
+$("startTimer").addEventListener("click", () => {
+  if (timerInterval) return;
+
+  timerInterval = setInterval(() => {
+    if (timerSeconds > 0) {
+      timerSeconds--;
+      updateTimer();
+    } else {
+      clearInterval(timerInterval);
+      timerInterval = null;
+      $("timerStatus").textContent = "Tempo encerrado! Você conseguiu! 🌸";
+      alert("Tempo encerrado! Faça uma pausa. 💗");
+    }
+  }, 1000);
+
+  $("timerStatus").textContent = "Foco nos estudos! 📚";
+});
+
+$("pauseTimer").addEventListener("click", () => {
+  clearInterval(timerInterval);
+  timerInterval = null;
+  $("timerStatus").textContent = "Cronômetro pausado.";
+});
+
+$("resetTimer").addEventListener("click", () => {
+  clearInterval(timerInterval);
+  timerInterval = null;
+  timerSeconds = timerFocus ? 25 * 60 : 5 * 60;
+  updateTimer();
+  $("timerStatus").textContent = "Pronta para recomeçar? 🌷";
+});
+
+$("switchTimer").addEventListener("click", () => {
+  clearInterval(timerInterval);
+  timerInterval = null;
+  timerFocus = !timerFocus;
+  timerSeconds = timerFocus ? 25 * 60 : 5 * 60;
+  updateTimer();
+  $("timerStatus").textContent = timerFocus ? "Hora de estudar!" : "Hora de descansar!";
+});
+
+function renderAll() {
+  updateStats();
+  renderQuestions();
+  renderTasks();
+  renderSubjectStats();
+}
+
+updateTimer();
+renderAll();
 </script>
+
 </body>
 </html>
