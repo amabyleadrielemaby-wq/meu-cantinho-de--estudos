@@ -1,19 +1,22 @@
-
-<!DOCTYPE html>
+ <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Meu Cantinho de Estudos 🐱</title>
+<title>Meu Cantinho de Estudos 🧸</title>
 
 <style>
+@import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:wght@600;700&display=swap');
+
 :root {
   --pink: #e875a2;
   --dark: #9d416b;
   --soft: #fff0f6;
   --bg: #fffafd;
   --ink: #553644;
+  --muted: #a17f90;
   --line: #f2d9e5;
+  --card: #ffffff;
 }
 
 * {
@@ -24,8 +27,18 @@ body {
   margin: 0;
   background: var(--bg);
   color: var(--ink);
-  font-family: Arial, sans-serif;
-  transition: .3s;
+  font-family: "DM Sans", sans-serif;
+}
+
+button,
+input,
+textarea,
+select {
+  font: inherit;
+}
+
+button {
+  cursor: pointer;
 }
 
 .app {
@@ -34,12 +47,13 @@ body {
 }
 
 .sidebar {
-  width: 240px;
+  width: 245px;
   position: fixed;
   inset: 0 auto 0 0;
-  padding: 25px 15px;
-  background: white;
+  padding: 26px 16px;
+  background: #fff9fcf2;
   border-right: 1px solid var(--line);
+  z-index: 3;
 }
 
 .brand {
@@ -48,32 +62,32 @@ body {
 }
 
 .brand .bear {
-  font-size: 50px;
+  font-size: 48px;
 }
 
 .brand h1 {
+  font: 700 23px "Playfair Display";
   color: var(--dark);
-  font-size: 22px;
+  margin: 4px 0;
 }
 
 .brand p {
-  color: #a17f90;
-  font-size: 12px;
+  font-size: 11px;
+  color: var(--muted);
 }
 
 nav {
   display: grid;
-  gap: 8px;
+  gap: 7px;
 }
 
 nav button {
   border: 0;
-  padding: 12px;
-  border-radius: 12px;
   background: transparent;
-  color: #a17f90;
+  color: var(--muted);
   text-align: left;
-  cursor: pointer;
+  padding: 12px 13px;
+  border-radius: 13px;
 }
 
 nav button:hover,
@@ -83,163 +97,308 @@ nav button.active {
 }
 
 .main {
-  margin-left: 240px;
-  width: calc(100% - 240px);
+  margin-left: 245px;
+  width: calc(100% - 245px);
   padding: 30px;
+  max-width: 1500px;
 }
 
 .top {
-  margin-bottom: 25px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 15px;
+  margin-bottom: 24px;
 }
 
 .top small {
   color: var(--pink);
-  font-weight: bold;
+  font-weight: 700;
 }
 
 .top h2 {
-  color: var(--dark);
-  font-size: 30px;
+  font: 700 clamp(27px, 4vw, 39px) "Playfair Display";
+  margin: 6px 0;
 }
 
 .top p {
-  color: #a17f90;
+  color: var(--muted);
+  font-size: 14px;
+  margin: 0;
+}
+
+.date {
+  border: 1px solid var(--line);
+  border-radius: 30px;
+  padding: 11px 15px;
+  background: white;
+  color: var(--dark);
+  font-size: 12px;
 }
 
 .page {
   display: none;
+  animation: fade .4s;
 }
 
 .page.active {
   display: block;
 }
 
-.panel,
-.card {
-  background: white;
-  border: 1px solid var(--line);
-  border-radius: 20px;
-  padding: 22px;
-  margin-bottom: 18px;
-  box-shadow: 0 8px 25px #b95c8012;
-}
-
-.hero {
-  background: linear-gradient(135deg, var(--soft), white);
-}
-
-.hero h2,
-.panel h3 {
-  color: var(--dark);
-}
-
-.bigbear {
-  font-size: 80px;
-}
-
 .cards {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
-  gap: 15px;
+  gap: 16px;
+  margin-bottom: 20px;
+}
+
+.card,
+.panel {
+  background: #ffffffed;
+  border: 1px solid var(--line);
+  border-radius: 22px;
+  padding: 21px;
+  box-shadow: 0 10px 30px #b95c8010;
+}
+
+.card {
+  transition: .25s;
+}
+
+.card:hover {
+  transform: translateY(-4px);
+}
+
+.card .icon {
+  font-size: 25px;
+}
+
+.card small {
+  display: block;
+  color: var(--muted);
+  margin-top: 10px;
 }
 
 .card strong {
   display: block;
+  font-size: 29px;
   color: var(--dark);
-  font-size: 28px;
-  margin-top: 10px;
-}
-
-.card small {
-  color: #a17f90;
+  margin-top: 4px;
 }
 
 .grid {
   display: grid;
-  grid-template-columns: 1fr 1fr;
+  grid-template-columns: 1.25fr 1fr;
   gap: 18px;
+  margin-bottom: 18px;
 }
 
-button,
-.btn {
-  background: var(--pink);
-  color: white;
-  border: 0;
-  padding: 11px 16px;
-  border-radius: 12px;
-  cursor: pointer;
-  font-weight: bold;
+.panel h3 {
+  font: 700 22px "Playfair Display";
+  margin: 0 0 15px;
+  color: var(--dark);
 }
 
-.btn:hover {
-  opacity: .8;
+.panel p {
+  font-size: 13px;
+  color: var(--muted);
+  line-height: 1.7;
+}
+
+.hero {
+  background: linear-gradient(135deg, #fff0f6, #fff8fc);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 20px;
+}
+
+.hero h2 {
+  font: 700 29px "Playfair Display";
+  color: var(--dark);
+  margin: 5px 0;
+}
+
+.hero .bigbear {
+  font-size: 110px;
+}
+
+.progress {
+  height: 12px;
+  background: #f9e2ed;
+  border-radius: 20px;
+  overflow: hidden;
+  margin: 13px 0;
+}
+
+.progress > div {
+  height: 100%;
+  width: 0;
+  background: linear-gradient(90deg, #df6f9c, #f5b4cd);
+  border-radius: 20px;
+  transition: .6s;
+}
+
+.row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 10px;
+}
+
+.tags {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.tag {
+  border: 1px solid #f0cddd;
+  background: #fff2f7;
+  color: var(--dark);
+  border-radius: 30px;
+  padding: 7px 11px;
+  font-size: 12px;
+}
+
+form {
+  display: grid;
+  gap: 12px;
+}
+
+.formgrid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 12px;
+}
+
+.field {
+  display: grid;
+  gap: 6px;
+}
+
+.field.full {
+  grid-column: 1 / -1;
+}
+
+.field label {
+  font-size: 12px;
+  font-weight: 700;
+  color: var(--dark);
 }
 
 input,
 textarea,
 select {
   width: 100%;
-  padding: 12px;
-  margin: 7px 0;
   border: 1px solid var(--line);
-  border-radius: 10px;
-  background: var(--bg);
+  border-radius: 12px;
+  padding: 11px;
+  background: #fffafd;
   color: var(--ink);
+  outline: none;
 }
 
 textarea {
-  min-height: 130px;
+  min-height: 100px;
   resize: vertical;
 }
 
-.item {
-  background: var(--soft);
-  padding: 15px;
-  border-radius: 12px;
-  margin-top: 10px;
+input:focus,
+textarea:focus,
+select:focus {
+  border-color: var(--pink);
+  box-shadow: 0 0 0 3px var(--soft);
 }
 
-.item button {
-  margin-top: 8px;
-  padding: 7px 10px;
+.btn {
+  border: 0;
+  border-radius: 12px;
+  padding: 12px 16px;
+  background: linear-gradient(135deg, #e875a2, #bd5c87);
+  color: #fff;
+  font-weight: 700;
+}
+
+.btn.alt {
+  background: #fff0f6;
+  color: var(--dark);
+  border: 1px solid #f2cddd;
+}
+
+.list {
+  display: grid;
+  gap: 10px;
+  margin-top: 17px;
+}
+
+.item {
+  border: 1px solid var(--line);
+  border-radius: 15px;
+  padding: 14px;
+  background: white;
+}
+
+.item strong {
+  color: var(--dark);
+  font-size: 14px;
+}
+
+.item p {
+  margin: 6px 0;
   font-size: 12px;
 }
 
-.quote {
-  background: var(--soft);
-  padding: 20px;
-  border-radius: 15px;
+.item button {
+  border: 1px solid var(--line);
+  background: white;
+  color: var(--dark);
+  border-radius: 9px;
+  padding: 7px 10px;
+  font-size: 11px;
+}
+
+.timer {
   text-align: center;
-  color: var(--dark);
-  font-weight: bold;
-}
-
-.tags {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 8px;
-}
-
-.tag {
-  background: var(--soft);
-  color: var(--dark);
-  padding: 8px 12px;
-  border-radius: 20px;
 }
 
 .clock {
-  font-size: 65px;
+  font-size: 76px;
+  font-weight: 700;
   color: var(--pink);
-  text-align: center;
-  font-weight: bold;
-  margin: 20px;
+  letter-spacing: 2px;
+  margin: 15px 0;
 }
 
 .center {
-  text-align: center;
+  display: flex;
+  justify-content: center;
+  gap: 8px;
+  flex-wrap: wrap;
 }
 
-@media(max-width:900px) {
+.quote {
+  padding: 20px;
+  text-align: center;
+  background: linear-gradient(135deg, #fff0f6, #f8efff);
+  border-radius: 18px;
+  font: 700 19px "Playfair Display";
+  color: var(--dark);
+}
+
+@keyframes fade {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@media (max-width: 1000px) {
   .cards {
     grid-template-columns: repeat(2, 1fr);
   }
@@ -249,7 +408,7 @@ textarea {
   }
 }
 
-@media(max-width:650px) {
+@media (max-width: 700px) {
   .app {
     display: block;
   }
@@ -257,6 +416,7 @@ textarea {
   .sidebar {
     position: static;
     width: 100%;
+    height: auto;
     border-right: 0;
     border-bottom: 1px solid var(--line);
   }
@@ -264,83 +424,101 @@ textarea {
   .main {
     margin: 0;
     width: 100%;
-    padding: 18px;
+    padding: 18px 13px;
   }
 
-  .cards {
-    grid-template-columns: 1fr 1fr;
+  .top {
+    align-items: flex-start;
+    flex-direction: column;
   }
 
-  .bigbear {
-    font-size: 55px;
+  .formgrid {
+    grid-template-columns: 1fr;
+  }
+
+  .field.full {
+    grid-column: auto;
+  }
+
+  .hero .bigbear {
+    font-size: 70px;
   }
 }
 </style>
 </head>
 
 <body>
-
 <div class="app">
 
 <aside class="sidebar">
-
 <div class="brand">
-<div class="bear" id="brandEmoji">🧸</div>
+<div class="bear">🧸</div>
 <h1>Meu Cantinho</h1>
-<p>Estudos, sonhos e conquistas 💗</p>
+<p>de estudos, sonhos e conquistas 🎀</p>
 </div>
 
 <nav>
-<button class="active" onclick="openPage('inicio',this)">🏡 Início</button>
-<button onclick="openPage('biblioteca',this)">📚 Biblioteca</button>
+<button class="active" onclick="openPage('dashboard',this)">🏡 Dashboard</button>
+<button onclick="openPage('biblioteca',this)">📖 Biblioteca</button>
 <button onclick="openPage('diario',this)">📝 Diário</button>
-<button onclick="openPage('tarefas',this)">🗓️ Tarefas</button>
-<button onclick="openPage('foco',this)">🌙 Modo foco</button>
-<button onclick="openPage('temas',this)">🎨 Temas</button>
+<button onclick="openPage('redacao',this)">✍️ Redação</button>
+<button onclick="openPage('questoes',this)">🧠 Questões</button>
+<button onclick="openPage('conquistas',this)">🏆 Conquistas</button>
+<button onclick="openPage('foco',this)">🌙 Modo estudo</button>
+<button onclick="openPage('graficos',this)">📊 Desempenho</button>
+<button onclick="openPage('personalizar',this)">🎀 Personalizar</button>
+<button onclick="openPage('perfil',this)">🌸 Perfil</button>
 </nav>
-
 </aside>
 
 <main class="main">
 
 <header class="top">
+<div>
 <small>SEU ESPAÇO DE CRESCIMENTO ✨</small>
 <h2 id="hello">Olá, estudante! 💗</h2>
 <p>Um pouquinho todos os dias faz diferença.</p>
-</header>
-
-<section id="inicio" class="page active">
-
-<div class="panel hero">
-<h2>Você consegue, um passo por vez! 🌷</h2>
-<p>Organize seus estudos e cuide dos seus sonhos.</p>
-<div class="bigbear" id="heroEmoji">🧸📚</div>
 </div>
 
-<div class="cards">
+<div class="date" id="today"></div>
+</header>
+
+<section id="dashboard" class="page active">
+
+<div class="panel hero">
+<div>
+<small>SEU OBJETIVO MERECE CUIDADO 💕</small>
+<h2>Você consegue, um passo por vez!</h2>
+<p>Organize sua rotina e acompanhe sua evolução.</p>
+</div>
+
+<div class="bigbear">🧸📚</div>
+</div>
+
+<div class="cards" style="margin-top:18px">
 
 <div class="card">
-📚
+<div class="icon">📖</div>
 <small>Materiais</small>
 <strong id="statMaterials">0</strong>
 </div>
 
 <div class="card">
-📝
-<small>Diários</small>
+<div class="icon">📝</div>
+<small>Registros</small>
 <strong id="statDiary">0</strong>
 </div>
 
 <div class="card">
-🗓️
-<small>Tarefas concluídas</small>
-<strong id="statTasks">0</strong>
+<div class="icon">⭐</div>
+<small>Pontos</small>
+<strong id="statPoints">0</strong>
 </div>
 
 <div class="card">
-🎯
-<small>Progresso</small>
-<strong id="statProgress">0%</strong>
+<div class="icon">🏆</div>
+<small>Nível</small>
+<strong id="statLevel">1</strong>
 </div>
 
 </div>
@@ -348,395 +526,24 @@ textarea {
 <div class="grid">
 
 <div class="panel">
+<h3>🎀 Seu progresso</h3>
+<p id="goalText">Defina seu objetivo no perfil.</p>
+
+<div class="progress">
+<div id="goalBar"></div>
+</div>
+
+<div class="row">
+<small id="goalPercent">0%</small>
+<small>Continue assim ✨</small>
+</div>
+</div>
+
+<div class="panel">
 <h3>💌 Mensagem para você</h3>
 <div class="quote" id="dailyQuote"></div>
-<br>
-<button onclick="newQuote()">Nova mensagem ✨</button>
-</div>
-
-<div class="panel">
-<h3>📌 Próximas tarefas</h3>
-<div id="nextTasks"></div>
 </div>
 
 </div>
 
 </section>
-
-<section id="biblioteca" class="page">
-
-<div class="panel">
-<h3>📚 Minha biblioteca</h3>
-
-<form id="libraryForm">
-<input id="bookName" required placeholder="Nome do material">
-<select id="bookType">
-<option>Livro</option>
-<option>PDF</option>
-<option>Resumo</option>
-<option>Vídeo</option>
-</select>
-<input id="bookLink" placeholder="Observação ou link">
-<button class="btn">Adicionar material</button>
-</form>
-
-<div id="libraryList"></div>
-</div>
-
-</section>
-
-<section id="diario" class="page">
-
-<div class="panel">
-<h3>📝 Diário de estudos</h3>
-
-<form id="diaryForm">
-<textarea id="diaryText" required placeholder="Como foi seu dia de estudos?"></textarea>
-<button class="btn">Salvar registro 💗</button>
-</form>
-
-<div id="diaryList"></div>
-</div>
-
-</section>
-
-<section id="tarefas" class="page">
-
-<div class="panel">
-<h3>🗓️ Minhas tarefas</h3>
-
-<form id="taskForm">
-<input id="taskName" required placeholder="Nome da tarefa">
-<input id="taskDate" type="date" required>
-<button class="btn">Adicionar tarefa</button>
-</form>
-
-<div id="taskList"></div>
-</div>
-
-</section>
-
-<section id="foco" class="page">
-
-<div class="panel center">
-<h3>🌙 Modo foco</h3>
-<p>Concentre-se em uma tarefa de cada vez.</p>
-
-<div class="clock" id="clock">25:00</div>
-
-<button onclick="startTimer()">Iniciar</button>
-<button onclick="pauseTimer()">Pausar</button>
-<button onclick="resetTimer()">Reiniciar</button>
-
-<p id="timerStatus">Sessão de 25 minutos</p>
-</div>
-
-</section>
-
-<section id="temas" class="page">
-
-<div class="panel">
-<h3>🎨 Personalize seu cantinho</h3>
-<p>Escolha o visual que combina com você! 💗</p>
-<button onclick="temaRosa()">🎀 Rosa delicado</button>
-<button onclick="temaursinho()">🧸Urso fofo</button>
-<button onclick="temahellokitty()"> hello kitty fofo</button>
-<button onclick="temaGatinho()">🐱 Gatinho fofo</button>
-  <div class="quote" style="margin-top:20px">
-🐾Mude o visual sempre que quiser!🐾
-    
-</div>
-
-</div>
-
-</section>
-
-</main>
-</div>
-
-<script>
-
-const $ = id => document.getElementById(id);
-
-function get(key, def = []) {
-  try {
-    const saved = localStorage.getItem(key);
-    return saved ? JSON.parse(saved) : def;
-  } catch {
-    return def;
-  }
-}
-
-function set(key, value) {
-  localStorage.setItem(key, JSON.stringify(value));
-}
-
-let materials = get('materials');
-let diaries = get('diaries');
-let tasks = get('tasks');
-
-let quotes = [
-'Você é capaz de aprender coisas incríveis. 🌷',
-'Seu esforço de hoje merece orgulho. 💗',
-'Cada questão é uma oportunidade de crescer. 🧸',
-'Continue acreditando em você! ✨',
-'Seu sonho merece sua dedicação. 🎀'
-];
-
-let quoteIndex = 0;
-
-function openPage(id, button) {
-
-  document.querySelectorAll('.page').forEach(page => {
-    page.classList.remove('active');
-  });
-
-  $(id).classList.add('active');
-
-  document.querySelectorAll('nav button').forEach(btn => {
-    btn.classList.remove('active');
-  });
-
-  button.classList.add('active');
-}
-
-function escapeText(text) {
-  return String(text).replace(/[&<>"']/g, char => ({
-    '&':'&amp;',
-    '<':'&lt;',
-    '>':'&gt;',
-    '"':'&quot;',
-    "'":'&#39;'
-  }[char]));
-}
-
-function refresh() {
-
-  $('statMaterials').textContent = materials.length;
-  $('statDiary').textContent = diaries.length;
-
-  const completed = tasks.filter(task => task.done).length;
-
-  $('statTasks').textContent = completed;
-
-  const progress = tasks.length
-    ? Math.round(completed / tasks.length * 100)
-    : 0;
-
-  $('statProgress').textContent = progress + '%';
-
-  renderMaterials();
-  renderDiaries();
-  renderTasks();
-}
-
-function renderMaterials() {
-
-  $('libraryList').innerHTML = materials.length
-    ? materials.map((material, index) => `
-      <div class="item">
-        <strong>📖 ${escapeText(material.name)}</strong>
-        <p>Tipo: ${escapeText(material.type)}</p>
-        <p>${escapeText(material.link || 'Sem observação')}</p>
-        <button onclick="removeMaterial(${index})">Excluir</button>
-      </div>
-    `).join('')
-    : '<p>Nenhum material adicionado ainda. 🌸</p>';
-}
-
-function renderDiaries() {
-
-  $('diaryList').innerHTML = diaries.length
-    ? diaries.slice().reverse().map(diary => `
-      <div class="item">
-        <strong>📝 ${escapeText(diary.date)}</strong>
-        <p>${escapeText(diary.text)}</p>
-      </div>
-    `).join('')
-    : '<p>Seu primeiro registro começa hoje. 💗</p>';
-}
-
-function renderTasks() {
-
-  $('taskList').innerHTML = tasks.length
-    ? tasks.map((task, index) => `
-      <div class="item">
-        <strong>${task.done ? '✅' : '🗓️'} ${escapeText(task.name)}</strong>
-        <p>Data: ${escapeText(task.date)}</p>
-        <button onclick="toggleTask(${index})">
-          ${task.done ? 'Desmarcar' : 'Concluir'}
-        </button>
-        <button onclick="removeTask(${index})">Excluir</button>
-      </div>
-    `).join('')
-    : '<p>Nenhuma tarefa cadastrada. 🎀</p>';
-
-  const pending = tasks.filter(task => !task.done).slice(0, 4);
-
-  $('nextTasks').innerHTML = pending.length
-    ? pending.map(task => `
-      <p>📝 ${escapeText(task.name)} — ${escapeText(task.date)}</p>
-    `).join('')
-    : '<p>Tudo organizado por enquanto! ✨</p>';
-}
-
-  function temaGatinho() {
-
-document.documentElement.style.setProperty('--pink','#f48fb1');
-document.documentElement.style.setProperty('--dark','#d64f83');
-document.documentElement.style.setProperty('--soft','#fff0f5');
-document.documentElement.style.setProperty('--bg','#fff9fc');
-document.documentElement.style.setProperty('--ink','#573b47');
-document.documentElement.style.setProperty('--line','#f7c6d8');
-
-document.querySelector('.bear').textContent='🎀';
-
-document.querySelector('.hero .bigbear').textContent='🎀🐱📚';
-
-document.body.style.backgroundImage =
-' radial-gradient(circle at 10% 20%, #ffd6e5 0 8px, transparent 9px), radial-gradient(circle at 90% 80%, #ffc4da 0 8px, transparent 9px)';
-
-localStorage.setItem('theme','gatinho');
-
-}
-$('libraryForm').onsubmit = event => {
-
-  event.preventDefault();
-
-  materials.push({
-    name: $('bookName').value,
-    type: $('bookType').value,
-    link: $('bookLink').value
-  });
-
-  set('materials', materials);
-  event.target.reset();
-  refresh();
-};
-
-$('diaryForm').onsubmit = event => {
-
-  event.preventDefault();
-
-  diaries.push({
-    text: $('diaryText').value,
-    date: new Date().toLocaleDateString('pt-BR')
-  });
-
-  set('diaries', diaries);
-  event.target.reset();
-  refresh();
-};
-
-$('taskForm').onsubmit = event => {
-
-  event.preventDefault();
-
-  tasks.push({
-    name: $('taskName').value,
-    date: $('taskDate').value,
-    done: false
-  });
-
-  set('tasks', tasks);
-  event.target.reset();
-  refresh();
-};
-
-function removeMaterial(index) {
-
-  materials.splice(index, 1);
-  set('materials', materials);
-  refresh();
-}
-
-function removeTask(index) {
-
-  tasks.splice(index, 1);
-  set('tasks', tasks);
-  refresh();
-}
-
-function toggleTask(index) {
-
-  tasks[index].done = !tasks[index].done;
-  set('tasks', tasks);
-  refresh();
-}
-
-function newQuote() {
-
-  quoteIndex = (quoteIndex + 1) % quotes.length;
-
-  $('dailyQuote').textContent = quotes[quoteIndex];
-}
-
-let seconds = 1500;
-let timer = null;
-
-function showTime() {
-
-  const minutes = Math.floor(seconds / 60);
-  const remainingSeconds = seconds % 60;
-
-  $('clock').textContent =
-    String(minutes).padStart(2, '0') + ':' +
-    String(remainingSeconds).padStart(2, '0');
-}
-
-function startTimer() {
-
-  if (timer) return;
-
-  $('timerStatus').textContent = 'Você está estudando! 🌷';
-
-  timer = setInterval(() => {
-
-    if (seconds > 0) {
-      seconds--;
-      showTime();
-    } else {
-      pauseTimer();
-      alert('Sua sessão terminou! Parabéns! 💗');
-    }
-
-  }, 1000);
-}
-
-function pauseTimer() {
-
-  clearInterval(timer);
-  timer = null;
-
-  $('timerStatus').textContent = 'Sessão pausada.';
-}
-
-function resetTimer() {
-
-  pauseTimer();
-  seconds = 1500;
-  showTime();
-
-  $('timerStatus').textContent = 'Sessão de 25 minutos';
-}
-
-function temaRosa() {
-
-  document.documentElement.style.setProperty('--pink', '#e875a2');
-  document.documentElement.style.setProperty('--dark', '#9d416b');
-  document.documentElement.style.setProperty('--soft', '#fff0f6');
-  document.documentElement.style.setProperty('--bg', '#fffafd');
-
-  $('brandEmoji').textContent = '🧸';
-  $('heroEmoji').textContent = '🧸📚';
-
-  localStorage.setItem('theme', 'rosa');
-
-  alert('Tema rosa ativado! 🎀');
-
-}
-  
-</script>
-  
-</body>
-</html>
