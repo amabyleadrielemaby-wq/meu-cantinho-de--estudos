@@ -1,302 +1,1323 @@
-
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
 <title>Meu Cantinho de Estudos 🧸</title>
-
 <style>
-* {
-  box-sizing: border-box;
+@import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:wght@600;700&display=swap');
+
+:root{
+--pink:#e875a2;
+--dark:#9d416b;
+--soft:#fff0f6;
+--bg:#fffafd;
+--ink:#553644;
+--muted:#a17f90;
+--line:#f2d9e5;
+--card:#fff
 }
 
-body {
-  margin: 0;
-  font-family: "Segoe UI", sans-serif;
-  background: #fff0f6;
-  color: #66334d;
+*{box-sizing:border-box}
+
+body{
+margin:0;
+background:var(--bg);
+color:var(--ink);
+font-family:"DM Sans",sans-serif
 }
 
-header {
-  background: linear-gradient(135deg, #f5a6c8, #d98bb2);
-  color: white;
-  text-align: center;
-  padding: 35px 15px;
-  border-radius: 0 0 30px 30px;
+body:before{
+content:"";
+position:fixed;
+z-index:-1;
+width:360px;
+height:360px;
+right:-130px;
+top:-130px;
+background:#ffd9e9;
+border-radius:50%;
+filter:blur(80px)
 }
 
-header h1 {
-  margin: 0;
-  font-size: 28px;
+button,input,textarea,select{font:inherit}
+button{cursor:pointer}
+
+.app{display:flex;min-height:100vh}
+
+.sidebar{
+width:245px;
+position:fixed;
+inset:0 auto 0 0;
+padding:26px 16px;
+background:#fff9fcf2;
+border-right:1px solid var(--line);
+backdrop-filter:blur(14px);
+z-index:3
 }
 
-header p {
-  margin-bottom: 0;
+.brand{text-align:center;margin-bottom:25px}
+
+.brand .bear{
+font-size:48px;
+animation:float 4s ease-in-out infinite
 }
 
-nav {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  gap: 8px;
-  padding: 20px 10px;
+.brand h1{
+font:700 23px "Playfair Display";
+color:var(--dark);
+margin:4px 0
 }
 
-button {
-  background: #e99abd;
-  border: none;
-  border-radius: 20px;
-  padding: 11px 16px;
-  color: white;
-  cursor: pointer;
-  font-size: 14px;
+.brand p{
+font-size:11px;
+color:var(--muted)
 }
 
-button:hover {
-  background: #cc729c;
+nav{display:grid;gap:7px}
+
+nav button{
+border:0;
+background:transparent;
+color:var(--muted);
+text-align:left;
+padding:12px 13px;
+border-radius:13px;
+transition:.25s
 }
 
-main {
-  max-width: 900px;
-  margin: auto;
-  padding: 10px 18px 40px;
+nav button:hover,
+nav button.active{
+background:var(--soft);
+color:var(--dark);
+transform:translateX(4px)
 }
 
-section {
-  display: none;
-  background: white;
-  padding: 25px;
-  margin-top: 15px;
-  border-radius: 25px;
-  box-shadow: 0 4px 15px #e7b7ca;
+.main{
+margin-left:245px;
+width:calc(100% - 245px);
+padding:30px;
+max-width:1500px
 }
 
-section.active {
-  display: block;
+.top{
+display:flex;
+justify-content:space-between;
+align-items:center;
+gap:15px;
+margin-bottom:24px
 }
 
-h2 {
-  color: #c65b8c;
+.top small{
+color:var(--pink);
+font-weight:700
 }
 
-.card {
-  background: #fff0f6;
-  padding: 18px;
-  margin: 12px 0;
-  border-radius: 18px;
+.top h2{
+font:700 clamp(27px,4vw,39px) "Playfair Display";
+margin:6px 0
 }
 
-input, textarea {
-  width: 100%;
-  padding: 12px;
-  border: 2px solid #f1c4d7;
-  border-radius: 12px;
-  margin: 8px 0;
-  font-family: inherit;
+.top p{
+color:var(--muted);
+font-size:14px;
+margin:0
 }
 
-textarea {
-  min-height: 150px;
-  resize: vertical;
+.date{
+border:1px solid var(--line);
+border-radius:30px;
+padding:11px 15px;
+background:white;
+color:var(--dark);
+font-size:12px
 }
 
-footer {
-  text-align: center;
-  padding: 25px;
-  color: #a45c7c;
+.page{
+display:none;
+animation:fade .4s
+}
+
+.page.active{display:block}
+
+.cards{
+display:grid;
+grid-template-columns:repeat(4,1fr);
+gap:16px;
+margin-bottom:20px
+}
+
+.card,.panel{
+background:#ffffffed;
+border:1px solid var(--line);
+border-radius:22px;
+padding:21px;
+box-shadow:0 10px 30px #b95c8010
+}
+
+.card{transition:.25s}
+.card:hover{transform:translateY(-4px)}
+
+.card .icon{font-size:25px}
+
+.card small{
+display:block;
+color:var(--muted);
+margin-top:10px
+}
+
+.card strong{
+display:block;
+font-size:29px;
+color:var(--dark);
+margin-top:4px
+}
+
+.grid{
+display:grid;
+grid-template-columns:1.25fr 1fr;
+gap:18px;
+margin-bottom:18px
+}
+
+.panel h3{
+font:700 22px "Playfair Display";
+margin:0 0 15px;
+color:var(--dark)
+}
+
+.panel p{
+font-size:13px;
+color:var(--muted);
+line-height:1.7
+}
+
+.hero{
+background:linear-gradient(135deg,#fff0f6,#fff8fc);
+display:flex;
+justify-content:space-between;
+align-items:center;
+gap:20px;
+overflow:hidden
+}
+
+.hero h2{
+font:700 29px "Playfair Display";
+color:var(--dark);
+margin:5px 0
+}
+
+.hero .bigbear{
+font-size:110px;
+animation:float 4s infinite ease-in-out
+}
+
+.progress{
+height:12px;
+background:#f9e2ed;
+border-radius:20px;
+overflow:hidden;
+margin:13px 0
+}
+
+.progress>div{
+height:100%;
+width:0;
+background:linear-gradient(90deg,#df6f9c,#f5b4cd);
+border-radius:20px;
+transition:.6s
+}
+
+.row{
+display:flex;
+justify-content:space-between;
+align-items:center;
+gap:10px
+}
+
+.tags{
+display:flex;
+gap:8px;
+flex-wrap:wrap
+}
+
+.tag{
+border:1px solid #f0cddd;
+background:#fff2f7;
+color:var(--dark);
+border-radius:30px;
+padding:7px 11px;
+font-size:12px
+}
+
+form{display:grid;gap:12px}
+
+.formgrid{
+display:grid;
+grid-template-columns:repeat(2,1fr);
+gap:12px
+}
+
+.field{display:grid;gap:6px}
+
+.field.full{grid-column:1/-1}
+
+.field label{
+font-size:12px;
+font-weight:700;
+color:var(--dark)
+}
+
+input,textarea,select{
+width:100%;
+border:1px solid var(--line);
+border-radius:12px;
+padding:11px;
+background:#fffafd;
+color:var(--ink);
+outline:none
+}
+
+textarea{
+min-height:100px;
+resize:vertical
+}
+
+input:focus,
+textarea:focus,
+select:focus{
+border-color:var(--pink);
+box-shadow:0 0 0 3px var(--soft)
+}
+
+.btn{
+border:0;
+border-radius:12px;
+padding:12px 16px;
+background:linear-gradient(135deg,#e875a2,#bd5c87);
+color:#fff;
+font-weight:700
+}
+
+.btn.alt{
+background:#fff0f6;
+color:var(--dark);
+border:1px solid #f2cddd
+}
+
+.list{
+display:grid;
+gap:10px;
+margin-top:17px
+}
+
+.item{
+border:1px solid var(--line);
+border-radius:15px;
+padding:14px;
+background:white
+}
+
+.item strong{
+color:var(--dark);
+font-size:14px
+}
+
+.item p{
+margin:6px 0;
+font-size:12px
+}
+
+.item .actions{
+display:flex;
+gap:7px;
+flex-wrap:wrap
+}
+
+.item button{
+border:1px solid var(--line);
+background:white;
+color:var(--dark);
+border-radius:9px;
+padding:7px 10px;
+font-size:11px
+}
+
+.timer{text-align:center}
+
+.clock{
+font-size:76px;
+font-weight:700;
+color:var(--pink);
+letter-spacing:2px;
+margin:15px 0
+}
+
+.center{
+display:flex;
+justify-content:center;
+gap:8px;
+flex-wrap:wrap
+}
+
+.quote{
+padding:20px;
+text-align:center;
+background:linear-gradient(135deg,#fff0f6,#f8efff);
+border-radius:18px;
+font:700 19px "Playfair Display";
+color:var(--dark)
+}
+
+.profile{
+display:flex;
+align-items:center;
+gap:18px
+}
+
+.avatar{
+width:95px;
+height:95px;
+display:grid;
+place-items:center;
+background:#ffe1ed;
+border-radius:50%;
+font-size:60px;
+border:5px solid white;
+box-shadow:0 0 0 1px var(--line)
+}
+
+.achievements{
+display:grid;
+grid-template-columns:repeat(3,1fr);
+gap:12px
+}
+
+.achievement{
+text-align:center;
+padding:15px;
+border:1px solid var(--line);
+border-radius:16px;
+background:#fff7fb
+}
+
+.achievement .medal{font-size:35px}
+
+.achievement.locked{
+opacity:.4;
+filter:grayscale(1)
+}
+
+.note{
+background:#fff4b8;
+border:0;
+transform:rotate(-1deg);
+padding:20px;
+border-radius:4px;
+box-shadow:3px 5px 10px #8c6c3215
+}
+
+@keyframes fade{
+from{opacity:0;transform:translateY(8px)}
+to{opacity:1;transform:translateY(0)}
+}
+
+@keyframes float{
+0%,100%{transform:translateY(0)}
+50%{transform:translateY(-8px)}
+}
+
+@media(max-width:1000px){
+.cards{grid-template-columns:repeat(2,1fr)}
+.grid{grid-template-columns:1fr}
+}
+
+@media(max-width:700px){
+.app{display:block}
+
+.sidebar{
+position:static;
+width:100%;
+height:auto;
+border-right:0;
+border-bottom:1px solid var(--line)
+}
+
+.main{
+margin:0;
+width:100%;
+padding:18px 13px
+}
+
+.top{
+align-items:flex-start;
+flex-direction:column
+}
+
+.formgrid{grid-template-columns:1fr}
+
+.field.full{grid-column:auto}
+
+.hero .bigbear{font-size:70px}
+
+.achievements{
+grid-template-columns:1fr 1fr
+}
 }
 </style>
 </head>
 
 <body>
+<div class="app">
 
-<header>
-  <h1>🌷 Meu Cantinho de Estudos 🧸</h1>
-  <p>Um espaço fofo para realizar meus sonhos 💗</p>
-</header>
+<aside class="sidebar">
+<div class="brand">
+<div class="bear">🧸</div>
+<h1>Meu Cantinho</h1>
+<p>de estudos, sonhos e conquistas 🎀</p>
+</div>
 
 <nav>
-  <button onclick="mostrar('inicio')">🏠 Início</button>
-  <button onclick="mostrar('biblioteca')">📚 Biblioteca</button>
-  <button onclick="mostrar('planejamento')">📝 Planejamento</button>
-  <button onclick="mostrar('redacao')">✍️ Redação</button>
-  <button onclick="mostrar('metas')">🎯 Metas</button>
-  <button onclick="mostrar('motivacao')">💌 Motivação</button>
+<button class="active" onclick="openPage('dashboard',this)">🏡 Dashboard</button>
+<button onclick="openPage('biblioteca',this)">📖 Biblioteca</button>
+<button onclick="openPage('diario',this)">📝 Diário de estudos</button>
+<button onclick="openPage('conquistas',this)">🏆 Conquistas</button>
+<button onclick="openPage('foco',this)">🌙 Modo estudo</button>
+<button onclick="openPage('mural',this)">💌 Mural</button>
+<button onclick="openPage('calendario',this)">🗓️ Calendário</button>
+<button onclick="openPage('colecao',this)">🧸 Coleção</button>
+<button onclick="openPage('etiquetas',this)">🎀 Etiquetas</button>
+<button onclick="openPage('perfil',this)">🌸 Perfil</button>
 </nav>
+</aside>
 
-<main>
+<main class="main">
 
-<section id="inicio" class="active">
-  <h2>Bem-vinda ao seu cantinho! 💕</h2>
+<header class="top">
+<div>
+<small>SEU ESPAÇO DE CRESCIMENTO ✨</small>
+<h2 id="hello">Olá, estudante! 💗</h2>
+<p>Um pouquinho todos os dias faz diferença.</p>
+</div>
 
-  <div class="card">
-    <h3>🌸 Mensagem para você</h3>
-    <p id="mensagem">Você consegue conquistar seus sonhos, um passo de cada vez! ✨</p>
-    <button onclick="novaMensagem()">Nova mensagem 💗</button>
-  </div>
+<div class="date" id="today"></div>
+</header>
 
-  <div class="card">
-    <h3>🧸 Seu objetivo</h3>
-    <p>Estudar, evoluir e conquistar minha vaga na UFU! 🎓</p>
-  </div>
+<section id="dashboard" class="page active">
+
+<div class="panel hero">
+<div>
+<small>SEU OBJETIVO MERECE CUIDADO 💕</small>
+<h2>Você consegue, um passo por vez!</h2>
+<p>Organize sua rotina e acompanhe sua evolução.</p>
+</div>
+<div class="bigbear">🧸📚</div>
+</div>
+
+<div class="cards" style="margin-top:18px">
+
+<div class="card">
+<div class="icon">📖</div>
+<small>Materiais</small>
+<strong id="statMaterials">0</strong>
+</div>
+
+<div class="card">
+<div class="icon">📝</div>
+<small>Registros no diário</small>
+<strong id="statDiary">0</strong>
+</div>
+
+<div class="card">
+<div class="icon">🗓️</div>
+<small>Tarefas concluídas</small>
+<strong id="statTasks">0</strong>
+</div>
+
+<div class="card">
+<div class="icon">🏆</div>
+<small>Conquistas</small>
+<strong id="statAwards">0</strong>
+</div>
+
+</div>
+
+<div class="grid">
+
+<div class="panel">
+<h3>🎀 Suas etiquetas</h3>
+<div class="tags" id="dashboardTags"></div>
+</div>
+
+<div class="panel">
+<h3>🌷 Meta de estudos</h3>
+<p id="goalText">Defina seu objetivo no perfil.</p>
+<div class="progress">
+<div id="goalBar"></div>
+</div>
+<div class="row">
+<small id="goalPercent">0%</small>
+<small>Continue assim ✨</small>
+</div>
+</div>
+
+</div>
+
+<div class="grid">
+
+<div class="panel">
+<h3>💌 Mensagem para você</h3>
+<div class="quote" id="dailyQuote"></div>
+</div>
+
+<div class="panel">
+<h3>📌 Próximas tarefas</h3>
+<div id="nextTasks"></div>
+</div>
+
+</div>
+
 </section>
 
-<section id="biblioteca">
-  <h2>📚 Minha Biblioteca</h2>
+<section id="biblioteca" class="page">
 
-  <div class="card">
-    <h3>Materiais de estudo</h3>
-    <input id="livro" placeholder="Nome do material">
-    <button onclick="adicionarLivro()">Adicionar material</button>
-    <ul id="listaLivros"></ul>
-  </div>
+<div class="panel">
+<h3>📖 Minha biblioteca</h3>
+
+<form id="libraryForm">
+
+<div class="formgrid">
+
+<div class="field">
+<label>Nome do material</label>
+<input id="bookName" required placeholder="Ex.: Apostila de matemática">
+</div>
+
+<div class="field">
+<label>Tipo</label>
+<select id="bookType">
+<option>Livro</option>
+<option>PDF</option>
+<option>Resumo</option>
+<option>Vídeo</option>
+<option>Outro</option>
+</select>
+</div>
+
+<div class="field full">
+<label>Link ou observação</label>
+<input id="bookLink" placeholder="Cole um link ou escreva onde está salvo">
+</div>
+
+</div>
+
+<button class="btn">+ Guardar material</button>
+</form>
+
+<div class="list" id="libraryList"></div>
+</div>
+
 </section>
 
-<section id="planejamento">
-  <h2>📝 Meu Planejamento</h2>
+<section id="diario" class="page">
 
-  <div class="card">
-    <input id="tarefa" placeholder="Digite uma tarefa de estudo">
-    <button onclick="adicionarTarefa()">Adicionar tarefa</button>
-    <ul id="listaTarefas"></ul>
-  </div>
+<div class="panel">
+<h3>📝 Meu diário de estudos</h3>
+
+<form id="diaryForm">
+
+<div class="field">
+<label>Como foi seu dia?</label>
+<textarea id="diaryText" required placeholder="Escreva o que estudou, como se sentiu e o que aprendeu..."></textarea>
+</div>
+
+<button class="btn">Salvar registro 💗</button>
+</form>
+
+<div class="list" id="diaryList"></div>
+</div>
+
 </section>
 
-<section id="redacao">
-  <h2>✍️ Meu Cantinho de Redação</h2>
+<section id="conquistas" class="page">
 
-  <input id="tema" placeholder="Tema da redação">
+<div class="panel">
+<h3>🏆 Minhas conquistas</h3>
+<p>Você desbloqueia medalhas conforme registra materiais, diários e tarefas concluídas.</p>
+<div class="achievements" id="achievementsList"></div>
+</div>
 
-  <textarea id="textoRedacao" placeholder="Escreva sua redação aqui..."></textarea>
-
-  <button onclick="contarPalavras()">Contar palavras</button>
-  <p id="contador">Quantidade de palavras: 0</p>
 </section>
 
-<section id="metas">
-  <h2>🎯 Minhas Metas</h2>
+<section id="foco" class="page">
 
-  <div class="card">
-    <input id="meta" placeholder="Digite uma meta">
-    <button onclick="adicionarMeta()">Adicionar meta</button>
-    <ul id="listaMetas"></ul>
-  </div>
+<div class="panel timer">
+<h3>🌙 Modo estudo</h3>
+<p>Respire, organize sua mesa e concentre-se em uma tarefa por vez.</p>
+
+<div class="clock" id="clock">25:00</div>
+
+<div class="center">
+<button class="btn" onclick="startTimer()">Iniciar</button>
+<button class="btn alt" onclick="pauseTimer()">Pausar</button>
+<button class="btn alt" onclick="resetTimer()">Reiniciar</button>
+</div>
+
+<p id="timerStatus">Sessão de foco • 25 minutos</p>
+</div>
+
 </section>
 
-<section id="motivacao">
-  <h2>💌 Mensagens Motivacionais</h2>
+<section id="mural" class="page">
 
-  <div class="card">
-    <p>🌷 Seu esforço de hoje constrói o seu futuro.</p>
-    <p>🧸 Você não precisa ser perfeita, apenas continuar.</p>
-    <p>💗 Cada página estudada é um passo em direção ao seu sonho.</p>
-    <p>✨ Acredite no seu potencial!</p>
-  </div>
+<div class="panel">
+<h3>💌 Mural de motivação</h3>
+
+<div class="quote" id="muralQuote"></div>
+
+<div class="center" style="margin-top:16px">
+<button class="btn" onclick="newQuote()">Nova mensagem ✨</button>
+</div>
+
+<div class="list">
+
+<div class="note">🌸 Pequenos passos todos os dias também são progresso.</div>
+<div class="note">🎀 Você não precisa ser perfeita, precisa continuar.</div>
+<div class="note">🧸 Seu futuro está sendo construído no presente.</div>
+
+</div>
+</div>
+
+</section>
+
+<section id="calendario" class="page">
+
+<div class="panel">
+<h3>🗓️ Meu calendário de tarefas</h3>
+
+<form id="taskForm">
+
+<div class="formgrid">
+
+<div class="field">
+<label>Tarefa</label>
+<input id="taskName" required placeholder="Ex.: Revisar funções">
+</div>
+
+<div class="field">
+<label>Data</label>
+<input id="taskDate" type="date" required>
+</div>
+
+</div>
+
+<button class="btn">+ Adicionar tarefa</button>
+</form>
+
+<div class="list" id="taskList"></div>
+</div>
+
+</section>
+
+<section id="colecao" class="page">
+
+<div class="panel">
+<h3>🧸 Minha coleção de ursinhos</h3>
+<p>Algumas decorações são desbloqueadas ao criar registros no seu cantinho.</p>
+<div class="achievements" id="collectionList"></div>
+</div>
+
+</section>
+
+<section id="etiquetas" class="page">
+
+<div class="panel">
+<h3>🎀 Etiquetas temáticas</h3>
+
+<form id="tagForm">
+
+<div class="field">
+<label>Nome da etiqueta</label>
+<input id="tagName" required placeholder="Ex.: Revisão importante">
+</div>
+
+<button class="btn">+ Criar etiqueta</button>
+</form>
+
+<div class="tags" id="tagList" style="margin-top:18px"></div>
+</div>
+
+</section>
+
+<section id="perfil" class="page">
+
+<div class="panel">
+<h3>🌸 Meu perfil</h3>
+
+<div class="profile">
+
+<div class="avatar" id="avatar">🧸</div>
+
+<div>
+<h3 id="profileName" style="margin:0">Estudante</h3>
+<p id="profileGoal">Meu objetivo é aprender cada dia mais.</p>
+</div>
+
+</div>
+
+<form id="profileForm" style="margin-top:20px">
+
+<div class="formgrid">
+
+<div class="field">
+<label>Seu nome</label>
+<input id="userName" placeholder="Como quer ser chamada?">
+</div>
+
+<div class="field">
+<label>Seu objetivo</label>
+<input id="userGoal" placeholder="Ex.: Passar na UFU">
+</div>
+
+<div class="field">
+<label>Seu avatar</label>
+<select id="userAvatar">
+<option>🧸</option>
+<option>🐰</option>
+<option>🐻</option>
+<option>🌷</option>
+<option>🎀</option>
+<option>🐱</option>
+</select>
+</div>
+
+</div>
+
+<button class="btn">Salvar perfil 💗</button>
+</form>
+
+</div>
+
 </section>
 
 </main>
-
-<footer>
-  Feito com carinho por Amábyle 💗🧸
-</footer>
+</div>
 
 <script>
-function mostrar(id) {
-  const secoes = document.querySelectorAll("section");
 
-  secoes.forEach(function(secao) {
-    secao.classList.remove("active");
-  });
+const $=id=>document.getElementById(id);
 
-  const selecionada = document.getElementById(id);
+const get=(key,def=[])=>JSON.parse(
+localStorage.getItem(key)||JSON.stringify(def)
+);
 
-  if (selecionada) {
-    selecionada.classList.add("active");
-    window.scrollTo({
-      top: 0,
-      behavior: "smooth"
-    });
-  }
-}
+const set=(key,val)=>localStorage.setItem(
+key,
+JSON.stringify(val)
+);
 
-const mensagens = [
-  "Você consegue conquistar seus sonhos! 🌷",
-  "Cada pequeno esforço faz diferença. 💗",
-  "Sua vaga na UFU começa com o estudo de hoje! 🎓",
-  "Continue acreditando em você. 🧸",
-  "Você é capaz de aprender e evoluir! ✨"
+let materials=get('cuteMaterials'),
+diaries=get('cuteDiaries'),
+tasks=get('cuteTasks'),
+tags=get('cuteTags',[
+'📚 ENEM',
+'🎀 Revisão',
+'🌸 Importante',
+'🧸 UFU'
+]),
+profile=get('cuteProfile',{
+name:'Estudante',
+goal:'Meu objetivo é aprender cada dia mais.',
+avatar:'🧸'
+});
+
+const quotes=[
+'Você é capaz de aprender coisas incríveis. 🌷',
+'Disciplina hoje, liberdade amanhã. 🎀',
+'Seu esforço de hoje merece orgulho. 🧸',
+'Não compare seu começo com o caminho de outra pessoa. 💗',
+'Cada questão é uma oportunidade de aprender. ✨'
 ];
 
-function novaMensagem() {
-  const numero = Math.floor(Math.random() * mensagens.length);
-  document.getElementById("mensagem").textContent = mensagens[numero];
+let quoteIndex=0;
+
+function openPage(id,btn){
+
+document.querySelectorAll('.page').forEach(
+p=>p.classList.remove('active')
+);
+
+$(id).classList.add('active');
+
+document.querySelectorAll('nav button').forEach(
+b=>b.classList.remove('active')
+);
+
+btn.classList.add('active');
+
 }
 
-function adicionarLivro() {
-  const campo = document.getElementById("livro");
-  const lista = document.getElementById("listaLivros");
+function refresh(){
 
-  if (campo.value.trim() === "") {
-    alert("Digite o nome do material.");
-    return;
-  }
+$('statMaterials').textContent=materials.length;
 
-  const item = document.createElement("li");
-  item.textContent = campo.value;
-  lista.appendChild(item);
+$('statDiary').textContent=diaries.length;
 
-  campo.value = "";
+$('statTasks').textContent=tasks.filter(
+t=>t.done
+).length;
+
+$('statAwards').textContent=awards().filter(
+a=>a.unlocked
+).length;
+
+$('dashboardTags').innerHTML=tags.map(
+t=>`<span class="tag">${escape(t)}</span>`
+).join('');
+
+$('tagList').innerHTML=tags.map(
+(t,i)=>`<span class="tag">
+${escape(t)}
+<button onclick="deleteTag(${i})"
+style="border:0;background:transparent;color:#9d416b">
+×
+</button>
+</span>`
+).join('');
+
+let pct=tasks.length?
+Math.round(
+tasks.filter(t=>t.done).length/tasks.length*100
+):0;
+
+$('goalBar').style.width=pct+'%';
+
+$('goalPercent').textContent=pct+'%';
+
+$('goalText').textContent=profile.goal;
+
+renderMaterials();
+renderDiaries();
+renderTasks();
+renderAwards();
+renderCollection();
+
+$('hello').textContent='Olá, '+profile.name+'! 💗';
+
+$('profileName').textContent=profile.name;
+
+$('profileGoal').textContent=profile.goal;
+
+$('avatar').textContent=profile.avatar;
+
 }
 
-function adicionarTarefa() {
-  const campo = document.getElementById("tarefa");
-  const lista = document.getElementById("listaTarefas");
+function escape(s){
 
-  if (campo.value.trim() === "") {
-    alert("Digite uma tarefa.");
-    return;
-  }
+return String(s).replace(
+/[&<>"']/g,
+c=>({
+'&':'&amp;',
+'<':'&lt;',
+'>':'&gt;',
+'"':'&quot;',
+"'":'&#39;'
+}[c])
+);
 
-  const item = document.createElement("li");
-  item.textContent = campo.value;
-  lista.appendChild(item);
-
-  campo.value = "";
 }
 
-function contarPalavras() {
-  const texto = document.getElementById("textoRedacao").value.trim();
+function renderMaterials(){
 
-  if (texto === "") {
-    document.getElementById("contador").textContent =
-      "Quantidade de palavras: 0";
-    return;
-  }
+$('libraryList').innerHTML=materials.length?
 
-  const palavras = texto.split(/\s+/).length;
+materials.map(
+(m,i)=>`<div class="item">
 
-  document.getElementById("contador").textContent =
-    "Quantidade de palavras: " + palavras;
+<strong>📖 ${escape(m.name)}</strong>
+
+<p>
+Tipo: ${escape(m.type)}
+<br>
+${escape(m.link||'Sem observação')}
+</p>
+
+<div class="actions">
+<button onclick="removeMaterial(${i})">Excluir</button>
+</div>
+
+</div>`
+).join('')
+
+:'<p>Nenhum material guardado ainda. 🌸</p>';
+
 }
 
-function adicionarMeta() {
-  const campo = document.getElementById("meta");
-  const lista = document.getElementById("listaMetas");
+function renderDiaries(){
 
-  if (campo.value.trim() === "") {
-    alert("Digite uma meta.");
-    return;
-  }
+$('diaryList').innerHTML=diaries.length?
 
-  const item = document.createElement("li");
-  item.textContent = campo.value;
-  lista.appendChild(item);
+diaries.slice().reverse().map(
+(d,i)=>`<div class="item">
 
-  campo.value = "";
+<strong>📝 ${escape(d.date)}</strong>
+
+<p>${escape(d.text)}</p>
+
+</div>`
+).join('')
+
+:'<p>Seu primeiro registro pode começar hoje. 💗</p>';
+
 }
+
+function renderTasks(){
+
+$('taskList').innerHTML=tasks.length?
+
+tasks.map(
+(t,i)=>`<div class="item">
+
+<strong>
+${t.done?'✅':'🗓️'} ${escape(t.name)}
+</strong>
+
+<p>Data: ${escape(t.date)}</p>
+
+<div class="actions">
+
+<button onclick="toggleTask(${i})">
+${t.done?'Desmarcar':'Concluir'}
+</button>
+
+<button onclick="removeTask(${i})">
+Excluir
+</button>
+
+</div>
+
+</div>`
+).join('')
+
+:'<p>Nenhuma tarefa cadastrada. 🎀</p>';
+
+$('nextTasks').innerHTML=tasks.filter(
+t=>!t.done
+).slice(0,4).map(
+t=>`<p>📝 ${escape(t.name)} — ${escape(t.date)}</p>`
+).join('')
+
+||'<p>Tudo organizado por enquanto! ✨</p>';
+
+}
+
+function awards(){
+
+return[
+{
+name:'Primeiro material',
+medal:'📚',
+unlocked:materials.length>=1
+},
+{
+name:'Diário iniciado',
+medal:'📝',
+unlocked:diaries.length>=1
+},
+{
+name:'Primeira tarefa',
+medal:'🌷',
+unlocked:tasks.length>=1
+},
+{
+name:'Tarefa concluída',
+medal:'🏆',
+unlocked:tasks.some(t=>t.done)
+},
+{
+name:'Cinco materiais',
+medal:'🎀',
+unlocked:materials.length>=5
+},
+{
+name:'Cinco registros',
+medal:'💌',
+unlocked:diaries.length>=5
+}
+];
+
+}
+
+function renderAwards(){
+
+$('achievementsList').innerHTML=awards().map(
+a=>`<div class="achievement ${a.unlocked?'':'locked'}">
+
+<div class="medal">${a.medal}</div>
+
+<strong>${a.name}</strong>
+
+<p>${a.unlocked?'Desbloqueada!':'Continue estudando'}</p>
+
+</div>`
+).join('');
+
+}
+
+function renderCollection(){
+
+let bears=[
+{
+n:'Ursinho leitor',
+e:'🧸📖',
+u:materials.length>=1
+},
+{
+n:'Ursinho estudioso',
+e:'🧸✏️',
+u:tasks.length>=1
+},
+{
+n:'Ursinho campeão',
+e:'🧸🏆',
+u:tasks.some(t=>t.done)
+},
+{
+n:'Ursinho diário',
+e:'🧸📝',
+u:diaries.length>=1
+},
+{
+n:'Ursinho especial',
+e:'🧸🎀',
+u:materials.length>=5
+}
+];
+
+$('collectionList').innerHTML=bears.map(
+b=>`<div class="achievement ${b.u?'':'locked'}">
+
+<div class="medal">${b.e}</div>
+
+<strong>${b.n}</strong>
+
+<p>${b.u?'Desbloqueado':'Bloqueado'}</p>
+
+</div>`
+).join('');
+
+}
+
+$('libraryForm').onsubmit=e=>{
+
+e.preventDefault();
+
+materials.push({
+name:$('bookName').value,
+type:$('bookType').value,
+link:$('bookLink').value
+});
+
+set('cuteMaterials',materials);
+
+e.target.reset();
+
+refresh();
+
+};
+
+$('diaryForm').onsubmit=e=>{
+
+e.preventDefault();
+
+diaries.push({
+text:$('diaryText').value,
+date:new Date().toLocaleDateString('pt-BR')
+});
+
+set('cuteDiaries',diaries);
+
+e.target.reset();
+
+refresh();
+
+};
+
+$('taskForm').onsubmit=e=>{
+
+e.preventDefault();
+
+tasks.push({
+name:$('taskName').value,
+date:$('taskDate').value,
+done:false
+});
+
+set('cuteTasks',tasks);
+
+e.target.reset();
+
+refresh();
+
+};
+
+$('tagForm').onsubmit=e=>{
+
+e.preventDefault();
+
+tags.push($('tagName').value);
+
+set('cuteTags',tags);
+
+e.target.reset();
+
+refresh();
+
+};
+
+$('profileForm').onsubmit=e=>{
+
+e.preventDefault();
+
+profile={
+name:$('userName').value||'Estudante',
+goal:$('userGoal').value||
+'Meu objetivo é aprender cada dia mais.',
+avatar:$('userAvatar').value
+};
+
+set('cuteProfile',profile);
+
+refresh();
+
+alert('Perfil salvo com carinho! 💗');
+
+};
+
+function removeMaterial(i){
+
+materials.splice(i,1);
+
+set('cuteMaterials',materials);
+
+refresh();
+
+}
+
+function removeTask(i){
+
+tasks.splice(i,1);
+
+set('cuteTasks',tasks);
+
+refresh();
+
+}
+
+function toggleTask(i){
+
+tasks[i].done=!tasks[i].done;
+
+set('cuteTasks',tasks);
+
+refresh();
+
+}
+
+function deleteTag(i){
+
+tags.splice(i,1);
+
+set('cuteTags',tags);
+
+refresh();
+
+}
+
+function newQuote(){
+
+quoteIndex=(quoteIndex+1)%quotes.length;
+
+$('muralQuote').textContent=quotes[quoteIndex];
+
+$('dailyQuote').textContent=quotes[quoteIndex];
+
+}
+
+let seconds=1500;
+let timer=null;
+
+function showTime(){
+
+let m=Math.floor(seconds/60);
+let s=seconds%60;
+
+$('clock').textContent=
+String(m).padStart(2,'0')+':'+
+String(s).padStart(2,'0');
+
+}
+
+function startTimer(){
+
+if(timer)return;
+
+timer=setInterval(()=>{
+
+if(seconds>0){
+
+seconds--;
+
+showTime();
+
+}else{
+
+pauseTimer();
+
+alert('Sua sessão terminou! Você conseguiu! 🌷');
+
+}
+
+},1000);
+
+}
+
+function pauseTimer(){
+
+clearInterval(timer);
+
+timer=null;
+
+}
+
+function resetTimer(){
+
+pauseTimer();
+
+seconds=1500;
+
+showTime();
+
+}
+
+$('today').textContent=new Date().toLocaleDateString(
+'pt-BR',
+{
+day:'numeric',
+month:'long',
+year:'numeric'
+}
+);
+
+$('muralQuote').textContent=quotes[0];
+
+$('dailyQuote').textContent=quotes[0];
+
+showTime();
+
+refresh();
+
 </script>
 
 </body>
-</html>
+</html> 
