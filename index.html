@@ -1897,18 +1897,6 @@ body[data-theme="mint"] {
   color: #e4fff1;
 }
 
-/* 🐱 TEMA GATINHOS */
-body[data-theme="cat"] {
-  --pink: #e875a2;
-  --dark: #9d416b;
-  --bg: #fffafd;
-  --ink: #553644;
-  --card: #ffffffed;
-  background-color: #fffafd;
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='160'%3E%3Ctext x='20' y='45' font-size='30'%3E🐱%3C/text%3E%3Ctext x='120' y='110' font-size='27'%3E🐾%3C/text%3E%3Ctext x='130' y='35' font-size='20'%3E♥%3C/text%3E%3Ctext x='50' y='135' font-size='22'%3E🐱%3C/text%3E%3C/svg%3E");
-  background-size: 180px 160px;
-}
-
 /* CORES DOS CARTÕES NOS TEMAS ESCUROS */
 body[data-theme="dark"] .card,
 body[data-theme="lilac"] .card,
@@ -1930,13 +1918,12 @@ body[data-theme="mint"] .card {
     ['🔮💜 Lilás noturno', 'lilac'],
     ['🍂🧡 Pêssego noturno', 'peach'],
     ['🌿💚 Verde noturno', 'mint'],
-    ['🐱💗 Gatinhos', 'cat']
   ];
 
   themes.forEach(function (theme) {
-    const button = document.createElement('button');
-    button.textContent = theme[0];
-    button.style.cursor = 'pointer';
+  const button = document.createElement('button');
+  button.textContent = theme[0];
+  button.style.cursor = 'pointer';
 
     button.onclick = function () {
       document.body.dataset.theme = theme[1];
