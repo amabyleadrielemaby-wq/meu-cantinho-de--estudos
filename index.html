@@ -1,586 +1,301 @@
+
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
 <title>Meu Cantinho de Estudos 🧸</title>
 
 <style>
-@import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:wght@600;700&display=swap');
-
-:root {
-  --pink: #e875a2;
-  --dark: #9d416b;
-  --soft: #fff0f6;
-  --bg: #fffafd;
-  --ink: #553644;
-  --muted: #a17f90;
-  --line: #f2d9e5;
-  --card: #ffffff;
-}
-
 * {
   box-sizing: border-box;
 }
 
 body {
   margin: 0;
-  background: var(--bg);
-  color: var(--ink);
-  font-family: "DM Sans", sans-serif;
+  font-family: "Segoe UI", sans-serif;
+  background: #fff0f6;
+  color: #66334d;
 }
 
-button,
-input,
-textarea,
-select {
-  font: inherit;
-}
-
-button {
-  cursor: pointer;
-}
-
-.app {
-  display: flex;
-  min-height: 100vh;
-}
-
-.sidebar {
-  width: 245px;
-  position: fixed;
-  inset: 0 auto 0 0;
-  padding: 26px 16px;
-  background: #fff9fcf2;
-  border-right: 1px solid var(--line);
-  z-index: 3;
-}
-
-.brand {
+header {
+  background: linear-gradient(135deg, #f5a6c8, #d98bb2);
+  color: white;
   text-align: center;
-  margin-bottom: 25px;
+  padding: 35px 15px;
+  border-radius: 0 0 30px 30px;
 }
 
-.brand .bear {
-  font-size: 48px;
+header h1 {
+  margin: 0;
+  font-size: 28px;
 }
 
-.brand h1 {
-  font: 700 23px "Playfair Display";
-  color: var(--dark);
-  margin: 4px 0;
-}
-
-.brand p {
-  font-size: 11px;
-  color: var(--muted);
+header p {
+  margin-bottom: 0;
 }
 
 nav {
-  display: grid;
-  gap: 7px;
-}
-
-nav button {
-  border: 0;
-  background: transparent;
-  color: var(--muted);
-  text-align: left;
-  padding: 12px 13px;
-  border-radius: 13px;
-}
-
-nav button:hover,
-nav button.active {
-  background: var(--soft);
-  color: var(--dark);
-}
-
-.main {
-  margin-left: 245px;
-  width: calc(100% - 245px);
-  padding: 30px;
-  max-width: 1500px;
-}
-
-.top {
   display: flex;
-  justify-content: space-between;
-  align-items: center;
-  gap: 15px;
-  margin-bottom: 24px;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 8px;
+  padding: 20px 10px;
 }
 
-.top small {
-  color: var(--pink);
-  font-weight: 700;
-}
-
-.top h2 {
-  font: 700 clamp(27px, 4vw, 39px) "Playfair Display";
-  margin: 6px 0;
-}
-
-.top p {
-  color: var(--muted);
+button {
+  background: #e99abd;
+  border: none;
+  border-radius: 20px;
+  padding: 11px 16px;
+  color: white;
+  cursor: pointer;
   font-size: 14px;
-  margin: 0;
 }
 
-.date {
-  border: 1px solid var(--line);
-  border-radius: 30px;
-  padding: 11px 15px;
-  background: white;
-  color: var(--dark);
-  font-size: 12px;
+button:hover {
+  background: #cc729c;
 }
 
-.page {
+main {
+  max-width: 900px;
+  margin: auto;
+  padding: 10px 18px 40px;
+}
+
+section {
   display: none;
-  animation: fade .4s;
+  background: white;
+  padding: 25px;
+  margin-top: 15px;
+  border-radius: 25px;
+  box-shadow: 0 4px 15px #e7b7ca;
 }
 
-.page.active {
+section.active {
   display: block;
 }
 
-.cards {
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  gap: 16px;
-  margin-bottom: 20px;
-}
-
-.card,
-.panel {
-  background: #ffffffed;
-  border: 1px solid var(--line);
-  border-radius: 22px;
-  padding: 21px;
-  box-shadow: 0 10px 30px #b95c8010;
+h2 {
+  color: #c65b8c;
 }
 
 .card {
-  transition: .25s;
+  background: #fff0f6;
+  padding: 18px;
+  margin: 12px 0;
+  border-radius: 18px;
 }
 
-.card:hover {
-  transform: translateY(-4px);
-}
-
-.card .icon {
-  font-size: 25px;
-}
-
-.card small {
-  display: block;
-  color: var(--muted);
-  margin-top: 10px;
-}
-
-.card strong {
-  display: block;
-  font-size: 29px;
-  color: var(--dark);
-  margin-top: 4px;
-}
-
-.grid {
-  display: grid;
-  grid-template-columns: 1.25fr 1fr;
-  gap: 18px;
-  margin-bottom: 18px;
-}
-
-.panel h3 {
-  font: 700 22px "Playfair Display";
-  margin: 0 0 15px;
-  color: var(--dark);
-}
-
-.panel p {
-  font-size: 13px;
-  color: var(--muted);
-  line-height: 1.7;
-}
-
-.hero {
-  background: linear-gradient(135deg, #fff0f6, #fff8fc);
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  gap: 20px;
-}
-
-.hero h2 {
-  font: 700 29px "Playfair Display";
-  color: var(--dark);
-  margin: 5px 0;
-}
-
-.hero .bigbear {
-  font-size: 110px;
-}
-
-.progress {
-  height: 12px;
-  background: #f9e2ed;
-  border-radius: 20px;
-  overflow: hidden;
-  margin: 13px 0;
-}
-
-.progress > div {
-  height: 100%;
-  width: 0;
-  background: linear-gradient(90deg, #df6f9c, #f5b4cd);
-  border-radius: 20px;
-  transition: .6s;
-}
-
-.row {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  gap: 10px;
-}
-
-.tags {
-  display: flex;
-  gap: 8px;
-  flex-wrap: wrap;
-}
-
-.tag {
-  border: 1px solid #f0cddd;
-  background: #fff2f7;
-  color: var(--dark);
-  border-radius: 30px;
-  padding: 7px 11px;
-  font-size: 12px;
-}
-
-form {
-  display: grid;
-  gap: 12px;
-}
-
-.formgrid {
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: 12px;
-}
-
-.field {
-  display: grid;
-  gap: 6px;
-}
-
-.field.full {
-  grid-column: 1 / -1;
-}
-
-.field label {
-  font-size: 12px;
-  font-weight: 700;
-  color: var(--dark);
-}
-
-input,
-textarea,
-select {
+input, textarea {
   width: 100%;
-  border: 1px solid var(--line);
+  padding: 12px;
+  border: 2px solid #f1c4d7;
   border-radius: 12px;
-  padding: 11px;
-  background: #fffafd;
-  color: var(--ink);
-  outline: none;
+  margin: 8px 0;
+  font-family: inherit;
 }
 
 textarea {
-  min-height: 100px;
+  min-height: 150px;
   resize: vertical;
 }
 
-input:focus,
-textarea:focus,
-select:focus {
-  border-color: var(--pink);
-  box-shadow: 0 0 0 3px var(--soft);
-}
-
-.btn {
-  border: 0;
-  border-radius: 12px;
-  padding: 12px 16px;
-  background: linear-gradient(135deg, #e875a2, #bd5c87);
-  color: #fff;
-  font-weight: 700;
-}
-
-.btn.alt {
-  background: #fff0f6;
-  color: var(--dark);
-  border: 1px solid #f2cddd;
-}
-
-.list {
-  display: grid;
-  gap: 10px;
-  margin-top: 17px;
-}
-
-.item {
-  border: 1px solid var(--line);
-  border-radius: 15px;
-  padding: 14px;
-  background: white;
-}
-
-.item strong {
-  color: var(--dark);
-  font-size: 14px;
-}
-
-.item p {
-  margin: 6px 0;
-  font-size: 12px;
-}
-
-.item button {
-  border: 1px solid var(--line);
-  background: white;
-  color: var(--dark);
-  border-radius: 9px;
-  padding: 7px 10px;
-  font-size: 11px;
-}
-
-.timer {
+footer {
   text-align: center;
-}
-
-.clock {
-  font-size: 76px;
-  font-weight: 700;
-  color: var(--pink);
-  letter-spacing: 2px;
-  margin: 15px 0;
-}
-
-.center {
-  display: flex;
-  justify-content: center;
-  gap: 8px;
-  flex-wrap: wrap;
-}
-
-.quote {
-  padding: 20px;
-  text-align: center;
-  background: linear-gradient(135deg, #fff0f6, #f8efff);
-  border-radius: 18px;
-  font: 700 19px "Playfair Display";
-  color: var(--dark);
-}
-
-@keyframes fade {
-  from {
-    opacity: 0;
-    transform: translateY(8px);
-  }
-
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-
-@media (max-width: 1000px) {
-  .cards {
-    grid-template-columns: repeat(2, 1fr);
-  }
-
-  .grid {
-    grid-template-columns: 1fr;
-  }
-}
-
-@media (max-width: 700px) {
-  .app {
-    display: block;
-  }
-
-  .sidebar {
-    position: static;
-    width: 100%;
-    height: auto;
-    border-right: 0;
-    border-bottom: 1px solid var(--line);
-  }
-
-  .main {
-    margin: 0;
-    width: 100%;
-    padding: 18px 13px;
-  }
-
-  .top {
-    align-items: flex-start;
-    flex-direction: column;
-  }
-
-  .formgrid {
-    grid-template-columns: 1fr;
-  }
-
-  .field.full {
-    grid-column: auto;
-  }
-
-  .hero .bigbear {
-    font-size: 70px;
-  }
+  padding: 25px;
+  color: #a45c7c;
 }
 </style>
 </head>
 
 <body>
-<div class="app">
 
-<aside class="sidebar">
-<div class="brand">
-<div class="bear">🧸</div>
-<h1>Meu Cantinho</h1>
-<p>de estudos, sonhos e conquistas 🎀</p>
-</div>
-
-<nav>
-<button class="active" onclick="openPage('dashboard',this)">🏡 Dashboard</button>
-<button onclick="openPage('biblioteca',this)">📖 Biblioteca</button>
-<button onclick="openPage('diario',this)">📝 Diário</button>
-<button onclick="openPage('redacao',this)">✍️ Redação</button>
-<button onclick="openPage('questoes',this)">🧠 Questões</button>
-<button onclick="openPage('conquistas',this)">🏆 Conquistas</button>
-<button onclick="openPage('foco',this)">🌙 Modo estudo</button>
-<button onclick="openPage('graficos',this)">📊 Desempenho</button>
-<button onclick="openPage('personalizar',this)">🎀 Personalizar</button>
-<button onclick="openPage('perfil',this)">🌸 Perfil</button>
-</nav>
-</aside>
-
-<main class="main">
-
-<header class="top">
-<div>
-<small>SEU ESPAÇO DE CRESCIMENTO ✨</small>
-<h2 id="hello">Olá, estudante! 💗</h2>
-<p>Um pouquinho todos os dias faz diferença.</p>
-</div>
-
-<div class="date" id="today"></div>
+<header>
+  <h1>🌷 Meu Cantinho de Estudos 🧸</h1>
+  <p>Um espaço fofo para realizar meus sonhos 💗</p>
 </header>
 
-<section id="dashboard" class="page active">
+<nav>
+  <button onclick="mostrar('inicio')">🏠 Início</button>
+  <button onclick="mostrar('biblioteca')">📚 Biblioteca</button>
+  <button onclick="mostrar('planejamento')">📝 Planejamento</button>
+  <button onclick="mostrar('redacao')">✍️ Redação</button>
+  <button onclick="mostrar('metas')">🎯 Metas</button>
+  <button onclick="mostrar('motivacao')">💌 Motivação</button>
+</nav>
 
-<div class="panel hero">
-<div>
-<small>SEU OBJETIVO MERECE CUIDADO 💕</small>
-<h2>Você consegue, um passo por vez!</h2>
-<p>Organize sua rotina e acompanhe sua evolução.</p>
-</div>
+<main>
 
-<div class="bigbear">🧸📚</div>
-</div>
+<section id="inicio" class="active">
+  <h2>Bem-vinda ao seu cantinho! 💕</h2>
 
-<div class="cards" style="margin-top:18px">
+  <div class="card">
+    <h3>🌸 Mensagem para você</h3>
+    <p id="mensagem">Você consegue conquistar seus sonhos, um passo de cada vez! ✨</p>
+    <button onclick="novaMensagem()">Nova mensagem 💗</button>
+  </div>
 
-<div class="card">
-<div class="icon">📖</div>
-<small>Materiais</small>
-<strong id="statMaterials">0</strong>
-</div>
-
-<div class="card">
-<div class="icon">📝</div>
-<small>Registros</small>
-<strong id="statDiary">0</strong>
-</div>
-
-<div class="card">
-<div class="icon">⭐</div>
-<small>Pontos</small>
-<strong id="statPoints">0</strong>
-</div>
-
-<div class="card">
-<div class="icon">🏆</div>
-<small>Nível</small>
-<strong id="statLevel">1</strong>
-</div>
-
-</div>
-
-<div class="grid">
-
-<div class="panel">
-<h3>🎀 Seu progresso</h3>
-<p id="goalText">Defina seu objetivo no perfil.</p>
-
-<div class="progress">
-<div id="goalBar"></div>
-</div>
-
-<div class="row">
-<small id="goalPercent">0%</small>
-<small>Continue assim ✨</small>
-</div>
-</div>
-
-<div class="panel">
-<h3>💌 Mensagem para você</h3>
-<div class="quote" id="dailyQuote"></div>
-</div>
-
-</div>
-
+  <div class="card">
+    <h3>🧸 Seu objetivo</h3>
+    <p>Estudar, evoluir e conquistar minha vaga na UFU! 🎓</p>
+  </div>
 </section>
-  <script>
-document.addEventListener("DOMContentLoaded", function () {
 
-  // Mensagem diária
-  const frases = [
-    "Você é capaz de conquistar seus sonhos! 🌷",
-    "Cada pequeno passo importa. 🧸",
-    "Seu futuro começa com o esforço de hoje. 💗",
-    "Não desista de você mesma! ✨"
-  ];
+<section id="biblioteca">
+  <h2>📚 Minha Biblioteca</h2>
 
-  const mensagem = document.getElementById("dailyQuote");
+  <div class="card">
+    <h3>Materiais de estudo</h3>
+    <input id="livro" placeholder="Nome do material">
+    <button onclick="adicionarLivro()">Adicionar material</button>
+    <ul id="listaLivros"></ul>
+  </div>
+</section>
 
-  if (mensagem) {
-    const dia = new Date().getDate();
-    mensagem.textContent = frases[dia % frases.length];
-  }
+<section id="planejamento">
+  <h2>📝 Meu Planejamento</h2>
 
-  // Botões de navegação
-  document.querySelectorAll("[data-section]").forEach(botao => {
-    botao.addEventListener("click", function () {
-      const destino = document.getElementById(
-        this.getAttribute("data-section")
-      );
+  <div class="card">
+    <input id="tarefa" placeholder="Digite uma tarefa de estudo">
+    <button onclick="adicionarTarefa()">Adicionar tarefa</button>
+    <ul id="listaTarefas"></ul>
+  </div>
+</section>
 
-      if (destino) {
-        destino.scrollIntoView({
-          behavior: "smooth"
-        });
-      }
-    });
+<section id="redacao">
+  <h2>✍️ Meu Cantinho de Redação</h2>
+
+  <input id="tema" placeholder="Tema da redação">
+
+  <textarea id="textoRedacao" placeholder="Escreva sua redação aqui..."></textarea>
+
+  <button onclick="contarPalavras()">Contar palavras</button>
+  <p id="contador">Quantidade de palavras: 0</p>
+</section>
+
+<section id="metas">
+  <h2>🎯 Minhas Metas</h2>
+
+  <div class="card">
+    <input id="meta" placeholder="Digite uma meta">
+    <button onclick="adicionarMeta()">Adicionar meta</button>
+    <ul id="listaMetas"></ul>
+  </div>
+</section>
+
+<section id="motivacao">
+  <h2>💌 Mensagens Motivacionais</h2>
+
+  <div class="card">
+    <p>🌷 Seu esforço de hoje constrói o seu futuro.</p>
+    <p>🧸 Você não precisa ser perfeita, apenas continuar.</p>
+    <p>💗 Cada página estudada é um passo em direção ao seu sonho.</p>
+    <p>✨ Acredite no seu potencial!</p>
+  </div>
+</section>
+
+</main>
+
+<footer>
+  Feito com carinho por Amábyle 💗🧸
+</footer>
+
+<script>
+function mostrar(id) {
+  const secoes = document.querySelectorAll("section");
+
+  secoes.forEach(function(secao) {
+    secao.classList.remove("active");
   });
 
-});
+  const selecionada = document.getElementById(id);
+
+  if (selecionada) {
+    selecionada.classList.add("active");
+    window.scrollTo({
+      top: 0,
+      behavior: "smooth"
+    });
+  }
+}
+
+const mensagens = [
+  "Você consegue conquistar seus sonhos! 🌷",
+  "Cada pequeno esforço faz diferença. 💗",
+  "Sua vaga na UFU começa com o estudo de hoje! 🎓",
+  "Continue acreditando em você. 🧸",
+  "Você é capaz de aprender e evoluir! ✨"
+];
+
+function novaMensagem() {
+  const numero = Math.floor(Math.random() * mensagens.length);
+  document.getElementById("mensagem").textContent = mensagens[numero];
+}
+
+function adicionarLivro() {
+  const campo = document.getElementById("livro");
+  const lista = document.getElementById("listaLivros");
+
+  if (campo.value.trim() === "") {
+    alert("Digite o nome do material.");
+    return;
+  }
+
+  const item = document.createElement("li");
+  item.textContent = campo.value;
+  lista.appendChild(item);
+
+  campo.value = "";
+}
+
+function adicionarTarefa() {
+  const campo = document.getElementById("tarefa");
+  const lista = document.getElementById("listaTarefas");
+
+  if (campo.value.trim() === "") {
+    alert("Digite uma tarefa.");
+    return;
+  }
+
+  const item = document.createElement("li");
+  item.textContent = campo.value;
+  lista.appendChild(item);
+
+  campo.value = "";
+}
+
+function contarPalavras() {
+  const texto = document.getElementById("textoRedacao").value.trim();
+
+  if (texto === "") {
+    document.getElementById("contador").textContent =
+      "Quantidade de palavras: 0";
+    return;
+  }
+
+  const palavras = texto.split(/\s+/).length;
+
+  document.getElementById("contador").textContent =
+    "Quantidade de palavras: " + palavras;
+}
+
+function adicionarMeta() {
+  const campo = document.getElementById("meta");
+  const lista = document.getElementById("listaMetas");
+
+  if (campo.value.trim() === "") {
+    alert("Digite uma meta.");
+    return;
+  }
+
+  const item = document.createElement("li");
+  item.textContent = campo.value;
+  lista.appendChild(item);
+
+  campo.value = "";
+}
 </script>
 
 </body>
