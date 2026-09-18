@@ -547,3 +547,41 @@ select:focus {
 </div>
 
 </section>
+  <script>
+document.addEventListener("DOMContentLoaded", function () {
+
+  // Mensagem diária
+  const frases = [
+    "Você é capaz de conquistar seus sonhos! 🌷",
+    "Cada pequeno passo importa. 🧸",
+    "Seu futuro começa com o esforço de hoje. 💗",
+    "Não desista de você mesma! ✨"
+  ];
+
+  const mensagem = document.getElementById("dailyQuote");
+
+  if (mensagem) {
+    const dia = new Date().getDate();
+    mensagem.textContent = frases[dia % frases.length];
+  }
+
+  // Botões de navegação
+  document.querySelectorAll("[data-section]").forEach(botao => {
+    botao.addEventListener("click", function () {
+      const destino = document.getElementById(
+        this.getAttribute("data-section")
+      );
+
+      if (destino) {
+        destino.scrollIntoView({
+          behavior: "smooth"
+        });
+      }
+    });
+  });
+
+});
+</script>
+
+</body>
+</html>
