@@ -1,541 +1,564 @@
+
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
 <title>Meu Cantinho de Estudos 🧸</title>
+
 <style>
 @import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:wght@600;700&display=swap');
 
 :root{
---pink:#e875a2;
---dark:#9d416b;
---soft:#fff0f6;
---bg:#fffafd;
---ink:#553644;
---muted:#a17f90;
---line:#f2d9e5;
---card:#fff
+  --pink:#e875a2;
+  --dark:#9d416b;
+  --soft:#fff0f6;
+  --bg:#fffafd;
+  --ink:#553644;
+  --muted:#a17f90;
+  --line:#f2d9e5;
+  --card:#fff;
 }
 
-*{box-sizing:border-box}
+*{
+  box-sizing:border-box;
+}
 
 body{
-margin:0;
-background:var(--bg);
-color:var(--ink);
-font-family:"DM Sans",sans-serif
+  margin:0;
+  background:var(--bg);
+  color:var(--ink);
+  font-family:"DM Sans",sans-serif;
 }
 
 body:before{
-content:"";
-position:fixed;
-z-index:-1;
-width:360px;
-height:360px;
-right:-130px;
-top:-130px;
-background:#ffd9e9;
-border-radius:50%;
-filter:blur(80px)
+  content:"";
+  position:fixed;
+  z-index:-1;
+  width:360px;
+  height:360px;
+  right:-130px;
+  top:-130px;
+  background:#ffd9e9;
+  border-radius:50%;
+  filter:blur(80px);
 }
 
-button,input,textarea,select{font:inherit}
-button{cursor:pointer}
+button,input,textarea,select{
+  font:inherit;
+}
 
-.app{display:flex;min-height:100vh}
+button{
+  cursor:pointer;
+}
+
+.app{
+  display:flex;
+  min-height:100vh;
+}
 
 .sidebar{
-width:245px;
-position:fixed;
-inset:0 auto 0 0;
-padding:26px 16px;
-background:#fff9fcf2;
-border-right:1px solid var(--line);
-backdrop-filter:blur(14px);
-z-index:3
+  width:245px;
+  position:fixed;
+  inset:0 auto 0 0;
+  padding:26px 16px;
+  background:#fff9fcf2;
+  border-right:1px solid var(--line);
+  backdrop-filter:blur(14px);
+  z-index:3;
+  overflow-y:auto;
 }
 
-.brand{text-align:center;margin-bottom:25px}
+.brand{
+  text-align:center;
+  margin-bottom:25px;
+}
 
 .brand .bear{
-font-size:48px;
-animation:float 4s ease-in-out infinite
+  font-size:48px;
+  animation:float 4s ease-in-out infinite;
 }
 
 .brand h1{
-font:700 23px "Playfair Display";
-color:var(--dark);
-margin:4px 0
+  font:700 23px "Playfair Display";
+  color:var(--dark);
+  margin:4px 0;
 }
 
 .brand p{
-font-size:11px;
-color:var(--muted)
+  font-size:11px;
+  color:var(--muted);
 }
 
-nav{display:grid;gap:7px}
+nav{
+  display:grid;
+  gap:7px;
+}
 
 nav button{
-border:0;
-background:transparent;
-color:var(--muted);
-text-align:left;
-padding:12px 13px;
-border-radius:13px;
-transition:.25s
+  border:0;
+  background:transparent;
+  color:var(--muted);
+  text-align:left;
+  padding:12px 13px;
+  border-radius:13px;
+  transition:.25s;
 }
 
 nav button:hover,
 nav button.active{
-background:var(--soft);
-color:var(--dark);
-transform:translateX(4px)
+  background:var(--soft);
+  color:var(--dark);
+  transform:translateX(4px);
 }
 
 .main{
-margin-left:245px;
-width:calc(100% - 245px);
-padding:30px;
-max-width:1500px
+  margin-left:245px;
+  width:calc(100% - 245px);
+  padding:30px;
+  max-width:1500px;
 }
 
 .top{
-display:flex;
-justify-content:space-between;
-align-items:center;
-gap:15px;
-margin-bottom:24px
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  gap:15px;
+  margin-bottom:24px;
 }
 
 .top small{
-color:var(--pink);
-font-weight:700
+  color:var(--pink);
+  font-weight:700;
 }
 
 .top h2{
-font:700 clamp(27px,4vw,39px) "Playfair Display";
-margin:6px 0
+  font:700 clamp(27px,4vw,39px) "Playfair Display";
+  margin:6px 0;
 }
 
 .top p{
-color:var(--muted);
-font-size:14px;
-margin:0
+  color:var(--muted);
+  font-size:14px;
+  margin:0;
 }
 
 .date{
-border:1px solid var(--line);
-border-radius:30px;
-padding:11px 15px;
-background:white;
-color:var(--dark);
-font-size:12px
+  border:1px solid var(--line);
+  border-radius:30px;
+  padding:11px 15px;
+  background:white;
+  color:var(--dark);
+  font-size:12px;
 }
 
 .page{
-display:none;
-animation:fade .4s
+  display:none;
+  animation:fade .4s;
 }
 
-.page.active{display:block}
+.page.active{
+  display:block;
+}
 
 .cards{
-display:grid;
-grid-template-columns:repeat(4,1fr);
-gap:16px;
-margin-bottom:20px
+  display:grid;
+  grid-template-columns:repeat(4,1fr);
+  gap:16px;
+  margin-bottom:20px;
 }
 
 .card,.panel{
-background:#ffffffed;
-border:1px solid var(--line);
-border-radius:22px;
-padding:21px;
-box-shadow:0 10px 30px #b95c8010
+  background:#ffffffed;
+  border:1px solid var(--line);
+  border-radius:22px;
+  padding:21px;
+  box-shadow:0 10px 30px #b95c8010;
 }
 
-.card{transition:.25s}
-.card:hover{transform:translateY(-4px)}
+.card{
+  transition:.25s;
+}
 
-.card .icon{font-size:25px}
+.card:hover{
+  transform:translateY(-4px);
+}
+
+.card .icon{
+  font-size:25px;
+}
 
 .card small{
-display:block;
-color:var(--muted);
-margin-top:10px
+  display:block;
+  color:var(--muted);
+  margin-top:10px;
 }
 
 .card strong{
-display:block;
-font-size:29px;
-color:var(--dark);
-margin-top:4px
+  display:block;
+  font-size:29px;
+  color:var(--dark);
+  margin-top:4px;
 }
 
 .grid{
-display:grid;
-grid-template-columns:1.25fr 1fr;
-gap:18px;
-margin-bottom:18px
+  display:grid;
+  grid-template-columns:1.25fr 1fr;
+  gap:18px;
+  margin-bottom:18px;
 }
 
 .panel h3{
-font:700 22px "Playfair Display";
-margin:0 0 15px;
-color:var(--dark)
+  font:700 22px "Playfair Display";
+  margin:0 0 15px;
+  color:var(--dark);
 }
 
 .panel p{
-font-size:13px;
-color:var(--muted);
-line-height:1.7
+  font-size:13px;
+  color:var(--muted);
+  line-height:1.7;
 }
 
 .hero{
-background:linear-gradient(135deg,#fff0f6,#fff8fc);
-display:flex;
-justify-content:space-between;
-align-items:center;
-gap:20px;
-overflow:hidden
+  background:linear-gradient(135deg,#fff0f6,#fff8fc);
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  gap:20px;
+  overflow:hidden;
 }
 
 .hero h2{
-font:700 29px "Playfair Display";
-color:var(--dark);
-margin:5px 0
+  font:700 29px "Playfair Display";
+  color:var(--dark);
+  margin:5px 0;
 }
 
 .hero .bigbear{
-font-size:110px;
-animation:float 4s infinite ease-in-out
+  font-size:110px;
+  animation:float 4s infinite ease-in-out;
 }
 
 .progress{
-height:12px;
-background:#f9e2ed;
-border-radius:20px;
-overflow:hidden;
-margin:13px 0
+  height:12px;
+  background:#f9e2ed;
+  border-radius:20px;
+  overflow:hidden;
+  margin:13px 0;
 }
 
 .progress>div{
-height:100%;
-width:0;
-background:linear-gradient(90deg,#df6f9c,#f5b4cd);
-border-radius:20px;
-transition:.6s
+  height:100%;
+  width:0;
+  background:linear-gradient(90deg,#df6f9c,#f5b4cd);
+  border-radius:20px;
+  transition:.6s;
 }
 
 .row{
-display:flex;
-justify-content:space-between;
-align-items:center;
-gap:10px
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  gap:10px;
 }
 
 .tags{
-display:flex;
-gap:8px;
-flex-wrap:wrap
+  display:flex;
+  gap:8px;
+  flex-wrap:wrap;
 }
 
 .tag{
-border:1px solid #f0cddd;
-background:#fff2f7;
-color:var(--dark);
-border-radius:30px;
-padding:7px 11px;
-font-size:12px
+  border:1px solid #f0cddd;
+  background:#fff2f7;
+  color:var(--dark);
+  border-radius:30px;
+  padding:7px 11px;
+  font-size:12px;
 }
 
-form{display:grid;gap:12px}
+.tag button{
+  margin-left:5px;
+}
+
+form{
+  display:grid;
+  gap:12px;
+}
 
 .formgrid{
-display:grid;
-grid-template-columns:repeat(2,1fr);
-gap:12px
+  display:grid;
+  grid-template-columns:repeat(2,1fr);
+  gap:12px;
 }
 
-.field{display:grid;gap:6px}
+.field{
+  display:grid;
+  gap:6px;
+}
 
-.field.full{grid-column:1/-1}
+.field.full{
+  grid-column:1/-1;
+}
 
 .field label{
-font-size:12px;
-font-weight:700;
-color:var(--dark)
+  font-size:12px;
+  font-weight:700;
+  color:var(--dark);
 }
 
 input,textarea,select{
-width:100%;
-border:1px solid var(--line);
-border-radius:12px;
-padding:11px;
-background:#fffafd;
-color:var(--ink);
-outline:none
+  width:100%;
+  border:1px solid var(--line);
+  border-radius:12px;
+  padding:11px;
+  background:#fffafd;
+  color:var(--ink);
+  outline:none;
 }
 
 textarea{
-min-height:100px;
-resize:vertical
+  min-height:100px;
+  resize:vertical;
 }
 
 input:focus,
 textarea:focus,
 select:focus{
-border-color:var(--pink);
-box-shadow:0 0 0 3px var(--soft)
+  border-color:var(--pink);
+  box-shadow:0 0 0 3px var(--soft);
 }
 
 .btn{
-border:0;
-border-radius:12px;
-padding:12px 16px;
-background:linear-gradient(135deg,#e875a2,#bd5c87);
-color:#fff;
-font-weight:700
+  border:0;
+  border-radius:12px;
+  padding:12px 16px;
+  background:linear-gradient(135deg,#e875a2,#bd5c87);
+  color:#fff;
+  font-weight:700;
 }
 
 .btn.alt{
-background:#fff0f6;
-color:var(--dark);
-border:1px solid #f2cddd
+  background:#fff0f6;
+  color:var(--dark);
+  border:1px solid #f2cddd;
 }
 
 .list{
-display:grid;
-gap:10px;
-margin-top:17px
+  display:grid;
+  gap:10px;
+  margin-top:17px;
 }
 
 .item{
-border:1px solid var(--line);
-border-radius:15px;
-padding:14px;
-background:white
+  border:1px solid var(--line);
+  border-radius:15px;
+  padding:14px;
+  background:white;
 }
 
 .item strong{
-color:var(--dark);
-font-size:14px
+  color:var(--dark);
+  font-size:14px;
 }
 
 .item p{
-margin:6px 0;
-font-size:12px
+  margin:6px 0;
+  font-size:12px;
+  white-space:pre-wrap;
+  overflow-wrap:anywhere;
 }
 
 .item .actions{
-display:flex;
-gap:7px;
-flex-wrap:wrap
+  display:flex;
+  gap:7px;
+  flex-wrap:wrap;
 }
 
 .item button{
-border:1px solid var(--line);
-background:white;
-color:var(--dark);
-border-radius:9px;
-padding:7px 10px;
-font-size:11px
+  border:1px solid var(--line);
+  background:white;
+  color:var(--dark);
+  border-radius:9px;
+  padding:7px 10px;
+  font-size:11px;
 }
 
-.timer{text-align:center}
+.timer{
+  text-align:center;
+}
 
 .clock{
-font-size:76px;
-font-weight:700;
-color:var(--pink);
-letter-spacing:2px;
-margin:15px 0
+  font-size:76px;
+  font-weight:700;
+  color:var(--pink);
+  letter-spacing:2px;
+  margin:15px 0;
 }
 
 .center{
-display:flex;
-justify-content:center;
-gap:8px;
-flex-wrap:wrap
+  display:flex;
+  justify-content:center;
+  gap:8px;
+  flex-wrap:wrap;
 }
 
 .quote{
-padding:20px;
-text-align:center;
-background:linear-gradient(135deg,#fff0f6,#f8efff);
-border-radius:18px;
-font:700 19px "Playfair Display";
-color:var(--dark)
+  padding:20px;
+  text-align:center;
+  background:linear-gradient(135deg,#fff0f6,#f8efff);
+  border-radius:18px;
+  font:700 19px "Playfair Display";
+  color:var(--dark);
 }
 
 .profile{
-display:flex;
-align-items:center;
-gap:18px
+  display:flex;
+  align-items:center;
+  gap:18px;
 }
 
 .avatar{
-width:95px;
-height:95px;
-display:grid;
-place-items:center;
-background:#ffe1ed;
-border-radius:50%;
-font-size:60px;
-border:5px solid white;
-box-shadow:0 0 0 1px var(--line)
+  width:95px;
+  height:95px;
+  display:grid;
+  place-items:center;
+  background:#ffe1ed;
+  border-radius:50%;
+  font-size:60px;
+  border:5px solid white;
+  box-shadow:0 0 0 1px var(--line);
 }
 
 .achievements{
-display:grid;
-grid-template-columns:repeat(3,1fr);
-gap:12px
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:12px;
 }
 
 .achievement{
-text-align:center;
-padding:15px;
-border:1px solid var(--line);
-border-radius:16px;
-background:#fff7fb
+  text-align:center;
+  padding:15px;
+  border:1px solid var(--line);
+  border-radius:16px;
+  background:#fff7fb;
 }
 
-.achievement .medal{font-size:35px}
+.achievement .medal{
+  font-size:35px;
+}
 
 .achievement.locked{
-opacity:.4;
-filter:grayscale(1)
+  opacity:.4;
+  filter:grayscale(1);
 }
 
 .note{
-background:#fff4b8;
-border:0;
-transform:rotate(-1deg);
-padding:20px;
-border-radius:4px;
-box-shadow:3px 5px 10px #8c6c3215
+  background:#fff4b8;
+  border:0;
+  transform:rotate(-1deg);
+  padding:20px;
+  border-radius:4px;
+  box-shadow:3px 5px 10px #8c6c3215;
+}
+
+.review-result{
+  text-align:left;
+  font-family:"DM Sans",sans-serif;
+  font-size:13px;
+  font-weight:400;
+}
+
+.review-result strong{
+  font-family:"Playfair Display";
+  font-size:19px;
 }
 
 @keyframes fade{
-from{opacity:0;transform:translateY(8px)}
-to{opacity:1;transform:translateY(0)}
+  from{
+    opacity:0;
+    transform:translateY(8px);
+  }
+  to{
+    opacity:1;
+    transform:translateY(0);
+  }
 }
 
 @keyframes float{
-0%,100%{transform:translateY(0)}
-50%{transform:translateY(-8px)}
+  0%,100%{
+    transform:translateY(0);
+  }
+  50%{
+    transform:translateY(-8px);
+  }
 }
 
 @media(max-width:1000px){
-.cards{grid-template-columns:repeat(2,1fr)}
-.grid{grid-template-columns:1fr}
+  .cards{
+    grid-template-columns:repeat(2,1fr);
+  }
+
+  .grid{
+    grid-template-columns:1fr;
+  }
 }
 
 @media(max-width:700px){
-.app{display:block}
+  .app{
+    display:block;
+  }
 
-.sidebar{
-position:static;
-width:100%;
-height:auto;
-border-right:0;
-border-bottom:1px solid var(--line)
-}
-<section id="redacoes" class="page">
+  .sidebar{
+    position:static;
+    width:100%;
+    height:auto;
+    border-right:0;
+    border-bottom:1px solid var(--line);
+  }
 
-<div class="panel">
+  .main{
+    margin:0;
+    width:100%;
+    padding:18px 13px;
+  }
 
-<h3>🎀 Meu cantinho de redações</h3>
+  .top{
+    align-items:flex-start;
+    flex-direction:column;
+  }
 
-<p>Escreva, salve e revise suas redações para evoluir cada dia mais! 💗</p>
+  .formgrid{
+    grid-template-columns:1fr;
+  }
 
-<form id="essayForm">
+  .field.full{
+    grid-column:auto;
+  }
 
-<div class="field">
+  .hero .bigbear{
+    font-size:70px;
+  }
 
-<label>Título da redação</label>
+  .achievements{
+    grid-template-columns:1fr 1fr;
+  }
 
-<input id="essayTitle"
-required
-placeholder="Ex.: Os desafios da educação no Brasil">
-
-</div>
-
-<div class="field">
-
-<label>Seu texto</label>
-
-<textarea id="essayText"
-required
-rows="15"
-placeholder="Comece sua redação aqui..."></textarea>
-
-</div>
-
-<button class="btn">💾 Salvar redação</button>
-
-</form>
-
-</div>
-
-<div class="panel" style="margin-top:18px">
-
-<h3>📚 Minhas redações</h3>
-
-<div class="list" id="essayList"></div>
-
-</div>
-
-<div class="panel" style="margin-top:18px">
-
-<h3>🔍 Revisar redação</h3>
-
-<p>Cole sua redação abaixo para fazer uma revisão pessoal.</p>
-
-<textarea id="reviewText"
-rows="10"
-placeholder="Cole aqui a redação que deseja revisar..."></textarea>
-
-<button class="btn" onclick="reviewEssay()">
-📝 Revisar texto
-</button>
-
-<div class="quote" id="reviewResult" style="margin-top:15px">
-Sua revisão aparecerá aqui. 🌷
-</div>
-
-</div>
-
-</section>
-.main{
-margin:0;
-width:100%;
-padding:18px 13px
-}
-
-.top{
-align-items:flex-start;
-flex-direction:column
-}
-
-.formgrid{grid-template-columns:1fr}
-
-.field.full{grid-column:auto}
-
-.hero .bigbear{font-size:70px}
-
-.achievements{
-grid-template-columns:1fr 1fr
-}
+  .clock{
+    font-size:56px;
+  }
 }
 </style>
 </head>
 
 <body>
+
 <div class="app">
 
 <aside class="sidebar">
+
 <div class="brand">
 <div class="bear">🧸</div>
 <h1>Meu Cantinho</h1>
@@ -555,11 +578,13 @@ grid-template-columns:1fr 1fr
 <button onclick="openPage('perfil',this)">🌸 Perfil</button>
 <button onclick="openPage('redacoes',this)">✍️ Redações</button>
 </nav>
+
 </aside>
 
 <main class="main">
 
 <header class="top">
+
 <div>
 <small>SEU ESPAÇO DE CRESCIMENTO ✨</small>
 <h2 id="hello">Olá, estudante! 💗</h2>
@@ -567,17 +592,23 @@ grid-template-columns:1fr 1fr
 </div>
 
 <div class="date" id="today"></div>
+
 </header>
+
+<!-- DASHBOARD -->
 
 <section id="dashboard" class="page active">
 
 <div class="panel hero">
+
 <div>
 <small>SEU OBJETIVO MERECE CUIDADO 💕</small>
 <h2>Você consegue, um passo por vez!</h2>
 <p>Organize sua rotina e acompanhe sua evolução.</p>
 </div>
+
 <div class="bigbear">🧸📚</div>
+
 </div>
 
 <div class="cards" style="margin-top:18px">
@@ -618,13 +649,16 @@ grid-template-columns:1fr 1fr
 <div class="panel">
 <h3>🌷 Meta de estudos</h3>
 <p id="goalText">Defina seu objetivo no perfil.</p>
+
 <div class="progress">
 <div id="goalBar"></div>
 </div>
+
 <div class="row">
 <small id="goalPercent">0%</small>
 <small>Continue assim ✨</small>
 </div>
+
 </div>
 
 </div>
@@ -645,9 +679,12 @@ grid-template-columns:1fr 1fr
 
 </section>
 
+<!-- BIBLIOTECA -->
+
 <section id="biblioteca" class="page">
 
 <div class="panel">
+
 <h3>📖 Minha biblioteca</h3>
 
 <form id="libraryForm">
@@ -661,6 +698,7 @@ grid-template-columns:1fr 1fr
 
 <div class="field">
 <label>Tipo</label>
+
 <select id="bookType">
 <option>Livro</option>
 <option>PDF</option>
@@ -668,6 +706,7 @@ grid-template-columns:1fr 1fr
 <option>Vídeo</option>
 <option>Outro</option>
 </select>
+
 </div>
 
 <div class="field full">
@@ -678,65 +717,90 @@ grid-template-columns:1fr 1fr
 </div>
 
 <button class="btn">+ Guardar material</button>
+
 </form>
 
 <div class="list" id="libraryList"></div>
+
 </div>
 
 </section>
 
+<!-- DIÁRIO -->
+
 <section id="diario" class="page">
 
 <div class="panel">
+
 <h3>📝 Meu diário de estudos</h3>
 
 <form id="diaryForm">
 
 <div class="field">
 <label>Como foi seu dia?</label>
+
 <textarea id="diaryText" required placeholder="Escreva o que estudou, como se sentiu e o que aprendeu..."></textarea>
+
 </div>
 
 <button class="btn">Salvar registro 💗</button>
+
 </form>
 
 <div class="list" id="diaryList"></div>
+
 </div>
 
 </section>
+
+<!-- CONQUISTAS -->
 
 <section id="conquistas" class="page">
 
 <div class="panel">
+
 <h3>🏆 Minhas conquistas</h3>
+
 <p>Você desbloqueia medalhas conforme registra materiais, diários e tarefas concluídas.</p>
+
 <div class="achievements" id="achievementsList"></div>
+
 </div>
 
 </section>
 
+<!-- MODO ESTUDO -->
+
 <section id="foco" class="page">
 
 <div class="panel timer">
+
 <h3>🌙 Modo estudo</h3>
+
 <p>Respire, organize sua mesa e concentre-se em uma tarefa por vez.</p>
 
 <div class="clock" id="clock">25:00</div>
 
 <div class="center">
+
 <button class="btn" onclick="startTimer()">Iniciar</button>
 <button class="btn alt" onclick="pauseTimer()">Pausar</button>
 <button class="btn alt" onclick="resetTimer()">Reiniciar</button>
+
 </div>
 
 <p id="timerStatus">Sessão de foco • 25 minutos</p>
+
 </div>
 
 </section>
 
+<!-- MURAL -->
+
 <section id="mural" class="page">
 
 <div class="panel">
+
 <h3>💌 Mural de motivação</h3>
 
 <div class="quote" id="muralQuote"></div>
@@ -752,13 +816,17 @@ grid-template-columns:1fr 1fr
 <div class="note">🧸 Seu futuro está sendo construído no presente.</div>
 
 </div>
+
 </div>
 
 </section>
 
+<!-- CALENDÁRIO -->
+
 <section id="calendario" class="page">
 
 <div class="panel">
+
 <h3>🗓️ Meu calendário de tarefas</h3>
 
 <form id="taskForm">
@@ -778,26 +846,37 @@ grid-template-columns:1fr 1fr
 </div>
 
 <button class="btn">+ Adicionar tarefa</button>
+
 </form>
 
 <div class="list" id="taskList"></div>
+
 </div>
 
 </section>
+
+<!-- COLEÇÃO -->
 
 <section id="colecao" class="page">
 
 <div class="panel">
+
 <h3>🧸 Minha coleção de ursinhos</h3>
+
 <p>Algumas decorações são desbloqueadas ao criar registros no seu cantinho.</p>
+
 <div class="achievements" id="collectionList"></div>
+
 </div>
 
 </section>
 
+<!-- ETIQUETAS -->
+
 <section id="etiquetas" class="page">
 
 <div class="panel">
+
 <h3>🎀 Etiquetas temáticas</h3>
 
 <form id="tagForm">
@@ -808,16 +887,21 @@ grid-template-columns:1fr 1fr
 </div>
 
 <button class="btn">+ Criar etiqueta</button>
+
 </form>
 
 <div class="tags" id="tagList" style="margin-top:18px"></div>
+
 </div>
 
 </section>
 
+<!-- PERFIL -->
+
 <section id="perfil" class="page">
 
 <div class="panel">
+
 <h3>🌸 Meu perfil</h3>
 
 <div class="profile">
@@ -847,6 +931,7 @@ grid-template-columns:1fr 1fr
 
 <div class="field">
 <label>Seu avatar</label>
+
 <select id="userAvatar">
 <option>🧸</option>
 <option>🐰</option>
@@ -855,12 +940,86 @@ grid-template-columns:1fr 1fr
 <option>🎀</option>
 <option>🐱</option>
 </select>
+
 </div>
 
 </div>
 
 <button class="btn">Salvar perfil 💗</button>
+
 </form>
+
+</div>
+
+</section>
+
+<!-- REDAÇÕES -->
+
+<section id="redacoes" class="page">
+
+<div class="panel">
+
+<h3>🎀 Meu cantinho de redações</h3>
+
+<p>Escreva, salve e revise suas redações para evoluir cada dia mais! 💗</p>
+
+<form id="essayForm">
+
+<div class="field">
+
+<label>Título da redação</label>
+
+<input
+id="essayTitle"
+required
+placeholder="Ex.: Os desafios da educação no Brasil">
+
+</div>
+
+<div class="field">
+
+<label>Seu texto</label>
+
+<textarea
+id="essayText"
+required
+rows="15"
+placeholder="Comece sua redação aqui..."></textarea>
+
+</div>
+
+<button class="btn">💾 Salvar redação</button>
+
+</form>
+
+</div>
+
+<div class="panel" style="margin-top:18px">
+
+<h3>📚 Minhas redações</h3>
+
+<div class="list" id="essayList"></div>
+
+</div>
+
+<div class="panel" style="margin-top:18px">
+
+<h3>🔍 Revisar redação</h3>
+
+<p>Cole sua redação abaixo para fazer uma revisão pessoal.</p>
+
+<textarea
+id="reviewText"
+rows="10"
+placeholder="Cole aqui a redação que deseja revisar..."></textarea>
+
+<button class="btn" onclick="reviewEssay()">
+📝 Revisar texto
+</button>
+
+<div class="quote review-result" id="reviewResult" style="margin-top:15px">
+Sua revisão aparecerá aqui. 🌷
+</div>
 
 </div>
 
@@ -871,663 +1030,755 @@ grid-template-columns:1fr 1fr
 
 <script>
 
-const $=id=>document.getElementById(id);
+const $ = id => document.getElementById(id);
 
-const get=(key,def=[])=>JSON.parse(
-localStorage.getItem(key)||JSON.stringify(def)
-);
+const get = (key, def = []) => {
+  try{
+    const saved = localStorage.getItem(key);
+    return saved === null ? def : JSON.parse(saved);
+  }catch(error){
+    return def;
+  }
+};
 
-const set=(key,val)=>localStorage.setItem(
-key,
-JSON.stringify(val)
-);
+const set = (key, val) =>
+  localStorage.setItem(key, JSON.stringify(val));
 
-let materials=get('cuteMaterials'),
-diaries=get('cuteDiaries'),
-tasks=get('cuteTasks'),
-tags=get('cuteTags',[
-'📚 ENEM',
-'🎀 Revisão',
-'🌸 Importante',
-'🧸 UFU'
-]),
-profile=get('cuteProfile',{
-name:'Estudante',
-goal:'Meu objetivo é aprender cada dia mais.',
-avatar:'🧸'
+let materials = get('cuteMaterials', []);
+let diaries = get('cuteDiaries', []);
+let tasks = get('cuteTasks', []);
+
+let tags = get('cuteTags', [
+  '📚 ENEM',
+  '🎀 Revisão',
+  '🌸 Importante',
+  '🧸 UFU'
+]);
+
+let profile = get('cuteProfile', {
+  name:'Estudante',
+  goal:'Meu objetivo é aprender cada dia mais.',
+  avatar:'🧸'
 });
 
-const quotes=[
-'Você é capaz de aprender coisas incríveis. 🌷',
-'Disciplina hoje, liberdade amanhã. 🎀',
-'Seu esforço de hoje merece orgulho. 🧸',
-'Não compare seu começo com o caminho de outra pessoa. 💗',
-'Cada questão é uma oportunidade de aprender. ✨'
+let essays = get('cuteEssays', []);
+
+const quotes = [
+  'Você é capaz de aprender coisas incríveis. 🌷',
+  'Disciplina hoje, liberdade amanhã. 🎀',
+  'Seu esforço de hoje merece orgulho. 🧸',
+  'Não compare seu começo com o caminho de outra pessoa. 💗',
+  'Cada questão é uma oportunidade de aprender. ✨'
 ];
 
-let quoteIndex=0;
+let quoteIndex = 0;
 
-function openPage(id,btn){
+function openPage(id, btn){
 
-document.querySelectorAll('.page').forEach(
-p=>p.classList.remove('active')
-);
+  document.querySelectorAll('.page').forEach(
+    p => p.classList.remove('active')
+  );
 
-$(id).classList.add('active');
+  const page = $(id);
 
-document.querySelectorAll('nav button').forEach(
-b=>b.classList.remove('active')
-);
+  if(!page) return;
 
-btn.classList.add('active');
+  page.classList.add('active');
 
-}
+  document.querySelectorAll('nav button').forEach(
+    b => b.classList.remove('active')
+  );
 
-function refresh () {
-
-$('statMaterials').textContent=materials.length;
-
-$('statDiary').textContent=diaries.length;
-
-$('statTasks').textContent=tasks.filter(
-t=>t.done
-).length;
-
-$('statAwards').textContent=awards().filter(
-a=>a.unlocked
-).length;
-
-$('dashboardTags').innerHTML=tags.map(
-t=><span class="tag">${escape(t)}</span>
-).join('');
-
-$('tagList').innerHTML=tags.map(
-(t,i)=><span class="tag">
-${escape(t)}
-<button onclick="deleteTag(${i})"
-style="border:0;background:transparent;color:#9d416b">
-×
-</button>
-</span>
-).join('');
-
-let pct=tasks.length?
-Math.round(
-tasks.filter(t=>t.done).length/tasks.length*100
-):0;
-
-$('goalBar').style.width=pct+'%';
-
-$('goalPercent').textContent=pct+'%';
-
-$('goalText').textContent=profile.goal;
-
-renderMaterials();
-renderDiaries();
-renderTasks();
-renderAwards();
-renderCollection();
-
-$('hello').textContent='Olá, '+profile.name+'! 💗';
-
-$('profileName').textContent=profile.name;
-
-$('profileGoal').textContent=profile.goal;
-
-$('avatar').textContent=profile.avatar;
+  if(btn) btn.classList.add('active');
 
 }
 
-function escape(s){
+function refresh(){
 
-return String(s).replace(
-/[&<>"']/g,
-c=>({
-'&':'&amp;',
-'<':'&lt;',
-'>':'&gt;',
-'"':'&quot;',
-"'":'&#39;'
-}[c])
-);
+  $('statMaterials').textContent = materials.length;
+
+  $('statDiary').textContent = diaries.length;
+
+  $('statTasks').textContent =
+    tasks.filter(t => t.done).length;
+
+  $('statAwards').textContent =
+    awards().filter(a => a.unlocked).length;
+
+  $('dashboardTags').innerHTML = tags.map(
+    t => `<span class="tag">${escapeHTML(t)}</span>`
+  ).join('');
+
+  $('tagList').innerHTML = tags.map(
+    (t,i) => `
+      <span class="tag">
+        ${escapeHTML(t)}
+        <button
+          onclick="deleteTag(${i})"
+          style="border:0;background:transparent;color:#9d416b">
+          ×
+        </button>
+      </span>
+    `
+  ).join('');
+
+  let pct = tasks.length ?
+    Math.round(
+      tasks.filter(t => t.done).length / tasks.length * 100
+    ) : 0;
+
+  $('goalBar').style.width = pct + '%';
+
+  $('goalPercent').textContent = pct + '%';
+
+  $('goalText').textContent = profile.goal;
+
+  $('hello').textContent = 'Olá, ' + profile.name + '! 💗';
+
+  $('profileName').textContent = profile.name;
+
+  $('profileGoal').textContent = profile.goal;
+
+  $('avatar').textContent = profile.avatar;
+
+  renderMaterials();
+  renderDiaries();
+  renderTasks();
+  renderAwards();
+  renderCollection();
+  renderEssays();
+
+}
+
+function escapeHTML(s){
+
+  return String(s).replace(
+    /[&<>"']/g,
+    c => ({
+      '&':'&amp;',
+      '<':'&lt;',
+      '>':'&gt;',
+      '"':'&quot;',
+      "'":'&#39;'
+    }[c])
+  );
 
 }
 
 function renderMaterials(){
 
-$('libraryList').innerHTML=materials.length?
+  $('libraryList').innerHTML = materials.length ?
 
-materials.map(
-(m,i)=><div class="item">
+    materials.map(
+      (m,i) => `
+        <div class="item">
 
-<strong>📖 ${escape(m.name)}</strong>
+          <strong>📖 ${escapeHTML(m.name)}</strong>
 
-<p>
-Tipo: ${escape(m.type)}
-<br>
-${escape(m.link||'Sem observação')}
-</p>
+          <p>
+            Tipo: ${escapeHTML(m.type)}
+            <br>
+            ${escapeHTML(m.link || 'Sem observação')}
+          </p>
 
-<div class="actions">
-<button onclick="removeMaterial(${i})">Excluir</button>
-</div>
+          <div class="actions">
+            <button onclick="removeMaterial(${i})">
+              Excluir
+            </button>
+          </div>
 
-</div>
-).join('')
+        </div>
+      `
+    ).join('')
 
-:'<p>Nenhum material guardado ainda. 🌸</p>';
+    : '<p>Nenhum material guardado ainda. 🌸</p>';
 
 }
 
 function renderDiaries(){
 
-$('diaryList').innerHTML=diaries.length?
+  $('diaryList').innerHTML = diaries.length ?
 
-diaries.slice().reverse().map(
-(d,i)=><div class="item">
+    diaries.slice().reverse().map(
+      d => `
+        <div class="item">
 
-<strong>📝 ${escape(d.date)}</strong>
+          <strong>📝 ${escapeHTML(d.date)}</strong>
 
-<p>${escape(d.text)}</p>
+          <p>${escapeHTML(d.text)}</p>
 
-</div>
-).join('')
+        </div>
+      `
+    ).join('')
 
-:'<p>Seu primeiro registro pode começar hoje. 💗</p>';
+    : '<p>Seu primeiro registro pode começar hoje. 💗</p>';
 
 }
 
 function renderTasks(){
 
-$('taskList').innerHTML=tasks.length?
+  $('taskList').innerHTML = tasks.length ?
 
-tasks.map(
-(t,i)=><div class="item">
+    tasks.map(
+      (t,i) => `
+        <div class="item">
 
-<strong>
-${t.done?'✅':'🗓️'} ${escape(t.name)}
-</strong>
+          <strong>
+            ${t.done ? '✅' : '🗓️'} ${escapeHTML(t.name)}
+          </strong>
 
-<p>Data: ${escape(t.date)}</p>
+          <p>Data: ${escapeHTML(t.date)}</p>
 
-<div class="actions">
+          <div class="actions">
 
-<button onclick="toggleTask(${i})">
-${t.done?'Desmarcar':'Concluir'}
-</button>
+            <button onclick="toggleTask(${i})">
+              ${t.done ? 'Desmarcar' : 'Concluir'}
+            </button>
 
-<button onclick="removeTask(${i})">
-Excluir
-</button>
+            <button onclick="removeTask(${i})">
+              Excluir
+            </button>
 
-</div>
+          </div>
 
-</div>
-).join('')
+        </div>
+      `
+    ).join('')
 
-:'<p>Nenhuma tarefa cadastrada. 🎀</p>';
+    : '<p>Nenhuma tarefa cadastrada. 🎀</p>';
 
-$('nextTasks').innerHTML=tasks.filter(
-t=>!t.done
-).slice(0,4).map(
-t=><p>📝 ${escape(t.name)} — ${escape(t.date)}</p>
-).join('')
-
-||'<p>Tudo organizado por enquanto! ✨</p>';
+  $('nextTasks').innerHTML = tasks.filter(
+    t => !t.done
+  ).slice(0,4).map(
+    t => `<p>📝 ${escapeHTML(t.name)} — ${escapeHTML(t.date)}</p>`
+  ).join('') || '<p>Tudo organizado por enquanto! ✨</p>';
 
 }
 
 function awards(){
 
-return[
-{
-name:'Primeiro material',
-medal:'📚',
-unlocked:materials.length>=1
-},
-{
-name:'Diário iniciado',
-medal:'📝',
-unlocked:diaries.length>=1
-},
-{
-name:'Primeira tarefa',
-medal:'🌷',
-unlocked:tasks.length>=1
-},
-{
-name:'Tarefa concluída',
-medal:'🏆',
-unlocked:tasks.some(t=>t.done)
-},
-{
-name:'Cinco materiais',
-medal:'🎀',
-unlocked:materials.length>=5
-},
-{
-name:'Cinco registros',
-medal:'💌',
-unlocked:diaries.length>=5
-}
-];
+  return [
+    {
+      name:'Primeiro material',
+      medal:'📚',
+      unlocked:materials.length >= 1
+    },
+    {
+      name:'Diário iniciado',
+      medal:'📝',
+      unlocked:diaries.length >= 1
+    },
+    {
+      name:'Primeira tarefa',
+      medal:'🌷',
+      unlocked:tasks.length >= 1
+    },
+    {
+      name:'Tarefa concluída',
+      medal:'🏆',
+      unlocked:tasks.some(t => t.done)
+    },
+    {
+      name:'Cinco materiais',
+      medal:'🎀',
+      unlocked:materials.length >= 5
+    },
+    {
+      name:'Cinco registros',
+      medal:'💌',
+      unlocked:diaries.length >= 5
+    }
+  ];
 
 }
 
 function renderAwards(){
 
-$('achievementsList').innerHTML=awards().map(
-a=><div class="achievement ${a.unlocked?'':'locked'}">
+  $('achievementsList').innerHTML = awards().map(
+    a => `
+      <div class="achievement ${a.unlocked ? '' : 'locked'}">
 
-<div class="medal">${a.medal}</div>
+        <div class="medal">${a.medal}</div>
 
-<strong>${a.name}</strong>
+        <strong>${escapeHTML(a.name)}</strong>
 
-<p>${a.unlocked?'Desbloqueada!':'Continue estudando'}</p>
+        <p>${a.unlocked ? 'Desbloqueada!' : 'Continue estudando'}</p>
 
-</div>
-).join('');
+      </div>
+    `
+  ).join('');
 
 }
 
 function renderCollection(){
 
-let bears=[
-{
-n:'Ursinho leitor',
-e:'🧸📖',
-u:materials.length>=1
-},
-{
-n:'Ursinho estudioso',
-e:'🧸✏️',
-u:tasks.length>=1
-},
-{
-n:'Ursinho campeão',
-e:'🧸🏆',
-u:tasks.some(t=>t.done)
-},
-{
-n:'Ursinho diário',
-e:'🧸📝',
-u:diaries.length>=1
-},
-{
-n:'Ursinho especial',
-e:'🧸🎀',
-u:materials.length>=5
+  let bears = [
+    {
+      n:'Ursinho leitor',
+      e:'🧸📖',
+      u:materials.length >= 1
+    },
+    {
+      n:'Ursinho estudioso',
+      e:'🧸✏️',
+      u:tasks.length >= 1
+    },
+    {
+      n:'Ursinho campeão',
+      e:'🧸🏆',
+      u:tasks.some(t => t.done)
+    },
+    {
+      n:'Ursinho diário',
+      e:'🧸📝',
+      u:diaries.length >= 1
+    },
+    {
+      n:'Ursinho especial',
+      e:'🧸🎀',
+      u:materials.length >= 5
+    }
+  ];
+
+  $('collectionList').innerHTML = bears.map(
+    b => `
+      <div class="achievement ${b.u ? '' : 'locked'}">
+
+        <div class="medal">${b.e}</div>
+
+        <strong>${escapeHTML(b.n)}</strong>
+
+        <p>${b.u ? 'Desbloqueado' : 'Bloqueado'}</p>
+
+      </div>
+    `
+  ).join('');
+
 }
-];
 
-$('collectionList').innerHTML=bears.map(
-b=><div class="achievement ${b.u?'':'locked'}">
+/* BIBLIOTECA */
 
-<div class="medal">${b.e}</div>
+$('libraryForm').onsubmit = e => {
 
-<strong>${b.n}</strong>
+  e.preventDefault();
 
-<p>${b.u?'Desbloqueado':'Bloqueado'}</p>
+  materials.push({
+    name:$('bookName').value.trim(),
+    type:$('bookType').value,
+    link:$('bookLink').value.trim()
+  });
 
-</div>
-).join('');
+  set('cuteMaterials', materials);
 
-}
+  e.target.reset();
 
-$('libraryForm').onsubmit=e=>{
-
-e.preventDefault();
-
-materials.push({
-name:$('bookName').value,
-type:$('bookType').value,
-link:$('bookLink').value
-});
-
-set('cuteMaterials',materials);
-
-e.target.reset();
-
-refresh();
+  refresh();
 
 };
 
-$('diaryForm').onsubmit=e=>{
+/* DIÁRIO */
 
-e.preventDefault();
+$('diaryForm').onsubmit = e => {
 
-diaries.push({
-text:$('diaryText').value,
-date:new Date().toLocaleDateString('pt-BR')
-});
+  e.preventDefault();
 
-set('cuteDiaries',diaries);
+  diaries.push({
+    text:$('diaryText').value.trim(),
+    date:new Date().toLocaleDateString('pt-BR')
+  });
 
-e.target.reset();
+  set('cuteDiaries', diaries);
 
-refresh();
+  e.target.reset();
 
-};
-
-$('taskForm').onsubmit=e=>{
-
-e.preventDefault();
-
-tasks.push({
-name:$('taskName').value,
-date:$('taskDate').value,
-done:false
-});
-
-set('cuteTasks',tasks);
-
-e.target.reset();
-
-refresh();
+  refresh();
 
 };
 
-$('tagForm').onsubmit=e=>{
+/* TAREFAS */
 
-e.preventDefault();
+$('taskForm').onsubmit = e => {
 
-tags.push($('tagName').value);
+  e.preventDefault();
 
-set('cuteTags',tags);
+  tasks.push({
+    name:$('taskName').value.trim(),
+    date:$('taskDate').value,
+    done:false
+  });
 
-e.target.reset();
+  set('cuteTasks', tasks);
 
-refresh();
+  e.target.reset();
+
+  refresh();
+
+};
+
+/* ETIQUETAS */
+
+$('tagForm').onsubmit = e => {
+
+  e.preventDefault();
+
+  const tag = $('tagName').value.trim();
+
+  if(!tag) return;
+
+  tags.push(tag);
+
+  set('cuteTags', tags);
+
+  e.target.reset();
+
+  refresh();
 
 };
 
-$('profileForm').onsubmit=e=>{
+/* PERFIL */
 
-e.preventDefault();
+$('profileForm').onsubmit = e => {
 
-profile={
-name:$('userName').value||'Estudante',
-goal:$('userGoal').value||
-'Meu objetivo é aprender cada dia mais.',
-avatar:$('userAvatar').value
+  e.preventDefault();
+
+  profile = {
+    name:$('userName').value.trim() || 'Estudante',
+    goal:$('userGoal').value.trim() ||
+      'Meu objetivo é aprender cada dia mais.',
+    avatar:$('userAvatar').value
+  };
+
+  set('cuteProfile', profile);
+
+  refresh();
+
+  alert('Perfil salvo com carinho! 💗');
+
 };
 
-set('cuteProfile',profile);
-
-refresh();
-
-alert('Perfil salvo com carinho! 💗');
-
-};
+/* EXCLUIR MATERIAL */
 
 function removeMaterial(i){
 
-materials.splice(i,1);
+  materials.splice(i,1);
 
-set('cuteMaterials',materials);
+  set('cuteMaterials', materials);
 
-refresh();
+  refresh();
 
 }
+
+/* EXCLUIR TAREFA */
 
 function removeTask(i){
 
-tasks.splice(i,1);
+  tasks.splice(i,1);
 
-set('cuteTasks',tasks);
+  set('cuteTasks', tasks);
 
-refresh();
+  refresh();
 
 }
+
+/* CONCLUIR TAREFA */
 
 function toggleTask(i){
 
-tasks[i].done=!tasks[i].done;
+  tasks[i].done = !tasks[i].done;
 
-set('cuteTasks',tasks);
+  set('cuteTasks', tasks);
 
-refresh();
+  refresh();
 
 }
+
+/* EXCLUIR ETIQUETA */
 
 function deleteTag(i){
 
-tags.splice(i,1);
+  tags.splice(i,1);
 
-set('cuteTags',tags);
+  set('cuteTags', tags);
 
-refresh();
+  refresh();
 
 }
+
+/* MURAL */
 
 function newQuote(){
 
-quoteIndex=(quoteIndex+1)%quotes.length;
+  quoteIndex = (quoteIndex + 1) % quotes.length;
 
-$('muralQuote').textContent=quotes[quoteIndex];
+  $('muralQuote').textContent = quotes[quoteIndex];
 
-$('dailyQuote').textContent=quotes[quoteIndex];
+  $('dailyQuote').textContent = quotes[quoteIndex];
 
 }
 
-let seconds=1500;
-let timer=null;
+/* CRONÔMETRO */
+
+let seconds = 1500;
+let timer = null;
 
 function showTime(){
 
-let m=Math.floor(seconds/60);
-let s=seconds%60;
+  let m = Math.floor(seconds / 60);
+  let s = seconds % 60;
 
-$('clock').textContent=
-String(m).padStart(2,'0')+':'+
-String(s).padStart(2,'0');
+  $('clock').textContent =
+    String(m).padStart(2,'0') + ':' +
+    String(s).padStart(2,'0');
 
 }
 
 function startTimer(){
 
-if(timer)return;
+  if(timer) return;
 
-timer=setInterval(()=>{
+  $('timerStatus').textContent =
+    'Sessão de foco em andamento • Concentre-se! 🌷';
 
-if(seconds>0){
+  timer = setInterval(() => {
 
-seconds--;
+    if(seconds > 0){
 
-showTime();
+      seconds--;
 
-}else{
+      showTime();
 
-pauseTimer();
+    }else{
 
-alert('Sua sessão terminou! Você conseguiu! 🌷');
+      pauseTimer();
 
-}
+      $('timerStatus').textContent =
+        'Sessão concluída! Parabéns! 💗';
 
-},1000);
+      alert('Sua sessão terminou! Você conseguiu! 🌷');
+
+    }
+
+  },1000);
 
 }
 
 function pauseTimer(){
 
-clearInterval(timer);
+  clearInterval(timer);
 
-timer=null;
+  timer = null;
+
+  $('timerStatus').textContent =
+    'Sessão pausada • Quando quiser, continue. 💗';
 
 }
 
 function resetTimer(){
 
-pauseTimer();
+  pauseTimer();
 
-seconds=1500;
+  seconds = 1500;
 
-showTime();
+  showTime();
+
+  $('timerStatus').textContent =
+    'Sessão de foco • 25 minutos';
 
 }
 
-$('today').textContent=new Date().toLocaleDateString(
-'pt-BR',
-{
-day:'numeric',
-month:'long',
-year:'numeric'
+/* REDAÇÕES */
+
+function renderEssays(){
+
+  $('essayList').innerHTML = essays.length ?
+
+    essays.slice().reverse().map(
+      (essay,i) => `
+
+        <div class="item">
+
+          <strong>✍️ ${escapeHTML(essay.title)}</strong>
+
+          <p>
+            <small>Salva em: ${escapeHTML(essay.date)}</small>
+          </p>
+
+          <p>${escapeHTML(essay.text)}</p>
+
+          <div class="actions">
+
+            <button onclick="loadEssay(${essays.length - 1 - i})">
+              Editar
+            </button>
+
+            <button onclick="deleteEssay(${essays.length - 1 - i})">
+              Excluir
+            </button>
+
+          </div>
+
+        </div>
+
+      `
+    ).join('')
+
+    : '<p>Você ainda não salvou nenhuma redação. 🎀</p>';
+
 }
+
+/* SALVAR REDAÇÃO */
+
+$('essayForm').onsubmit = e => {
+
+  e.preventDefault();
+
+  const title = $('essayTitle').value.trim();
+  const text = $('essayText').value.trim();
+
+  if(!title || !text) return;
+
+  essays.push({
+    title:title,
+    text:text,
+    date:new Date().toLocaleDateString('pt-BR')
+  });
+
+  set('cuteEssays', essays);
+
+  e.target.reset();
+
+  refresh();
+
+  alert('Redação salva com carinho! 💗');
+
+};
+
+/* EXCLUIR REDAÇÃO */
+
+function deleteEssay(i){
+
+  if(!confirm('Deseja excluir esta redação?')) return;
+
+  essays.splice(i,1);
+
+  set('cuteEssays', essays);
+
+  renderEssays();
+
+}
+
+/* EDITAR REDAÇÃO */
+
+function loadEssay(i){
+
+  if(!essays[i]) return;
+
+  $('essayTitle').value = essays[i].title;
+
+  $('essayText').value = essays[i].text;
+
+  essays.splice(i,1);
+
+  set('cuteEssays', essays);
+
+  renderEssays();
+
+  openPage(
+    'redacoes',
+    document.querySelector('nav button:nth-child(11)')
+  );
+
+  window.scrollTo({
+    top:0,
+    behavior:'smooth'
+  });
+
+}
+
+/* REVISAR REDAÇÃO */
+
+function reviewEssay(){
+
+  let text = $('reviewText').value.trim();
+
+  if(!text){
+
+    alert('Cole sua redação primeiro! 🌷');
+
+    return;
+
+  }
+
+  let words = text.split(/\s+/).length;
+
+  let paragraphs = text.split(/\n+/)
+    .filter(p => p.trim()).length;
+
+  let result = `
+
+    <strong>📊 Revisão da sua redação</strong>
+
+    <br><br>
+
+    Quantidade aproximada de palavras: ${words}
+
+    <br>
+
+    Parágrafos identificados: ${paragraphs}
+
+    <br><br>
+
+    <strong>🎀 Confira estes pontos:</strong>
+
+    <br><br>
+
+    ☐ Sua introdução apresenta o tema?
+
+    <br><br>
+
+    ☐ Seus argumentos estão bem desenvolvidos?
+
+    <br><br>
+
+    ☐ Você utilizou conectivos?
+
+    <br><br>
+
+    ☐ Sua conclusão apresenta uma proposta de intervenção?
+
+    <br><br>
+
+    ☐ Revise ortografia, pontuação e concordância.
+
+    <br><br>
+
+    Continue praticando! Cada redação é uma oportunidade de evoluir. 💗
+
+  `;
+
+  $('reviewResult').innerHTML = result;
+
+}
+
+/* INICIALIZAÇÃO */
+
+$('today').textContent = new Date().toLocaleDateString(
+  'pt-BR',
+  {
+    day:'numeric',
+    month:'long',
+    year:'numeric'
+  }
 );
 
-$('muralQuote').textContent=quotes[0];
+$('muralQuote').textContent = quotes[0];
 
-$('dailyQuote').textContent=quotes[0];
+$('dailyQuote').textContent = quotes[0];
 
 showTime();
 
 refresh();
-let essays = get('cuteEssays', []);
 
-function renderEssays() {
-
-$('essayList').innerHTML = essays.length ?
-
-essays.slice().reverse().map((essay, i) => `
-
-<div class="item">
-
-<strong>✍️ ${escape(essay.title)}</strong>
-
-<p>${escape(essay.text)}</p>
-
-<div class="actions">
-
-<button onclick="loadEssay(${essays.length - 1 - i})">
-Editar
-</button>
-
-<button onclick="deleteEssay(${essays.length - 1 - i})">
-Excluir
-</button>
-
-</div>
-
-</div>
-
-`).join('')
-
-:
-
-'<p>Você ainda não salvou nenhuma redação. 🎀</p>';
-
-}
-
-$('essayForm').onsubmit = e => {
-
-e.preventDefault();
-
-essays.push({
-
-title: $('essayTitle').value,
-
-text: $('essayText').value,
-
-date: new Date().toLocaleDateString('pt-BR')
-
-});
-
-set('cuteEssays', essays);
-
-e.target.reset();
-
-renderMaterials();
-renderDiaries();
-renderTasks();
-renderAwards();
-renderCollection();
-renderEssays();
-
-alert('Redação salva com carinho! 💗');
-
-};
-
-functionde leteEssay(i) {
-
-essays.splice(i, 1);
-
-set('cuteEssays', essays);
-
-renderEssays();
-
-}
-
-function loadEssay(i) {
-
-$('essayTitle').value = essays[i].title;
-
-$('essayText').value = essays[i].text;
-
-openPage('redacoes', document.querySelector('nav button:nth-child(11)'));
-
-}
-
-function reviewEssay() {
-
-let text = $('reviewText').value.trim();
-
-if (!text) {
-
-alert('Cole sua redação primeiro! 🌷');
-
-return;
-
-}
-
-let words = text.split(/\s+/).length;
-
-let paragraphs = text.split(/\n+/).filter(p => p.trim()).length;
-
-let result = `
-
-<strong>📊 Revisão da sua redação</strong>
-
-<br><br>
-
-Quantidade aproximada de palavras: ${words}
-
-<br>
-
-Parágrafos identificados: ${paragraphs}
-
-<br><br>
-
-<strong>🎀 Confira estes pontos:</strong>
-
-<br>
-
-☐ Sua introdução apresenta o tema?
-
-<br>
-
-☐ Seus argumentos estão bem desenvolvidos?
-
-<br>
-
-☐ Você utilizou conectivos?
-
-<br>
-
-☐ Sua conclusão apresenta uma proposta de intervenção?
-
-<br>
-
-☐ Revise ortografia, pontuação e concordância.
-
-<br><br>
-
-Continue praticando! Cada redação é uma oportunidade de evoluir. 💗
-
-`;
-
-$('reviewResult').innerHTML = result;
-
-}
 </script>
 
 </body>
