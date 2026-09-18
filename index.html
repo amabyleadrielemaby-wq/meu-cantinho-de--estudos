@@ -442,7 +442,72 @@ height:auto;
 border-right:0;
 border-bottom:1px solid var(--line)
 }
+<section id="redacoes" class="page">
 
+<div class="panel">
+
+<h3>🎀 Meu cantinho de redações</h3>
+
+<p>Escreva, salve e revise suas redações para evoluir cada dia mais! 💗</p>
+
+<form id="essayForm">
+
+<div class="field">
+
+<label>Título da redação</label>
+
+<input id="essayTitle"
+required
+placeholder="Ex.: Os desafios da educação no Brasil">
+
+</div>
+
+<div class="field">
+
+<label>Seu texto</label>
+
+<textarea id="essayText"
+required
+rows="15"
+placeholder="Comece sua redação aqui..."></textarea>
+
+</div>
+
+<button class="btn">💾 Salvar redação</button>
+
+</form>
+
+</div>
+
+<div class="panel" style="margin-top:18px">
+
+<h3>📚 Minhas redações</h3>
+
+<div class="list" id="essayList"></div>
+
+</div>
+
+<div class="panel" style="margin-top:18px">
+
+<h3>🔍 Revisar redação</h3>
+
+<p>Cole sua redação abaixo para fazer uma revisão pessoal.</p>
+
+<textarea id="reviewText"
+rows="10"
+placeholder="Cole aqui a redação que deseja revisar..."></textarea>
+
+<button class="btn" onclick="reviewEssay()">
+📝 Revisar texto
+</button>
+
+<div class="quote" id="reviewResult" style="margin-top:15px">
+Sua revisão aparecerá aqui. 🌷
+</div>
+
+</div>
+
+</section>
 .main{
 margin:0;
 width:100%;
@@ -488,6 +553,7 @@ grid-template-columns:1fr 1fr
 <button onclick="openPage('colecao',this)">🧸 Coleção</button>
 <button onclick="openPage('etiquetas',this)">🎀 Etiquetas</button>
 <button onclick="openPage('perfil',this)">🌸 Perfil</button>
+<button onclick="openPage('redacoes',this)">✍️ Redações</button>
 </nav>
 </aside>
 
@@ -857,7 +923,7 @@ btn.classList.add('active');
 
 }
 
-function refresh(){
+function refresh () {
 
 $('statMaterials').textContent=materials.length;
 
@@ -1316,7 +1382,152 @@ $('dailyQuote').textContent=quotes[0];
 showTime();
 
 refresh();
+let essays = get('cuteEssays', []);
 
+function renderEssays() {
+
+$('essayList').innerHTML = essays.length ?
+
+essays.slice().reverse().map((essay, i) => `
+
+<div class="item">
+
+<strong>✍️ ${escape(essay.title)}</strong>
+
+<p>${escape(essay.text)}</p>
+
+<div class="actions">
+
+<button onclick="loadEssay(${essays.length - 1 - i})">
+Editar
+</button>
+
+<button onclick="deleteEssay(${essays.length - 1 - i})">
+Excluir
+</button>
+
+</div>
+
+</div>
+
+`).join('')
+
+:
+
+'<p>Você ainda não salvou nenhuma redação. 🎀</p>';
+
+}
+
+$('essayForm').onsubmit = e => {
+
+e.preventDefault();
+
+essays.push({
+
+title: $('essayTitle').value,
+
+text: $('essayText').value,
+
+date: new Date().toLocaleDateString('pt-BR')
+
+});
+
+set('cuteEssays', essays);
+
+e.target.reset();
+
+renderMaterials();
+renderDiaries();
+renderTasks();
+renderAwards();
+renderCollection();
+renderEssays();
+
+alert('Redação salva com carinho! 💗');
+
+};
+
+function deleteEssay(i) {
+
+essays.splice(i, 1);
+
+set('cuteEssays', essays);
+
+renderEssays();
+
+}
+
+function loadEssay(i) {
+
+$('essayTitle').value = essays[i].title;
+
+$('essayText').value = essays[i].text;
+
+openPage('redacoes', document.querySelector('nav button:nth-child(11)'));
+
+}
+
+function reviewEssay() {
+
+let text = $('reviewText').value.trim();
+
+if (!text) {
+
+alert('Cole sua redação primeiro! 🌷');
+
+return;
+
+}
+
+let words = text.split(/\s+/).length;
+
+let paragraphs = text.split(/\n+/).filter(p => p.trim()).length;
+
+let result = `
+
+<strong>📊 Revisão da sua redação</strong>
+
+<br><br>
+
+Quantidade aproximada de palavras: ${words}
+
+<br>
+
+Parágrafos identificados: ${paragraphs}
+
+<br><br>
+
+<strong>🎀 Confira estes pontos:</strong>
+
+<br>
+
+☐ Sua introdução apresenta o tema?
+
+<br>
+
+☐ Seus argumentos estão bem desenvolvidos?
+
+<br>
+
+☐ Você utilizou conectivos?
+
+<br>
+
+☐ Sua conclusão apresenta uma proposta de intervenção?
+
+<br>
+
+☐ Revise ortografia, pontuação e concordância.
+
+<br><br>
+
+Continue praticando! Cada redação é uma oportunidade de evoluir. 💗
+
+`;
+
+$('reviewResult').innerHTML = result;
+
+}
 </script>
 
 </body>
