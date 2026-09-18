@@ -580,6 +580,25 @@ function renderTasks() {
     : '<p>Tudo organizado por enquanto! ✨</p>';
 }
 
+  function temaGatinho() {
+
+document.documentElement.style.setProperty('--pink','#f48fb1');
+document.documentElement.style.setProperty('--dark','#d64f83');
+document.documentElement.style.setProperty('--soft','#fff0f5');
+document.documentElement.style.setProperty('--bg','#fff9fc');
+document.documentElement.style.setProperty('--ink','#573b47');
+document.documentElement.style.setProperty('--line','#f7c6d8');
+
+document.querySelector('.bear').textContent='🎀';
+
+document.querySelector('.hero .bigbear').textContent='🎀🐱📚';
+
+document.body.style.backgroundImage =
+' radial-gradient(circle at 10% 20%, #ffd6e5 0 8px, transparent 9px), radial-gradient(circle at 90% 80%, #ffc4da 0 8px, transparent 9px)';
+
+localStorage.setItem('theme','gatinho');
+
+}
 $('libraryForm').onsubmit = event => {
 
   event.preventDefault();
@@ -714,46 +733,7 @@ function temaRosa() {
   localStorage.setItem('theme', 'rosa');
 
   alert('Tema rosa ativado! 🎀');
-}
 
-function temaGatinho() {
-
-  document.documentElement.style.setProperty('--pink', '#b58bd4');
-  document.documentElement.style.setProperty('--dark', '#765184');
-  document.documentElement.style.setProperty('--soft', '#f5edff');
-  document.documentElement.style.setProperty('--bg', '#fcf8ff');
-
-  $('brandEmoji').textContent = '🐱';
-  $('heroEmoji').textContent = '🐱📚';
-
-  localStorage.setItem('theme', 'gatinho');
-
-  alert('Tema Gatinho ativado! 🐾');
-}
-
-function loadTheme() {
-
-  const theme = localStorage.getItem('theme');
-
-  if (theme === 'gatinho') {
-    temaGatinho();
-  } else {
-    temaRosa();
-  }
-}
-
-$('dailyQuote').textContent = quotes[0];
-
-showTime();
-refresh();
-loadTheme();
-
-const savedTheme = localStorage.getItem('theme');
-
-if (savedTheme === 'gatinho') {
-temaGatinho();
-} else {
-temaRosa();
 }
   
 </script>
