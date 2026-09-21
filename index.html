@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
@@ -10,544 +9,318 @@
 <style>
 @import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:wght@600;700&display=swap');
 
-:root{
-  --pink:#e875a2;
-  --dark:#9d416b;
-  --soft:#fff0f6;
-  --bg:#fffafd;
-  --ink:#553644;
-  --muted:#a17f90;
-  --line:#f2d9e5;
-  --card:#fff;
+:root {
+  --pink: #e875a2;
+  --dark: #9d416b;
+  --bg: #fff7fb;
+  --card: #fff;
+  --ink: #553644;
+  --muted: #9b7b8a;
+  --line: #f1d7e3;
+  --soft: #ffe8f1;
+  --shadow: 0 10px 28px #7d466015;
 }
 
-*{
-  box-sizing:border-box;
+* {
+  box-sizing: border-box;
 }
 
-body{
-  margin:0;
-  background:var(--bg);
-  color:var(--ink);
-  font-family:"DM Sans",sans-serif;
+body {
+  margin: 0;
+  font-family: 'DM Sans', sans-serif;
+  background: var(--bg);
+  color: var(--ink);
+  transition: 0.25s;
 }
 
-body:before{
-  content:"";
-  position:fixed;
-  z-index:-1;
-  width:360px;
-  height:360px;
-  right:-130px;
-  top:-130px;
-  background:#ffd9e9;
-  border-radius:50%;
-  filter:blur(80px);
+button,
+input,
+textarea,
+select {
+  font: inherit;
 }
 
-button,input,textarea,select{
-  font:inherit;
+button {
+  cursor: pointer;
 }
 
-button{
-  cursor:pointer;
+.app {
+  display: flex;
+  min-height: 100vh;
 }
 
-.app{
-  display:flex;
-  min-height:100vh;
+.sidebar {
+  width: 245px;
+  position: fixed;
+  inset: 0 auto 0 0;
+  overflow: auto;
+  padding: 25px 15px;
+  background: var(--card);
+  border-right: 1px solid var(--line);
+  z-index: 2;
 }
 
-.sidebar{
-  width:245px;
-  position:fixed;
-  inset:0 auto 0 0;
-  padding:26px 16px;
-  background:#fff9fcf2;
-  border-right:1px solid var(--line);
-  backdrop-filter:blur(14px);
-  z-index:3;
-  overflow-y:auto;
+.brand {
+  text-align: center;
+  margin-bottom: 25px;
 }
 
-.brand{
-  text-align:center;
-  margin-bottom:25px;
+.bear {
+  font-size: 45px;
 }
 
-.brand .bear{
-  font-size:48px;
-  animation:float 4s ease-in-out infinite;
+.brand h1 {
+  font: 700 24px 'Playfair Display';
+  color: var(--pink);
+  margin: 8px 0;
 }
 
-.brand h1{
-  font:700 23px "Playfair Display";
-  color:var(--dark);
-  margin:4px 0;
+.brand p {
+  font-size: 11px;
+  color: var(--muted);
 }
 
-.brand p{
-  font-size:11px;
-  color:var(--muted);
-}
-
-nav{
-  display:grid;
-  gap:7px;
-}
-
-nav button{
-  border:0;
-  background:transparent;
-  color:var(--muted);
-  text-align:left;
-  padding:12px 13px;
-  border-radius:13px;
-  transition:.25s;
+nav button {
+  display: block;
+  width: 100%;
+  border: 0;
+  background: transparent;
+  color: var(--muted);
+  text-align: left;
+  padding: 13px 12px;
+  border-radius: 13px;
+  margin: 3px 0;
+  font-weight: 600;
 }
 
 nav button:hover,
-nav button.active{
-  background:var(--soft);
-  color:var(--dark);
-  transform:translateX(4px);
+nav button.active {
+  background: var(--soft);
+  color: var(--dark);
 }
 
-.main{
-  margin-left:245px;
-  width:calc(100% - 245px);
-  padding:30px;
-  max-width:1500px;
+.content {
+  margin-left: 245px;
+  width: calc(100% - 245px);
+  padding: 28px;
+  min-width: 0;
 }
 
-.top{
-  display:flex;
-  justify-content:space-between;
-  align-items:center;
-  gap:15px;
-  margin-bottom:24px;
+.top {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 15px;
+  margin-bottom: 22px;
 }
 
-.top small{
-  color:var(--pink);
-  font-weight:700;
+.top h2 {
+  margin: 0;
+  font: 700 30px 'Playfair Display';
 }
 
-.top h2{
-  font:700 clamp(27px,4vw,39px) "Playfair Display";
-  margin:6px 0;
+.theme-btn,
+.primary {
+  border: 0;
+  border-radius: 12px;
+  background: var(--pink);
+  color: #fff;
+  padding: 11px 15px;
+  font-weight: 700;
 }
 
-.top p{
-  color:var(--muted);
-  font-size:14px;
-  margin:0;
+.hero,
+.card,
+.panel {
+  background: var(--card);
+  border: 1px solid var(--line);
+  border-radius: 22px;
+  box-shadow: var(--shadow);
+  padding: 22px;
+  margin-bottom: 18px;
 }
 
-.date{
-  border:1px solid var(--line);
-  border-radius:30px;
-  padding:11px 15px;
-  background:white;
-  color:var(--dark);
-  font-size:12px;
+.hero {
+  background: linear-gradient(135deg, var(--soft), var(--card));
 }
 
-.page{
-  display:none;
-  animation:fade .4s;
+.hero h2 {
+  margin-top: 0;
 }
 
-.page.active{
-  display:block;
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(190px, 1fr));
+  gap: 15px;
 }
 
-.cards{
-  display:grid;
-  grid-template-columns:repeat(4,1fr);
-  gap:16px;
-  margin-bottom:20px;
+.stat {
+  padding: 18px;
+  border-radius: 18px;
+  background: var(--soft);
+  border: 1px solid var(--line);
 }
 
-.card,.panel{
-  background:#ffffffed;
-  border:1px solid var(--line);
-  border-radius:22px;
-  padding:21px;
-  box-shadow:0 10px 30px #b95c8010;
+.stat strong {
+  display: block;
+  font-size: 28px;
+  color: var(--dark);
 }
 
-.card{
-  transition:.25s;
+.muted {
+  color: var(--muted);
 }
 
-.card:hover{
-  transform:translateY(-4px);
+.field {
+  width: 100%;
+  padding: 12px;
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  background: var(--card);
+  color: var(--ink);
+  margin: 6px 0 12px;
 }
 
-.card .icon{
-  font-size:25px;
+.row {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
 }
 
-.card small{
-  display:block;
-  color:var(--muted);
-  margin-top:10px;
+.tag {
+  display: inline-block;
+  padding: 5px 10px;
+  border-radius: 20px;
+  background: var(--soft);
+  color: var(--dark);
+  font-size: 12px;
+  font-weight: 700;
+  margin: 3px;
 }
 
-.card strong{
-  display:block;
-  font-size:29px;
-  color:var(--dark);
-  margin-top:4px;
+.item {
+  padding: 15px;
+  border: 1px solid var(--line);
+  border-radius: 16px;
+  margin: 10px 0;
+  background: var(--card);
 }
 
-.grid{
-  display:grid;
-  grid-template-columns:1.25fr 1fr;
-  gap:18px;
-  margin-bottom:18px;
+.item.erro {
+  border-left: 5px solid #e05270;
 }
 
-.panel h3{
-  font:700 22px "Playfair Display";
-  margin:0 0 15px;
-  color:var(--dark);
+.item.acerto {
+  border-left: 5px solid #43ae81;
 }
 
-.panel p{
-  font-size:13px;
-  color:var(--muted);
-  line-height:1.7;
+.danger {
+  background: #d94e69 !important;
 }
 
-.hero{
-  background:linear-gradient(135deg,#fff0f6,#fff8fc);
-  display:flex;
-  justify-content:space-between;
-  align-items:center;
-  gap:20px;
-  overflow:hidden;
+.hidden {
+  display: none !important;
 }
 
-.hero h2{
-  font:700 29px "Playfair Display";
-  color:var(--dark);
-  margin:5px 0;
+.theme-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(170px, 1fr));
+  gap: 10px;
 }
 
-.hero .bigbear{
-  font-size:110px;
-  animation:float 4s infinite ease-in-out;
+.theme-grid button {
+  padding: 13px;
+  border-radius: 14px;
+  border: 1px solid var(--line);
+  background: var(--soft);
+  color: var(--ink);
 }
 
-.progress{
-  height:12px;
-  background:#f9e2ed;
-  border-radius:20px;
-  overflow:hidden;
-  margin:13px 0;
+/* 🖤🌙 ROSA ESCURO */
+
+body[data-theme="dark"] {
+  --bg: #171217;
+  --card: #261d27;
+  --ink: #fce8f1;
+  --muted: #c29aaa;
+  --line: #493342;
+  --soft: #3a2635;
+  --pink: #e875a2;
+  --dark: #ffb1d0;
 }
 
-.progress>div{
-  height:100%;
-  width:0;
-  background:linear-gradient(90deg,#df6f9c,#f5b4cd);
-  border-radius:20px;
-  transition:.6s;
+/* 🔮💜 LILÁS NOTURNO */
+
+body[data-theme="lilac"] {
+  --bg: #171323;
+  --card: #272039;
+  --ink: #f0e8ff;
+  --muted: #b9a9d2;
+  --line: #46375b;
+  --soft: #382b51;
+  --pink: #b995ff;
+  --dark: #d4bfff;
 }
 
-.row{
-  display:flex;
-  justify-content:space-between;
-  align-items:center;
-  gap:10px;
+/* 🍂🧡 PÊSSEGO NOTURNO */
+
+body[data-theme="peach"] {
+  --bg: #211713;
+  --card: #35251e;
+  --ink: #fff0e5;
+  --muted: #c9a99a;
+  --line: #5b4032;
+  --soft: #493126;
+  --pink: #f2a36f;
+  --dark: #ffc19a;
 }
 
-.tags{
-  display:flex;
-  gap:8px;
-  flex-wrap:wrap;
+/* 🌿💚 VERDE NOTURNO */
+
+body[data-theme="mint"] {
+  --bg: #101e19;
+  --card: #1e332a;
+  --ink: #e4fff1;
+  --muted: #9dc2ae;
+  --line: #365644;
+  --soft: #29483a;
+  --pink: #80d6ad;
+  --dark: #a8f0cc;
 }
 
-.tag{
-  border:1px solid #f0cddd;
-  background:#fff2f7;
-  color:var(--dark);
-  border-radius:30px;
-  padding:7px 11px;
-  font-size:12px;
+/* 🐱💗 TEMA GATINHOS */
+
+body[data-theme="cat"] {
+  --bg: #fffafd;
+  --card: #ffffffed;
+  --ink: #553644;
+  --muted: #a17f90;
+  --line: #f2d9e5;
+  --soft: #ffe4ee;
+  --pink: #e875a2;
+  --dark: #9d416b;
+
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='160'%3E%3Ctext x='20' y='45' font-size='30'%3E🐱%3C/text%3E%3Ctext x='120' y='110' font-size='27'%3E🐾%3C/text%3E%3Ctext x='130' y='35' font-size='20'%3E♥%3C/text%3E%3Ctext x='50' y='135' font-size='22'%3E🐱%3C/text%3E%3C/svg%3E");
 }
 
-.tag button{
-  margin-left:5px;
-}
-
-form{
-  display:grid;
-  gap:12px;
-}
-
-.formgrid{
-  display:grid;
-  grid-template-columns:repeat(2,1fr);
-  gap:12px;
-}
-
-.field{
-  display:grid;
-  gap:6px;
-}
-
-.field.full{
-  grid-column:1/-1;
-}
-
-.field label{
-  font-size:12px;
-  font-weight:700;
-  color:var(--dark);
-}
-
-input,textarea,select{
-  width:100%;
-  border:1px solid var(--line);
-  border-radius:12px;
-  padding:11px;
-  background:#fffafd;
-  color:var(--ink);
-  outline:none;
-}
-
-textarea{
-  min-height:100px;
-  resize:vertical;
-}
-
-input:focus,
-textarea:focus,
-select:focus{
-  border-color:var(--pink);
-  box-shadow:0 0 0 3px var(--soft);
-}
-
-.btn{
-  border:0;
-  border-radius:12px;
-  padding:12px 16px;
-  background:linear-gradient(135deg,#e875a2,#bd5c87);
-  color:#fff;
-  font-weight:700;
-}
-
-.btn.alt{
-  background:#fff0f6;
-  color:var(--dark);
-  border:1px solid #f2cddd;
-}
-
-.list{
-  display:grid;
-  gap:10px;
-  margin-top:17px;
-}
-
-.item{
-  border:1px solid var(--line);
-  border-radius:15px;
-  padding:14px;
-  background:white;
-}
-
-.item strong{
-  color:var(--dark);
-  font-size:14px;
-}
-
-.item p{
-  margin:6px 0;
-  font-size:12px;
-  white-space:pre-wrap;
-  overflow-wrap:anywhere;
-}
-
-.item .actions{
-  display:flex;
-  gap:7px;
-  flex-wrap:wrap;
-}
-
-.item button{
-  border:1px solid var(--line);
-  background:white;
-  color:var(--dark);
-  border-radius:9px;
-  padding:7px 10px;
-  font-size:11px;
-}
-
-.timer{
-  text-align:center;
-}
-
-.clock{
-  font-size:76px;
-  font-weight:700;
-  color:var(--pink);
-  letter-spacing:2px;
-  margin:15px 0;
-}
-
-.center{
-  display:flex;
-  justify-content:center;
-  gap:8px;
-  flex-wrap:wrap;
-}
-
-.quote{
-  padding:20px;
-  text-align:center;
-  background:linear-gradient(135deg,#fff0f6,#f8efff);
-  border-radius:18px;
-  font:700 19px "Playfair Display";
-  color:var(--dark);
-}
-
-.profile{
-  display:flex;
-  align-items:center;
-  gap:18px;
-}
-
-.avatar{
-  width:95px;
-  height:95px;
-  display:grid;
-  place-items:center;
-  background:#ffe1ed;
-  border-radius:50%;
-  font-size:60px;
-  border:5px solid white;
-  box-shadow:0 0 0 1px var(--line);
-}
-
-.achievements{
-  display:grid;
-  grid-template-columns:repeat(3,1fr);
-  gap:12px;
-}
-
-.achievement{
-  text-align:center;
-  padding:15px;
-  border:1px solid var(--line);
-  border-radius:16px;
-  background:#fff7fb;
-}
-
-.achievement .medal{
-  font-size:35px;
-}
-
-.achievement.locked{
-  opacity:.4;
-  filter:grayscale(1);
-}
-
-.note{
-  background:#fff4b8;
-  border:0;
-  transform:rotate(-1deg);
-  padding:20px;
-  border-radius:4px;
-  box-shadow:3px 5px 10px #8c6c3215;
-}
-
-.review-result{
-  text-align:left;
-  font-family:"DM Sans",sans-serif;
-  font-size:13px;
-  font-weight:400;
-}
-
-.review-result strong{
-  font-family:"Playfair Display";
-  font-size:19px;
-}
-
-@keyframes fade{
-  from{
-    opacity:0;
-    transform:translateY(8px);
-  }
-  to{
-    opacity:1;
-    transform:translateY(0);
-  }
-}
-
-@keyframes float{
-  0%,100%{
-    transform:translateY(0);
-  }
-  50%{
-    transform:translateY(-8px);
-  }
-}
-
-@media(max-width:1000px){
-  .cards{
-    grid-template-columns:repeat(2,1fr);
+@media (max-width: 760px) {
+  .sidebar {
+    width: 190px;
   }
 
-  .grid{
-    grid-template-columns:1fr;
-  }
-}
-
-@media(max-width:700px){
-  .app{
-    display:block;
+  .content {
+    margin-left: 190px;
+    width: calc(100% - 190px);
+    padding: 15px;
   }
 
-  .sidebar{
-    position:static;
-    width:100%;
-    height:auto;
-    border-right:0;
-    border-bottom:1px solid var(--line);
+  .top {
+    align-items: flex-start;
+    flex-direction: column;
   }
 
-  .main{
-    margin:0;
-    width:100%;
-    padding:18px 13px;
-  }
-
-  .top{
-    align-items:flex-start;
-    flex-direction:column;
-  }
-
-  .formgrid{
-    grid-template-columns:1fr;
-  }
-
-  .field.full{
-    grid-column:auto;
-  }
-
-  .hero .bigbear{
-    font-size:70px;
-  }
-
-  .achievements{
-    grid-template-columns:1fr 1fr;
-  }
-
-  .clock{
-    font-size:56px;
+  .top h2 {
+    font-size: 24px;
   }
 }
 </style>
@@ -560,1723 +333,965 @@ select:focus{
 <aside class="sidebar">
 
 <div class="brand">
-<div class="bear">🧸</div>
-<h1>Meu Cantinho</h1>
-<p>de estudos, sonhos e conquistas 🎀</p>
+  <div class="bear">🧸</div>
+  <h1>Meu Cantinho</h1>
+  <p>de estudos, sonhos e conquistas 🎀</p>
 </div>
 
-<nav>
-<button class="active" onclick="openPage('dashboard',this)">🏡 Dashboard</button>
-<button onclick="openPage('biblioteca',this)">📖 Biblioteca</button>
-<button onclick="openPage('diario',this)">📝 Diário de estudos</button>
-<button onclick="openPage('conquistas',this)">🏆 Conquistas</button>
-<button onclick="openPage('foco',this)">🌙 Modo estudo</button>
-<button onclick="openPage('mural',this)">💌 Mural</button>
-<button onclick="openPage('calendario',this)">🗓️ Calendário</button>
-<button onclick="openPage('colecao',this)">🧸 Coleção</button>
-<button onclick="openPage('etiquetas',this)">🎀 Etiquetas</button>
-<button onclick="openPage('questoes',this)">📚 Banco de Questões</button>
-<button onclick="openPage('perfil',this)">🌸 Perfil</button>
-<button onclick="openPage('redacoes',this)">✍️ Redações</button>
-</nav>
+<nav id="nav"></nav>
 
 </aside>
 
-<main class="main">
+<main class="content">
 
-<header class="top">
-
-<div>
-<small>SEU ESPAÇO DE CRESCIMENTO ✨</small>
-<h2 id="hello">Olá, estudante! 💗</h2>
-<p>Um pouquinho todos os dias faz diferença.</p>
+<div class="top">
+  <h2 id="pageTitle">🏠 Dashboard</h2>
+  <button class="theme-btn" onclick="openPage('personalizar')">
+    🎨 Personalizar
+  </button>
 </div>
 
-<div class="date" id="today"></div>
-
-</header>
-
-<!-- DASHBOARD -->
-
-<section id="dashboard" class="page active">
-
-<div class="panel hero">
-
-<div>
-<small>SEU OBJETIVO MERECE CUIDADO 💕</small>
-<h2>Você consegue, um passo por vez!</h2>
-<p>Organize sua rotina e acompanhe sua evolução.</p>
-</div>
-
-<div class="bigbear">🧸📚</div>
-
-</div>
-
-<div class="cards" style="margin-top:18px">
-
-<div class="card">
-<div class="icon">📖</div>
-<small>Materiais</small>
-<strong id="statMaterials">0</strong>
-</div>
-
-<div class="card">
-<div class="icon">📝</div>
-<small>Registros no diário</small>
-<strong id="statDiary">0</strong>
-</div>
-
-<div class="card">
-<div class="icon">🗓️</div>
-<small>Tarefas concluídas</small>
-<strong id="statTasks">0</strong>
-</div>
-
-<div class="card">
-<div class="icon">🏆</div>
-<small>Conquistas</small>
-<strong id="statAwards">0</strong>
-</div>
-
-</div>
-
-<div class="grid">
-
-<div class="panel">
-<h3>🎀 Suas etiquetas</h3>
-<div class="tags" id="dashboardTags"></div>
-</div>
-
-<div class="panel">
-<h3>🌷 Meta de estudos</h3>
-<p id="goalText">Defina seu objetivo no perfil.</p>
-
-<div class="progress">
-<div id="goalBar"></div>
-</div>
-
-<div class="row">
-<small id="goalPercent">0%</small>
-<small>Continue assim ✨</small>
-</div>
-
-</div>
-
-</div>
-
-<div class="grid">
-
-<div class="panel">
-<h3>💌 Mensagem para você</h3>
-<div class="quote" id="dailyQuote"></div>
-</div>
-
-<div class="panel">
-<h3>📌 Próximas tarefas</h3>
-<div id="nextTasks"></div>
-</div>
-
-</div>
-
-</section>
-
-<!-- BIBLIOTECA -->
-
-<section id="biblioteca" class="page">
-
-<div class="panel">
-
-<h3>📖 Minha biblioteca</h3>
-
-<form id="libraryForm">
-
-<div class="formgrid">
-
-<div class="field">
-<label>Nome do material</label>
-<input id="bookName" required placeholder="Ex.: Apostila de matemática">
-</div>
-
-<div class="field">
-<label>Tipo</label>
-
-<select id="bookType">
-<option>Livro</option>
-<option>PDF</option>
-<option>Resumo</option>
-<option>Vídeo</option>
-<option>Outro</option>
-</select>
-
-</div>
-
-<div class="field full">
-<label>Link ou observação</label>
-<input id="bookLink" placeholder="Cole um link ou escreva onde está salvo">
-</div>
-
-</div>
-
-<button class="btn">+ Guardar material</button>
-
-</form>
-
-<div class="list" id="libraryList"></div>
-
-</div>
-
-</section>
-
-<!-- DIÁRIO -->
-
-<section id="diario" class="page">
-
-<div class="panel">
-
-<h3>📝 Meu diário de estudos</h3>
-
-<form id="diaryForm">
-
-<div class="field">
-<label>Como foi seu dia?</label>
-
-<textarea id="diaryText" required placeholder="Escreva o que estudou, como se sentiu e o que aprendeu..."></textarea>
-
-</div>
-
-<button class="btn">Salvar registro 💗</button>
-
-</form>
-
-<div class="list" id="diaryList"></div>
-
-</div>
-
-</section>
-
-<!-- CONQUISTAS -->
-
-<section id="conquistas" class="page">
-
-<div class="panel">
-
-<h3>🏆 Minhas conquistas</h3>
-
-<p>Você desbloqueia medalhas conforme registra materiais, diários e tarefas concluídas.</p>
-
-<div class="achievements" id="achievementsList"></div>
-
-</div>
-
-</section>
-
-<!-- MODO ESTUDO -->
-
-<section id="foco" class="page">
-
-<div class="panel timer">
-
-<h3>🌙 Modo estudo</h3>
-
-<p>Respire, organize sua mesa e concentre-se em uma tarefa por vez.</p>
-
-<div class="clock" id="clock">25:00</div>
-
-<div class="center">
-
-<button class="btn" onclick="startTimer()">Iniciar</button>
-<button class="btn alt" onclick="pauseTimer()">Pausar</button>
-<button class="btn alt" onclick="resetTimer()">Reiniciar</button>
-
-</div>
-
-<p id="timerStatus">Sessão de foco • 25 minutos</p>
-
-</div>
-
-</section>
-
-<!-- MURAL -->
-
-<section id="mural" class="page">
-
-<div class="panel">
-
-<h3>💌 Mural de motivação</h3>
-
-<div class="quote" id="muralQuote"></div>
-
-<div class="center" style="margin-top:16px">
-<button class="btn" onclick="newQuote()">Nova mensagem ✨</button>
-</div>
-
-<div class="list">
-
-<div class="note">🌸 Pequenos passos todos os dias também são progresso.</div>
-<div class="note">🎀 Você não precisa ser perfeita, precisa continuar.</div>
-<div class="note">🧸 Seu futuro está sendo construído no presente.</div>
-
-</div>
-
-</div>
-
-</section>
-
-<!-- CALENDÁRIO -->
-
-<section id="calendario" class="page">
-
-<div class="panel">
-
-<h3>🗓️ Meu calendário de tarefas</h3>
-
-<form id="taskForm">
-
-<div class="formgrid">
-
-<div class="field">
-<label>Tarefa</label>
-<input id="taskName" required placeholder="Ex.: Revisar funções">
-</div>
-
-<div class="field">
-<label>Data</label>
-<input id="taskDate" type="date" required>
-</div>
-
-</div>
-
-<button class="btn">+ Adicionar tarefa</button>
-
-</form>
-
-<div class="list" id="taskList"></div>
-
-</div>
-
-</section>
-
-<!-- COLEÇÃO -->
-
-<section id="colecao" class="page">
-
-<div class="panel">
-
-<h3>🧸 Minha coleção de ursinhos</h3>
-
-<p>Algumas decorações são desbloqueadas ao criar registros no seu cantinho.</p>
-
-<div class="achievements" id="collectionList"></div>
-
-</div>
-
-</section>
-
-<!-- ETIQUETAS -->
-
-<section id="etiquetas" class="page">
-
-<div class="panel">
-
-<h3>🎀 Etiquetas temáticas</h3>
-
-<form id="tagForm">
-
-<div class="field">
-<label>Nome da etiqueta</label>
-<input id="tagName" required placeholder="Ex.: Revisão importante">
-</div>
-
-<button class="btn">+ Criar etiqueta</button>
-
-</form>
-
-<div class="tags" id="tagList" style="margin-top:18px"></div>
-
-</div>
-
-</section>
-
-<!-- PERFIL -->
-
-<section id="perfil" class="page">
-
-<div class="panel">
-
-<h3>🌸 Meu perfil</h3>
-
-<div class="profile">
-
-<div class="avatar" id="avatar">🧸</div>
-
-<div>
-<h3 id="profileName" style="margin:0">Estudante</h3>
-<p id="profileGoal">Meu objetivo é aprender cada dia mais.</p>
-</div>
-
-</div>
-
-<form id="profileForm" style="margin-top:20px">
-
-<div class="formgrid">
-
-<div class="field">
-<label>Seu nome</label>
-<input id="userName" placeholder="Como quer ser chamada?">
-</div>
-
-<div class="field">
-<label>Seu objetivo</label>
-<input id="userGoal" placeholder="Ex.: Passar na UFU">
-</div>
-
-<div class="field">
-<label>Seu avatar</label>
-
-<select id="userAvatar">
-<option>🧸</option>
-<option>🐰</option>
-<option>🐻</option>
-<option>🌷</option>
-<option>🎀</option>
-<option>🐱</option>
-</select>
-
-</div>
-
-</div>
-
-<button class="btn">Salvar perfil 💗</button>
-
-</form>
-
-</div>
-
-</section>
-
-<!-- REDAÇÕES -->
-
-<section id="redacoes" class="page">
-
-<div class="panel">
-
-<h3>🎀 Meu cantinho de redações</h3>
-
-<p>Escreva, salve e revise suas redações para evoluir cada dia mais! 💗</p>
-
-<form id="essayForm">
-
-<div class="field">
-
-<label>Título da redação</label>
-
-<input
-id="essayTitle"
-required
-placeholder="Ex.: Os desafios da educação no Brasil">
-
-</div>
-
-<div class="field">
-
-<label>Seu texto</label>
-
-<textarea
-id="essayText"
-required
-rows="15"
-placeholder="Comece sua redação aqui..."></textarea>
-
-</div>
-
-<button class="btn">💾 Salvar redação</button>
-
-</form>
-
-</div>
-
-<div class="panel" style="margin-top:18px">
-
-<h3>📚 Minhas redações</h3>
-
-<div class="list" id="essayList"></div>
-
-</div>
-
-<div class="panel" style="margin-top:18px">
-
-<h3>🔍 Revisar redação</h3>
-
-<p>Cole sua redação abaixo para fazer uma revisão pessoal.</p>
-
-<textarea
-id="reviewText"
-rows="10"
-placeholder="Cole aqui a redação que deseja revisar..."></textarea>
-
-<button class="btn" onclick="reviewEssay()">
-📝 Revisar texto
-</button>
-
-<div class="quote review-result" id="reviewResult" style="margin-top:15px">
-Sua revisão aparecerá aqui. 🌷
-</div>
-
-</div>
-
-</section>
+<div id="pages"></div>
 
 </main>
+
 </div>
 
 <script>
 
 const $ = id => document.getElementById(id);
 
-const get = (key, def = []) => {
-  try{
-    const saved = localStorage.getItem(key);
-    return saved === null ? def : JSON.parse(saved);
-  }catch(error){
-    return def;
+const esc = s =>
+  String(s ?? '')
+    .replace(/[&<>"']/g, c => ({
+      '&': '&amp;',
+      '<': '&lt;',
+      '>': '&gt;',
+      '"': '&quot;',
+      "'": '&#39;'
+    }[c]))
+    .replace(/\n/g, '<br>');
+
+const read = (k, d = []) =>
+  JSON.parse(localStorage.getItem(k) || JSON.stringify(d));
+
+const write = (k, v) =>
+  localStorage.setItem(k, JSON.stringify(v));
+
+let questions = read('mc_questions');
+let diaries = read('mc_diaries');
+let tasks = read('mc_tasks');
+let essays = read('mc_essays');
+let materials = read('mc_materials');
+
+const pages = {
+  dashboard: '🏠 Dashboard',
+  biblioteca: '📚 Biblioteca',
+  diario: '📝 Diário de estudos',
+  conquistas: '🏆 Conquistas',
+  estudo: '🌙 Modo estudo',
+  mural: '💌 Mural',
+  calendario: '🗓️ Calendário',
+  colecao: '🧸 Coleção',
+  etiquetas: '🎀 Etiquetas',
+  perfil: '👤 Perfil',
+  redacoes: '✍️ Redações',
+  questoes: '📖 Banco de questões',
+  personalizar: '🎨 Personalizar'
+};
+
+function setupNav() {
+  let n = $('nav');
+
+  n.innerHTML = Object.entries(pages)
+    .map(([id, label]) =>
+      `<button data-page="${id}" onclick="openPage('${id}')">
+        ${label}
+      </button>`
+    )
+    .join('');
+}
+
+function layout(id, title, body) {
+  $('pageTitle').textContent = title;
+
+  $('pages').innerHTML = `
+    <section class="page">
+      ${body}
+    </section>
+  `;
+
+  document
+    .querySelectorAll('nav button')
+    .forEach(b =>
+      b.classList.toggle('active', b.dataset.page === id)
+    );
+}
+
+function openPage(id) {
+
+  if (!pages[id]) {
+    id = 'dashboard';
   }
-};
 
-const set = (key, val) =>
-  localStorage.setItem(key, JSON.stringify(val));
-
-let materials = get('cuteMaterials', []);
-let diaries = get('cuteDiaries', []);
-let tasks = get('cuteTasks', []);
-
-let tags = get('cuteTags', [
-  '📚 ENEM',
-  '🎀 Revisão',
-  '🌸 Importante',
-  '🧸 UFU'
-]);
-
-let profile = get('cuteProfile', {
-  name:'Estudante',
-  goal:'Meu objetivo é aprender cada dia mais.',
-  avatar:'🧸'
-});
-
-let essays = get('cuteEssays', []);
-
-const quotes = [
-  'Você é capaz de aprender coisas incríveis. 🌷',
-  'Disciplina hoje, liberdade amanhã. 🎀',
-  'Seu esforço de hoje merece orgulho. 🧸',
-  'Não compare seu começo com o caminho de outra pessoa. 💗',
-  'Cada questão é uma oportunidade de aprender. ✨'
-];
-
-let quoteIndex = 0;
-
-function openPage(id, btn){
-
-  document.querySelectorAll('.page').forEach(
-    p => p.classList.remove('active')
-  );
-
-  const page = $(id);
-
-  if(!page) return;
-
-  page.classList.add('active');
-
-  document.querySelectorAll('nav button').forEach(
-    b => b.classList.remove('active')
-  );
-
-  if(btn) btn.classList.add('active');
+  if (id === 'dashboard') dashboard();
+  if (id === 'biblioteca') library();
+  if (id === 'diario') diary();
+  if (id === 'conquistas') awards();
+  if (id === 'estudo') study();
+  if (id === 'mural') mural();
+  if (id === 'calendario') calendar();
+  if (id === 'colecao') collection();
+  if (id === 'etiquetas') tags();
+  if (id === 'perfil') profile();
+  if (id === 'redacoes') essaysPage();
+  if (id === 'questoes') questionsPage();
+  if (id === 'personalizar') customize();
 
 }
 
-function refresh(){
+function dashboard() {
 
-  $('statMaterials').textContent = materials.length;
+  layout(
+    'dashboard',
+    pages.dashboard,
 
-  $('statDiary').textContent = diaries.length;
+    `
+    <div class="hero">
+      <h2>Olá, estudante! 🧸💗</h2>
+      <p>Organize seus estudos e acompanhe sua evolução.</p>
+    </div>
 
-  $('statTasks').textContent =
-    tasks.filter(t => t.done).length;
+    <div class="grid">
 
-  $('statAwards').textContent =
-    awards().filter(a => a.unlocked).length;
+      <div class="stat">
+        📖 Questões
+        <strong>${questions.length}</strong>
+      </div>
 
-  $('dashboardTags').innerHTML = tags.map(
-    t => `<span class="tag">${escapeHTML(t)}</span>`
-  ).join('');
+      <div class="stat">
+        ✅ Acertos
+        <strong>${questions.filter(q => q.result === 'acerto').length}</strong>
+      </div>
 
-  $('tagList').innerHTML = tags.map(
-    (t,i) => `
-      <span class="tag">
-        ${escapeHTML(t)}
-        <button
-          onclick="deleteTag(${i})"
-          style="border:0;background:transparent;color:#9d416b">
-          ×
+      <div class="stat">
+        ❌ Erros
+        <strong>${questions.filter(q => q.result === 'erro').length}</strong>
+      </div>
+
+      <div class="stat">
+        ✍️ Redações
+        <strong>${essays.length}</strong>
+      </div>
+
+    </div>
+
+    <div class="card">
+      <h3>🌸 Comece por aqui</h3>
+
+      <p>
+        Use o menu para cadastrar questões, criar etiquetas,
+        registrar seu diário e revisar seus erros.
+      </p>
+
+      <button class="primary" onclick="openPage('questoes')">
+        Adicionar questão
+      </button>
+    </div>
+    `
+  );
+
+}
+
+function library() {
+
+  layout(
+    'biblioteca',
+    pages.biblioteca,
+
+    `
+    <div class="card">
+
+      <h3>📚 Adicionar material</h3>
+
+      <input
+        id="mat"
+        class="field"
+        placeholder="Nome do livro, PDF ou material"
+      >
+
+      <button class="primary" onclick="addMaterial()">
+        Salvar
+      </button>
+
+    </div>
+
+    <div class="card">
+
+      <h3>Seus materiais</h3>
+
+      <div id="matList">
+
+        ${
+          materials.map((m, i) =>
+            `
+            <div class="item">
+              📚 ${esc(m)}
+
+              <button
+                class="primary danger"
+                onclick="delMaterial(${i})">
+                Excluir
+              </button>
+            </div>
+            `
+          ).join('')
+          ||
+          '<p class="muted">Nenhum material cadastrado.</p>'
+        }
+
+      </div>
+
+    </div>
+    `
+  );
+
+}
+
+function addMaterial() {
+
+  let v = $('mat').value.trim();
+
+  if (!v) return;
+
+  materials.push(v);
+
+  write('mc_materials', materials);
+
+  library();
+
+}
+
+function delMaterial(i) {
+
+  materials.splice(i, 1);
+
+  write('mc_materials', materials);
+
+  library();
+
+}
+
+function diary() {
+
+  layout(
+    'diario',
+    pages.diario,
+
+    `
+    <div class="card">
+
+      <h3>📝 Novo registro</h3>
+
+      <textarea
+        id="diaryText"
+        class="field"
+        rows="5"
+        placeholder="Como foi seu estudo hoje?">
+      </textarea>
+
+      <button class="primary" onclick="addDiary()">
+        Salvar registro
+      </button>
+
+    </div>
+
+    <div class="card">
+
+      ${
+        diaries.map((d, i) =>
+          `
+          <div class="item">
+
+            <b>${esc(d.date)}</b>
+
+            <p>${esc(d.text)}</p>
+
+            <button
+              class="primary danger"
+              onclick="
+                diaries.splice(${i},1);
+                write('mc_diaries',diaries);
+                diary();
+              ">
+              Excluir
+            </button>
+
+          </div>
+          `
+        ).join('')
+        ||
+        '<p class="muted">Seu diário está vazio.</p>'
+      }
+
+    </div>
+    `
+  );
+
+}
+
+function addDiary() {
+
+  let t = $('diaryText').value.trim();
+
+  if (!t) return;
+
+  diaries.unshift({
+    date: new Date().toLocaleDateString('pt-BR'),
+    text: t
+  });
+
+  write('mc_diaries', diaries);
+
+  diary();
+
+}
+
+function awards() {
+
+  let n = questions.length;
+
+  layout(
+    'conquistas',
+    pages.conquistas,
+
+    `
+    <div class="grid">
+
+      <div class="stat">
+        🌱 Primeiros passos
+        <strong>${n >= 1 ? 'Desbloqueado' : 'Bloqueado'}</strong>
+      </div>
+
+      <div class="stat">
+        🌟 10 questões
+        <strong>${n >= 10 ? 'Desbloqueado' : 'Bloqueado'}</strong>
+      </div>
+
+      <div class="stat">
+        🏆 50 questões
+        <strong>${n >= 50 ? 'Desbloqueado' : 'Bloqueado'}</strong>
+      </div>
+
+    </div>
+    `
+  );
+
+}
+
+function study() {
+
+  layout(
+    'estudo',
+    pages.estudo,
+
+    `
+    <div class="hero">
+
+      <h2>🌙 Modo estudo</h2>
+
+      <p>
+        Estude por 25 minutos e faça uma pausa.
+      </p>
+
+      <h1 id="timer">25:00</h1>
+
+      <div class="row">
+
+        <button class="primary" onclick="startTimer()">
+          ▶️ Iniciar
         </button>
-      </span>
+
+        <button class="primary" onclick="stopTimer()">
+          ⏸️ Parar
+        </button>
+
+        <button class="primary" onclick="resetTimer()">
+          🔄 Reiniciar
+        </button>
+
+      </div>
+
+    </div>
     `
-  ).join('');
-
-  let pct = tasks.length ?
-    Math.round(
-      tasks.filter(t => t.done).length / tasks.length * 100
-    ) : 0;
-
-  $('goalBar').style.width = pct + '%';
-
-  $('goalPercent').textContent = pct + '%';
-
-  $('goalText').textContent = profile.goal;
-
-  $('hello').textContent = 'Olá, ' + profile.name + '! 💗';
-
-  $('profileName').textContent = profile.name;
-
-  $('profileGoal').textContent = profile.goal;
-
-  $('avatar').textContent = profile.avatar;
-
-  renderMaterials();
-  renderDiaries();
-  renderTasks();
-  renderAwards();
-  renderCollection();
-  renderEssays();
-
-}
-
-function escapeHTML(s){
-
-  return String(s).replace(
-    /[&<>"']/g,
-    c => ({
-      '&':'&amp;',
-      '<':'&lt;',
-      '>':'&gt;',
-      '"':'&quot;',
-      "'":'&#39;'
-    }[c])
   );
 
 }
 
-function renderMaterials(){
-
-  $('libraryList').innerHTML = materials.length ?
-
-    materials.map(
-      (m,i) => `
-        <div class="item">
-
-          <strong>📖 ${escapeHTML(m.name)}</strong>
-
-          <p>
-            Tipo: ${escapeHTML(m.type)}
-            <br>
-            ${escapeHTML(m.link || 'Sem observação')}
-          </p>
-
-          <div class="actions">
-            <button onclick="removeMaterial(${i})">
-              Excluir
-            </button>
-          </div>
-
-        </div>
-      `
-    ).join('')
-
-    : '<p>Nenhum material guardado ainda. 🌸</p>';
-
-}
-
-function renderDiaries(){
-
-  $('diaryList').innerHTML = diaries.length ?
-
-    diaries.slice().reverse().map(
-      d => `
-        <div class="item">
-
-          <strong>📝 ${escapeHTML(d.date)}</strong>
-
-          <p>${escapeHTML(d.text)}</p>
-
-        </div>
-      `
-    ).join('')
-
-    : '<p>Seu primeiro registro pode começar hoje. 💗</p>';
-
-}
-
-function renderTasks(){
-
-  $('taskList').innerHTML = tasks.length ?
-
-    tasks.map(
-      (t,i) => `
-        <div class="item">
-
-          <strong>
-            ${t.done ? '✅' : '🗓️'} ${escapeHTML(t.name)}
-          </strong>
-
-          <p>Data: ${escapeHTML(t.date)}</p>
-
-          <div class="actions">
-
-            <button onclick="toggleTask(${i})">
-              ${t.done ? 'Desmarcar' : 'Concluir'}
-            </button>
-
-            <button onclick="removeTask(${i})">
-              Excluir
-            </button>
-
-          </div>
-
-        </div>
-      `
-    ).join('')
-
-    : '<p>Nenhuma tarefa cadastrada. 🎀</p>';
-
-  $('nextTasks').innerHTML = tasks.filter(
-    t => !t.done
-  ).slice(0,4).map(
-    t => `<p>📝 ${escapeHTML(t.name)} — ${escapeHTML(t.date)}</p>`
-  ).join('') || '<p>Tudo organizado por enquanto! ✨</p>';
-
-}
-
-function awards(){
-
-  return [
-    {
-      name:'Primeiro material',
-      medal:'📚',
-      unlocked:materials.length >= 1
-    },
-    {
-      name:'Diário iniciado',
-      medal:'📝',
-      unlocked:diaries.length >= 1
-    },
-    {
-      name:'Primeira tarefa',
-      medal:'🌷',
-      unlocked:tasks.length >= 1
-    },
-    {
-      name:'Tarefa concluída',
-      medal:'🏆',
-      unlocked:tasks.some(t => t.done)
-    },
-    {
-      name:'Cinco materiais',
-      medal:'🎀',
-      unlocked:materials.length >= 5
-    },
-    {
-      name:'Cinco registros',
-      medal:'💌',
-      unlocked:diaries.length >= 5
-    }
-  ];
-
-}
-
-function renderAwards(){
-
-  $('achievementsList').innerHTML = awards().map(
-    a => `
-      <div class="achievement ${a.unlocked ? '' : 'locked'}">
-
-        <div class="medal">${a.medal}</div>
-
-        <strong>${escapeHTML(a.name)}</strong>
-
-        <p>${a.unlocked ? 'Desbloqueada!' : 'Continue estudando'}</p>
-
-      </div>
-    `
-  ).join('');
-
-}
-
-function renderCollection(){
-
-  let bears = [
-    {
-      n:'Ursinho leitor',
-      e:'🧸📖',
-      u:materials.length >= 1
-    },
-    {
-      n:'Ursinho estudioso',
-      e:'🧸✏️',
-      u:tasks.length >= 1
-    },
-    {
-      n:'Ursinho campeão',
-      e:'🧸🏆',
-      u:tasks.some(t => t.done)
-    },
-    {
-      n:'Ursinho diário',
-      e:'🧸📝',
-      u:diaries.length >= 1
-    },
-    {
-      n:'Ursinho especial',
-      e:'🧸🎀',
-      u:materials.length >= 5
-    }
-  ];
-
-  $('collectionList').innerHTML = bears.map(
-    b => `
-      <div class="achievement ${b.u ? '' : 'locked'}">
-
-        <div class="medal">${b.e}</div>
-
-        <strong>${escapeHTML(b.n)}</strong>
-
-        <p>${b.u ? 'Desbloqueado' : 'Bloqueado'}</p>
-
-      </div>
-    `
-  ).join('');
-
-}
-
-/* BIBLIOTECA */
-
-$('libraryForm').onsubmit = e => {
-
-  e.preventDefault();
-
-  materials.push({
-    name:$('bookName').value.trim(),
-    type:$('bookType').value,
-    link:$('bookLink').value.trim()
-  });
-
-  set('cuteMaterials', materials);
-
-  e.target.reset();
-
-  refresh();
-
-};
-
-/* DIÁRIO */
-
-$('diaryForm').onsubmit = e => {
-
-  e.preventDefault();
-
-  diaries.push({
-    text:$('diaryText').value.trim(),
-    date:new Date().toLocaleDateString('pt-BR')
-  });
-
-  set('cuteDiaries', diaries);
-
-  e.target.reset();
-
-  refresh();
-
-};
-
-/* TAREFAS */
-
-$('taskForm').onsubmit = e => {
-
-  e.preventDefault();
-
-  tasks.push({
-    name:$('taskName').value.trim(),
-    date:$('taskDate').value,
-    done:false
-  });
-
-  set('cuteTasks', tasks);
-
-  e.target.reset();
-
-  refresh();
-
-};
-
-/* ETIQUETAS */
-
-$('tagForm').onsubmit = e => {
-
-  e.preventDefault();
-
-  const tag = $('tagName').value.trim();
-
-  if(!tag) return;
-
-  tags.push(tag);
-
-  set('cuteTags', tags);
-
-  e.target.reset();
-
-  refresh();
-
-};
-
-/* PERFIL */
-
-$('profileForm').onsubmit = e => {
-
-  e.preventDefault();
-
-  profile = {
-    name:$('userName').value.trim() || 'Estudante',
-    goal:$('userGoal').value.trim() ||
-      'Meu objetivo é aprender cada dia mais.',
-    avatar:$('userAvatar').value
-  };
-
-  set('cuteProfile', profile);
-
-  refresh();
-
-  alert('Perfil salvo com carinho! 💗');
-
-};
-
-/* EXCLUIR MATERIAL */
-
-function removeMaterial(i){
-
-  materials.splice(i,1);
-
-  set('cuteMaterials', materials);
-
-  refresh();
-
-}
-
-/* EXCLUIR TAREFA */
-
-function removeTask(i){
-
-  tasks.splice(i,1);
-
-  set('cuteTasks', tasks);
-
-  refresh();
-
-}
-
-/* CONCLUIR TAREFA */
-
-function toggleTask(i){
-
-  tasks[i].done = !tasks[i].done;
-
-  set('cuteTasks', tasks);
-
-  refresh();
-
-}
-
-/* EXCLUIR ETIQUETA */
-
-function deleteTag(i){
-
-  tags.splice(i,1);
-
-  set('cuteTags', tags);
-
-  refresh();
-
-}
-
-/* MURAL */
-
-function newQuote(){
-
-  quoteIndex = (quoteIndex + 1) % quotes.length;
-
-  $('muralQuote').textContent = quotes[quoteIndex];
-
-  $('dailyQuote').textContent = quotes[quoteIndex];
-
-}
-
-/* CRONÔMETRO */
-
-let seconds = 1500;
 let timer = null;
+let seconds = 1500;
 
-function showTime(){
+function showTimer() {
 
-  let m = Math.floor(seconds / 60);
-  let s = seconds % 60;
+  if ($('timer')) {
 
-  $('clock').textContent =
-    String(m).padStart(2,'0') + ':' +
-    String(s).padStart(2,'0');
+    $('timer').textContent =
+      String(Math.floor(seconds / 60)).padStart(2, '0')
+      + ':'
+      + String(seconds % 60).padStart(2, '0');
+
+  }
 
 }
 
-function startTimer(){
+function startTimer() {
 
-  if(timer) return;
-
-  $('timerStatus').textContent =
-    'Sessão de foco em andamento • Concentre-se! 🌷';
+  if (timer) return;
 
   timer = setInterval(() => {
 
-    if(seconds > 0){
-
+    if (seconds > 0) {
       seconds--;
-
-      showTime();
-
-    }else{
-
-      pauseTimer();
-
-      $('timerStatus').textContent =
-        'Sessão concluída! Parabéns! 💗';
-
-      alert('Sua sessão terminou! Você conseguiu! 🌷');
-
     }
 
-  },1000);
+    showTimer();
+
+  }, 1000);
 
 }
 
-function pauseTimer(){
+function stopTimer() {
 
   clearInterval(timer);
 
   timer = null;
 
-  $('timerStatus').textContent =
-    'Sessão pausada • Quando quiser, continue. 💗';
-
 }
 
-function resetTimer(){
+function resetTimer() {
 
-  pauseTimer();
+  stopTimer();
 
   seconds = 1500;
 
-  showTime();
-
-  $('timerStatus').textContent =
-    'Sessão de foco • 25 minutos';
+  showTimer();
 
 }
 
-/* REDAÇÕES */
+function mural() {
 
-function renderEssays(){
+  layout(
+    'mural',
+    pages.mural,
 
-  $('essayList').innerHTML = essays.length ?
+    `
+    <div class="card">
 
-    essays.slice().reverse().map(
-      (essay,i) => `
+      <h3>💌 Mensagem para você</h3>
 
-        <div class="item">
+      <p>
+        Você não precisa ser perfeita.
+        Precisa continuar, um pequeno passo por vez. 🌷
+      </p>
 
-          <strong>✍️ ${escapeHTML(essay.title)}</strong>
+    </div>
+    `
+  );
 
-          <p>
-            <small>Salva em: ${escapeHTML(essay.date)}</small>
-          </p>
+}
 
-          <p>${escapeHTML(essay.text)}</p>
+function calendar() {
 
-          <div class="actions">
+  layout(
+    'calendario',
+    pages.calendario,
 
-            <button onclick="loadEssay(${essays.length - 1 - i})">
-              Editar
-            </button>
+    `
+    <div class="card">
 
-            <button onclick="deleteEssay(${essays.length - 1 - i})">
+      <h3>🗓️ Planejamento</h3>
+
+      <input
+        id="task"
+        class="field"
+        placeholder="O que você precisa estudar?"
+      >
+
+      <button class="primary" onclick="addTask()">
+        Adicionar tarefa
+      </button>
+
+      <div>
+
+        ${
+          tasks.map((t, i) =>
+            `
+            <div class="item">
+
+              ${t.done ? '✅' : '📌'}
+              ${esc(t.text)}
+
+              <button
+                class="primary"
+                onclick="
+                  tasks[${i}].done = !tasks[${i}].done;
+                  write('mc_tasks',tasks);
+                  calendar();
+                ">
+                Concluir
+              </button>
+
+              <button
+                class="primary danger"
+                onclick="
+                  tasks.splice(${i},1);
+                  write('mc_tasks',tasks);
+                  calendar();
+                ">
+                Excluir
+              </button>
+
+            </div>
+            `
+          ).join('')
+        }
+
+      </div>
+
+    </div>
+    `
+  );
+
+}
+
+function addTask() {
+
+  let t = $('task').value.trim();
+
+  if (!t) return;
+
+  tasks.push({
+    text: t,
+    done: false
+  });
+
+  write('mc_tasks', tasks);
+
+  calendar();
+
+}
+
+function collection() {
+
+  layout(
+    'colecao',
+    pages.colecao,
+
+    `
+    <div class="hero">
+
+      <h2>🧸 Sua coleção</h2>
+
+      <p>
+        Continue estudando para desbloquear novos ursinhos!
+      </p>
+
+      <div class="grid">
+
+        <div class="stat">
+          🧸 Ursinho
+          <strong>${Math.min(questions.length, 10)}/10</strong>
+        </div>
+
+        <div class="stat">
+          🎀 Nível
+          <strong>${Math.floor(questions.length / 10) + 1}</strong>
+        </div>
+
+      </div>
+
+    </div>
+    `
+  );
+
+}
+
+function tags() {
+
+  let list = [
+    ...new Set(
+      questions
+        .map(q => q.tag)
+        .filter(Boolean)
+    )
+  ];
+
+  layout(
+    'etiquetas',
+    pages.etiquetas,
+
+    `
+    <div class="card">
+
+      <h3>🎀 Suas etiquetas</h3>
+
+      ${
+        list.map(t =>
+          `<span class="tag">${esc(t)}</span>`
+        ).join('')
+        ||
+        '<p class="muted">As etiquetas aparecerão quando você cadastrar questões.</p>'
+      }
+
+    </div>
+    `
+  );
+
+}
+
+function profile() {
+
+  layout(
+    'perfil',
+    pages.perfil,
+
+    `
+    <div class="card">
+
+      <h3>👤 Meu perfil</h3>
+
+      <p>
+        Estudante dedicada aos seus sonhos. 💗
+      </p>
+
+      <p class="muted">
+        Personalize seu objetivo editando o código depois,
+        se desejar.
+      </p>
+
+    </div>
+    `
+  );
+
+}
+
+function essaysPage() {
+
+  layout(
+    'redacoes',
+    pages.redacoes,
+
+    `
+    <div class="card">
+
+      <h3>✍️ Nova redação</h3>
+
+      <input
+        id="essayTitle"
+        class="field"
+        placeholder="Tema da redação"
+      >
+
+      <textarea
+        id="essayText"
+        class="field"
+        rows="8"
+        placeholder="Escreva sua redação...">
+      </textarea>
+
+      <button class="primary" onclick="addEssay()">
+        Salvar redação
+      </button>
+
+    </div>
+
+    <div class="card">
+
+      ${
+        essays.map((e, i) =>
+          `
+          <div class="item">
+
+            <h3>${esc(e.title)}</h3>
+
+            <p>${esc(e.text)}</p>
+
+            <button
+              class="primary danger"
+              onclick="
+                essays.splice(${i},1);
+                write('mc_essays',essays);
+                essaysPage();
+              ">
               Excluir
             </button>
 
           </div>
+          `
+        ).join('')
+        ||
+        '<p class="muted">Nenhuma redação salva.</p>'
+      }
 
-        </div>
-
-      `
-    ).join('')
-
-    : '<p>Você ainda não salvou nenhuma redação. 🎀</p>';
-
-}
-
-/* SALVAR REDAÇÃO */
-
-$('essayForm').onsubmit = e => {
-
-  e.preventDefault();
-
-  const title = $('essayTitle').value.trim();
-  const text = $('essayText').value.trim();
-
-  if(!title || !text) return;
-
-  essays.push({
-    title:title,
-    text:text,
-    date:new Date().toLocaleDateString('pt-BR')
-  });
-
-  set('cuteEssays', essays);
-
-  e.target.reset();
-
-  refresh();
-
-  alert('Redação salva com carinho! 💗');
-
-};
-
-/* EXCLUIR REDAÇÃO */
-
-function deleteEssay(i){
-
-  if(!confirm('Deseja excluir esta redação?')) return;
-
-  essays.splice(i,1);
-
-  set('cuteEssays', essays);
-
-  renderEssays();
-
-}
-
-/* EDITAR REDAÇÃO */
-
-function loadEssay(i){
-
-  if(!essays[i]) return;
-
-  $('essayTitle').value = essays[i].title;
-
-  $('essayText').value = essays[i].text;
-
-  essays.splice(i,1);
-
-  set('cuteEssays', essays);
-
-  renderEssays();
-
-  openPage(
-    'redacoes',
-    document.querySelector('nav button:nth-child(11)')
+    </div>
+    `
   );
 
-  window.scrollTo({
-    top:0,
-    behavior:'smooth'
+}
+
+function addEssay() {
+
+  let title = $('essayTitle').value.trim();
+
+  let text = $('essayText').value.trim();
+
+  if (!title || !text) return;
+
+  essays.unshift({
+    title,
+    text
   });
 
-}
+  write('mc_essays', essays);
 
-/* REVISAR REDAÇÃO */
-
-function reviewEssay(){
-
-  let text = $('reviewText').value.trim();
-
-  if(!text){
-
-    alert('Cole sua redação primeiro! 🌷');
-
-    return;
-
-  }
-
-  let words = text.split(/\s+/).length;
-
-  let paragraphs = text.split(/\n+/)
-    .filter(p => p.trim()).length;
-
-  let result = `
-
-    <strong>📊 Revisão da sua redação</strong>
-
-    <br><br>
-
-    Quantidade aproximada de palavras: ${words}
-
-    <br>
-
-    Parágrafos identificados: ${paragraphs}
-
-    <br><br>
-
-    <strong>🎀 Confira estes pontos:</strong>
-
-    <br><br>
-
-    ☐ Sua introdução apresenta o tema?
-
-    <br><br>
-
-    ☐ Seus argumentos estão bem desenvolvidos?
-
-    <br><br>
-
-    ☐ Você utilizou conectivos?
-
-    <br><br>
-
-    ☐ Sua conclusão apresenta uma proposta de intervenção?
-
-    <br><br>
-
-    ☐ Revise ortografia, pontuação e concordância.
-
-    <br><br>
-
-    Continue praticando! Cada redação é uma oportunidade de evoluir. 💗
-
-  `;
-
-  $('reviewResult').innerHTML = result;
+  essaysPage();
 
 }
 
-/* INICIALIZAÇÃO */
+function questionsPage() {
 
-$('today').textContent = new Date().toLocaleDateString(
-  'pt-BR',
-  {
-    day:'numeric',
-    month:'long',
-    year:'numeric'
-  }
-);
+  layout(
+    'questoes',
+    pages.questoes,
 
-$('muralQuote').textContent = quotes[0];
+    `
+    <div class="card">
 
-$('dailyQuote').textContent = quotes[0];
+      <h3>📖 Cadastrar questão</h3>
 
-showTime();
+      <input
+        id="qSubject"
+        class="field"
+        placeholder="Matéria (ex.: Matemática)"
+      >
 
-refresh();
+      <input
+        id="qTag"
+        class="field"
+        placeholder="Etiqueta (ex.: Função, UFU, Revisão)"
+      >
 
-</script>
-<!-- 🐱 TEMA GATINHOS 💗 -->
+      <textarea
+        id="qText"
+        class="field"
+        rows="4"
+        placeholder="Escreva a questão...">
+      </textarea>
 
-<style>
-body[data-theme="cat"] {
-  --pink: #e875a2;
-  --dark: #9d416b;
-  --soft: #fff0f6;
-  --bg: #fffafd;
-  --ink: #553644;
-  --muted: #a17f90;
-  --line: #f2d9e5;
-  --card: #ffffffed;
+      <textarea
+        id="qAnswer"
+        class="field"
+        rows="3"
+        placeholder="Resposta correta ou explicação...">
+      </textarea>
 
-  background-color: #fffafd;
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='160'%3E%3Ctext x='20' y='45' font-size='30'%3E🐱%3C/text%3E%3Ctext x='120' y='110' font-size='27'%3E🐾%3C/text%3E%3Ctext x='130' y='35' font-size='20'%3E♥%3C/text%3E%3Ctext x='50' y='135' font-size='22'%3E🐱%3C/text%3E%3C/svg%3E");
-  background-size: 180px 160px;
-}
+      <select id="qResult" class="field">
 
-body[data-theme="cat"] .sidebar {
-  background: #fff9fcf2;
-}
+        <option value="erro">
+          ❌ Errei
+        </option>
 
-body[data-theme="cat"] .hero {
-  background: linear-gradient(135deg, #ffe4ee, #fff8fc);
-}
+        <option value="acerto">
+          ✅ Acertei
+        </option>
 
-body[data-theme="cat"] .card,
-body[data-theme="cat"] .panel {
-  background: #ffffffed;
-}
-</style>
+      </select>
 
-<script>
-(function () {
-  const nav = document.querySelector('nav');
+      <button class="primary" onclick="saveQuestion()">
+        💾 Salvar questão
+      </button>
 
-  if (!nav) return;
-
-  const button = document.createElement('button');
-
-  button.textContent = '🐱💗 Tema Gatinhos';
-
-  button.style.cursor = 'pointer';
-
-  button.onclick = function () {
-    document.body.dataset.theme = 'cat';
-    localStorage.setItem('cuteTheme', 'cat');
-  };
-
-  nav.appendChild(button);
-
-  const savedTheme = localStorage.getItem('cuteTheme');
-
-  if (savedTheme) {
-    document.body.dataset.theme = savedTheme;
-  }
-})();
-</script>
-  
-<style>
-/* 🌹 UVA */
-body[data-theme="pink"] {
-  --pink: #e875a2;
-  --dark: #b84f7b;
-  --bg: #fff5fa;
-  --ink: #573744;
-  --card: #ffffff;
-}
-
-/* 🖤🌙 ROSA ESCURO */
-body[data-theme="dark"] {
-  --pink: #e875a2;
-  --dark: #ff9fc5;
-  --bg: #171217;
-  --ink: #fce8f1;
-  --card: #261d27;
-  --line: #493342;
-  background: #171217;
-  color: #fce8f1;
-}
-
-/* 🔮💜 LILÁS NOTURNO */
-body[data-theme="lilac"] {
-  --pink: #b995ff;
-  --dark: #d4bfff;
-  --bg: #171323;
-  --ink: #f0e8ff;
-  --card: #272039;
-  --line: #46375b;
-  background: #171323;
-  color: #f0e8ff;
-}
-
-/* 🍂🧡 PÊSSEGO NOTURNO */
-body[data-theme="peach"] {
-  --pink: #f2a36f;
-  --dark: #ffc19a;
-  --bg: #211713;
-  --ink: #fff0e5;
-  --card: #35251e;
-  --line: #5b4032;
-  background: #211713;
-  color: #fff0e5;
-}
-
-/* 🌿💚 VERDE NOTURNO */
-body[data-theme="mint"] {
-  --pink: #80d6ad;
-  --dark: #a8f0cc;
-  --bg: #101e19;
-  --ink: #e4fff1;
-  --card: #1e332a;
-  --line: #365644;
-  background: #101e19;
-  color: #e4fff1;
-}
-
-/* CORES DOS CARTÕES NOS TEMAS ESCUROS */
-body[data-theme="dark"] .card,
-body[data-theme="lilac"] .card,
-body[data-theme="peach"] .card,
-body[data-theme="mint"] .card {
-  background: var(--card);
-  color: var(--ink);
-}
-</style>
-
-<script>
-(function () {
-  const nav = document.querySelector('nav');
-  if (!nav) return;
-
-  const themes = [
-    ['🖤🌙 Rosa escuro', 'dark'],
-    ['🌹 Rosa claro', 'pink'],
-    ['🔮💜 Lilás noturno', 'lilac'],
-    ['🍂🧡 Pêssego noturno', 'peach'],
-    ['🌿💚 Verde noturno', 'mint'],
-  ];
-
-  themes.forEach(function (theme) {
-  const button = document.createElement('button');
-  button.textContent = theme[0];
-  button.style.cursor = 'pointer';
-
-    button.onclick = function () {
-      document.body.dataset.theme = theme[1];
-      localStorage.setItem('cuteTheme', theme[1]);
-    };
-
-    nav.appendChild(button);
-  });
-
-  const savedTheme = localStorage.getItem('cuteTheme');
-  if (savedTheme) {
-    document.body.dataset.theme = savedTheme;
-  }
-})();
-</script>
-  
-<style>
-/* 🖤🌙 ROSA ESCURO */
-body[data-theme="dark"] {
-  background: #171217 !important;
-  color: #fce8f1 !important;
-}
-
-/* 🔮💜 LILÁS NOTURNO */
-body[data-theme="lilac"] {
-  background: #171323 !important;
-  color: #f0e8ff !important;
-}
-
-/* 🍂🧡 PÊSSEGO NOTURNO */
-body[data-theme="peach"] {
-  background: #211713 !important;
-  color: #fff0e5 !important;
-}
-
-/* 🌿💚 VERDE NOTURNO */
-body[data-theme="mint"] {
-  background: #101e19 !important;
-  color: #e4fff1 !important;
-}
-
-/* 🌹UVA */
-body[data-theme="pink"] {
-  background: #fff5fa !important;
-  color: #573744 !important;
-}
-
-/* ALTERA O SITE INTEIRO */
-body[data-theme="dark"] *,
-body[data-theme="lilac"] *,
-body[data-theme="peach"] *,
-body[data-theme="mint"] * {
-  border-color: var(--line) !important;
-}
-
-body[data-theme="dark"] .card,
-body[data-theme="dark"] .panel,
-body[data-theme="dark"] .sidebar,
-body[data-theme="dark"] .hero,
-body[data-theme="lilac"] .card,
-body[data-theme="lilac"] .panel,
-body[data-theme="lilac"] .sidebar,
-body[data-theme="lilac"] .hero,
-body[data-theme="peach"] .card,
-body[data-theme="peach"] .panel,
-body[data-theme="peach"] .sidebar,
-body[data-theme="peach"] .hero,
-body[data-theme="mint"] .card,
-body[data-theme="mint"] .panel,
-body[data-theme="mint"] .sidebar,
-body[data-theme="mint"] .hero {
-  background: var(--card) !important;
-  color: var(--ink) !important;
-}
-
-body[data-theme="dark"] input,
-body[data-theme="dark"] textarea,
-body[data-theme="dark"] select,
-body[data-theme="lilac"] input,
-body[data-theme="lilac"] textarea,
-body[data-theme="lilac"] select,
-body[data-theme="peach"] input,
-body[data-theme="peach"] textarea,
-body[data-theme="peach"] select,
-body[data-theme="mint"] input,
-body[data-theme="mint"] textarea,
-body[data-theme="mint"] select {
-  background: var(--card) !important;
-  color: var(--ink) !important;
-}
-</style>
-  
-<!-- 📚 BANCO DE QUESTÕES -->
-
-<style>
-#questionBank {
-  padding: 20px;
-  max-width: 1000px;
-  margin: auto;
-}
-
-.question-box {
-  background: var(--card, #fff);
-  padding: 20px;
-  border-radius: 20px;
-  margin-bottom: 20px;
-  border: 1px solid var(--line, #f2d9e5);
-}
-
-.question-box input,
-.question-box textarea,
-.question-box select {
-  width: 100%;
-  box-sizing: border-box;
-  padding: 12px;
-  margin: 8px 0;
-  border-radius: 12px;
-  border: 1px solid #e5bfd0;
-  background: #fff;
-  color: #553644;
-}
-
-.question-box button {
-  padding: 10px 15px;
-  margin: 5px;
-  border: none;
-  border-radius: 12px;
-  cursor: pointer;
-  background: #e875a2;
-  color: white;
-}
-
-.question-item {
-  padding: 15px;
-  margin-top: 12px;
-  border-radius: 15px;
-  background: #fff5fa;
-  border-left: 5px solid #e875a2;
-}
-
-.question-item.erro {
-  border-left-color: #e05270;
-}
-
-.question-item.acerto {
-  border-left-color: #51b88b;
-}
-
-.question-stats {
-  display: flex;
-  gap: 10px;
-  flex-wrap: wrap;
-  margin-bottom: 15px;
-}
-
-.question-stat {
-  padding: 12px;
-  border-radius: 12px;
-  background: #fff0f6;
-  font-weight: bold;
-}
-</style>
-
-<section id="questionBank">
-  <h2>📚 Meu Banco de Questões</h2>
-  <p>Organize seus erros, acertos e revisões! 🧸</p>
-
-  <div class="question-stats">
-    <div class="question-stat">
-      📖 Total: <span id="totalQuestions">0</span>
     </div>
 
-    <div class="question-stat">
-      ✅ Acertos: <span id="correctQuestions">0</span>
+    <div class="card">
+
+      <input
+        id="qSearch"
+        class="field"
+        placeholder="🔎 Pesquisar questão, matéria ou etiqueta"
+        oninput="renderQuestions()"
+      >
+
+      <div id="questionList"></div>
+
     </div>
+    `
+  );
 
-    <div class="question-stat">
-      ❌ Erros: <span id="wrongQuestions">0</span>
-    </div>
-  </div>
+  renderQuestions();
 
-  <div class="question-box">
-    <h3>✏️ Cadastrar questão</h3>
-
-    <input
-      id="questionSubject"
-      placeholder="Matéria (ex.: Matemática)"
-    >
-
-    <input
-      id="questionTag"
-      placeholder="Etiqueta (ex.: Função, UFU, Revisão)"
-    >
-
-    <textarea
-      id="questionText"
-      rows="4"
-      placeholder="Escreva a questão..."
-    ></textarea>
-
-    <textarea
-      id="questionAnswer"
-      rows="3"
-      placeholder="Resposta correta ou explicação..."
-    ></textarea>
-
-    <select id="questionResult">
-      <option value="erro">❌ Errei</option>
-      <option value="acerto">✅ Acertei</option>
-    </select>
-
-    <button onclick="saveQuestion()">
-      💾 Salvar questão
-    </button>
-  </div>
-
-  <div class="question-box">
-    <input
-      id="searchQuestion"
-      placeholder="🔎 Pesquisar por matéria ou etiqueta..."
-      oninput="renderQuestionBank()"
-    >
-  </div>
-
-  <div id="questionList"></div>
-</section>
-
-<script>
-let studyQuestions = JSON.parse(
-  localStorage.getItem('studyQuestions') || '[]'
-);
+}
 
 function saveQuestion() {
-  const subject = document
-    .getElementById('questionSubject').value.trim();
 
-  const tag = document
-    .getElementById('questionTag').value.trim();
+  let subject = $('qSubject').value.trim();
 
-  const text = document
-    .getElementById('questionText').value.trim();
+  let tag = $('qTag').value.trim() || 'Sem etiqueta';
 
-  const answer = document
-    .getElementById('questionAnswer').value.trim();
+  let text = $('qText').value.trim();
 
-  const result = document
-    .getElementById('questionResult').value;
+  let answer = $('qAnswer').value.trim();
+
+  let result = $('qResult').value;
 
   if (!subject || !text) {
-    alert('Preencha a matéria e a questão! 💗');
+
+    alert('Preencha a matéria e a questão.');
+
     return;
+
   }
 
-  studyQuestions.push({
+  questions.unshift({
     id: Date.now(),
-    subject: subject,
-    tag: tag || 'Sem etiqueta',
-    text: text,
-    answer: answer,
-    result: result
+    subject,
+    tag,
+    text,
+    answer,
+    result
   });
 
-  localStorage.setItem(
-    'studyQuestions',
-    JSON.stringify(studyQuestions)
-  );
+  write('mc_questions', questions);
 
-  document.getElementById('questionSubject').value = '';
-  document.getElementById('questionTag').value = '';
-  document.getElementById('questionText').value = '';
-  document.getElementById('questionAnswer').value = '';
+  questionsPage();
 
-  renderQuestionBank();
-
-  alert('Questão salva com sucesso! 🧸');
 }
 
-function renderQuestionBank() {
-  const list = document.getElementById('questionList');
+function renderQuestions() {
+
+  let list = $('questionList');
 
   if (!list) return;
 
-  const search = document
-    .getElementById('searchQuestion')
-    .value
-    .toLowerCase();
+  let s = ($('qSearch').value || '').toLowerCase();
 
-  const filtered = studyQuestions.filter(function(question) {
-    return (
-      question.subject.toLowerCase().includes(search) ||
-      question.tag.toLowerCase().includes(search) ||
-      question.text.toLowerCase().includes(search)
-    );
-  });
+  let arr = questions.filter(q =>
+    (q.subject + ' ' + q.tag + ' ' + q.text)
+      .toLowerCase()
+      .includes(s)
+  );
 
-  list.innerHTML = '';
+  list.innerHTML = arr.map(q =>
+    `
+    <div class="item ${q.result}">
 
-  filtered.forEach(function(question) {
-    const item = document.createElement('div');
+      <b>
+        ${q.result === 'acerto' ? '✅ Acertei' : '❌ Errei'}
+      </b>
 
-    item.className = 'question-item ' + question.result;
+      <p>
+        <b>Matéria:</b>
+        ${esc(q.subject)}
+      </p>
 
-    item.innerHTML = `
-      <strong>${question.result === 'acerto' ? '✅ Acertei' : '❌ Errei'}</strong>
-      <p><b>📚 Matéria:</b> ${escapeQuestion(question.subject)}</p>
-      <p><b>🏷️ Etiqueta:</b> ${escapeQuestion(question.tag)}</p>
-      <p><b>✏️ Questão:</b><br>${escapeQuestion(question.text)}</p>
-      <p><b>💡 Resposta:</b><br>${escapeQuestion(question.answer || 'Não informada')}</p>
-      <button onclick="deleteQuestion(${question.id})">
+      <p>
+        <span class="tag">
+          ${esc(q.tag)}
+        </span>
+      </p>
+
+      <p>
+        <b>Questão:</b>
+        <br>
+        ${esc(q.text)}
+      </p>
+
+      <p>
+        <b>Resposta/explicação:</b>
+        <br>
+        ${esc(q.answer || 'Não informada')}
+      </p>
+
+      <button
+        class="primary danger"
+        onclick="deleteQuestion(${q.id})">
         🗑️ Excluir
       </button>
-    `;
 
-    list.appendChild(item);
-  });
+    </div>
+    `
+  ).join('')
+  ||
+  '<p class="muted">Nenhuma questão encontrada.</p>';
 
-  document.getElementById('totalQuestions').textContent =
-    studyQuestions.length;
-
-  document.getElementById('correctQuestions').textContent =
-    studyQuestions.filter(q => q.result === 'acerto').length;
-
-  document.getElementById('wrongQuestions').textContent =
-    studyQuestions.filter(q => q.result === 'erro').length;
 }
 
 function deleteQuestion(id) {
-  if (!confirm('Deseja excluir esta questão?')) return;
 
-  studyQuestions = studyQuestions.filter(function(question) {
-    return question.id !== id;
-  });
+  questions = questions.filter(q => q.id !== id);
 
-  localStorage.setItem(
-    'studyQuestions',
-    JSON.stringify(studyQuestions)
+  write('mc_questions', questions);
+
+  renderQuestions();
+
+}
+
+function customize() {
+
+  layout(
+    'personalizar',
+    pages.personalizar,
+
+    `
+    <div class="card">
+
+      <h3>🎨 Escolha o visual do seu cantinho</h3>
+
+      <div class="theme-grid">
+
+        <button onclick="setTheme('dark')">
+          🖤🌙 Rosa escuro
+        </button>
+
+        <button onclick="setTheme('pink')">
+          🌹 Rosa claro
+        </button>
+
+        <button onclick="setTheme('lilac')">
+          🔮💜 Lilás noturno
+        </button>
+
+        <button onclick="setTheme('peach')">
+          🍂🧡 Pêssego noturno
+        </button>
+
+        <button onclick="setTheme('mint')">
+          🌿💚 Verde noturno
+        </button>
+
+    </div>
+    `
   );
 
-  renderQuestionBank();
 }
 
-function escapeQuestion(text) {
-  return String(text)
-  .replace(/&/g, '&amp;')
-  .replace(/</g, '&lt;')
-  .replace(/>/g, '&gt;')
-  .replace(/"/g, '&quot;')
-  .replace(/'/g, '&#039;')
-  .replace(/\n/g, '<br>');
+function setTheme(t) {
+
+  document.body.dataset.theme = t;
+
+  localStorage.setItem('mc_theme', t);
+
 }
 
-renderQuestionBank();
+setupNav();
+
+setTheme(
+  localStorage.getItem('mc_theme') || 'pink'
+);
+
+openPage('dashboard');
+
 </script>
+
 </body>
 </html>
