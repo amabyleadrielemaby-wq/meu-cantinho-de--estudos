@@ -2015,5 +2015,267 @@ body[data-theme="mint"] select {
   color: var(--ink) !important;
 }
 </style>
+  
+<!-- 📚 BANCO DE QUESTÕES -->
+
+<style>
+#questionBank {
+  padding: 20px;
+  max-width: 1000px;
+  margin: auto;
+}
+
+.question-box {
+  background: var(--card, #fff);
+  padding: 20px;
+  border-radius: 20px;
+  margin-bottom: 20px;
+  border: 1px solid var(--line, #f2d9e5);
+}
+
+.question-box input,
+.question-box textarea,
+.question-box select {
+  width: 100%;
+  box-sizing: border-box;
+  padding: 12px;
+  margin: 8px 0;
+  border-radius: 12px;
+  border: 1px solid #e5bfd0;
+  background: #fff;
+  color: #553644;
+}
+
+.question-box button {
+  padding: 10px 15px;
+  margin: 5px;
+  border: none;
+  border-radius: 12px;
+  cursor: pointer;
+  background: #e875a2;
+  color: white;
+}
+
+.question-item {
+  padding: 15px;
+  margin-top: 12px;
+  border-radius: 15px;
+  background: #fff5fa;
+  border-left: 5px solid #e875a2;
+}
+
+.question-item.erro {
+  border-left-color: #e05270;
+}
+
+.question-item.acerto {
+  border-left-color: #51b88b;
+}
+
+.question-stats {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+  margin-bottom: 15px;
+}
+
+.question-stat {
+  padding: 12px;
+  border-radius: 12px;
+  background: #fff0f6;
+  font-weight: bold;
+}
+</style>
+
+<section id="questionBank">
+  <h2>📚 Meu Banco de Questões</h2>
+  <p>Organize seus erros, acertos e revisões! 🧸</p>
+
+  <div class="question-stats">
+    <div class="question-stat">
+      📖 Total: <span id="totalQuestions">0</span>
+    </div>
+
+    <div class="question-stat">
+      ✅ Acertos: <span id="correctQuestions">0</span>
+    </div>
+
+    <div class="question-stat">
+      ❌ Erros: <span id="wrongQuestions">0</span>
+    </div>
+  </div>
+
+  <div class="question-box">
+    <h3>✏️ Cadastrar questão</h3>
+
+    <input
+      id="questionSubject"
+      placeholder="Matéria (ex.: Matemática)"
+    >
+
+    <input
+      id="questionTag"
+      placeholder="Etiqueta (ex.: Função, UFU, Revisão)"
+    >
+
+    <textarea
+      id="questionText"
+      rows="4"
+      placeholder="Escreva a questão..."
+    ></textarea>
+
+    <textarea
+      id="questionAnswer"
+      rows="3"
+      placeholder="Resposta correta ou explicação..."
+    ></textarea>
+
+    <select id="questionResult">
+      <option value="erro">❌ Errei</option>
+      <option value="acerto">✅ Acertei</option>
+    </select>
+
+    <button onclick="saveQuestion()">
+      💾 Salvar questão
+    </button>
+  </div>
+
+  <div class="question-box">
+    <input
+      id="searchQuestion"
+      placeholder="🔎 Pesquisar por matéria ou etiqueta..."
+      oninput="renderQuestionBank()"
+    >
+  </div>
+
+  <div id="questionList"></div>
+</section>
+
+<script>
+let studyQuestions = JSON.parse(
+  localStorage.getItem('studyQuestions') || '[]'
+);
+
+function saveQuestion() {
+  const subject = document
+    .getElementById('questionSubject').value.trim();
+
+  const tag = document
+    .getElementById('questionTag').value.trim();
+
+  const text = document
+    .getElementById('questionText').value.trim();
+
+  const answer = document
+    .getElementById('questionAnswer').value.trim();
+
+  const result = document
+    .getElementById('questionResult').value;
+
+  if (!subject || !text) {
+    alert('Preencha a matéria e a questão! 💗');
+    return;
+  }
+
+  studyQuestions.push({
+    id: Date.now(),
+    subject: subject,
+    tag: tag || 'Sem etiqueta',
+    text: text,
+    answer: answer,
+    result: result
+  });
+
+  localStorage.setItem(
+    'studyQuestions',
+    JSON.stringify(studyQuestions)
+  );
+
+  document.getElementById('questionSubject').value = '';
+  document.getElementById('questionTag').value = '';
+  document.getElementById('questionText').value = '';
+  document.getElementById('questionAnswer').value = '';
+
+  renderQuestionBank();
+
+  alert('Questão salva com sucesso! 🧸');
+}
+
+function renderQuestionBank() {
+  const list = document.getElementById('questionList');
+
+  if (!list) return;
+
+  const search = document
+    .getElementById('searchQuestion')
+    .value
+    .toLowerCase();
+
+  const filtered = studyQuestions.filter(function(question) {
+    return (
+      question.subject.toLowerCase().includes(search) ||
+      question.tag.toLowerCase().includes(search) ||
+      question.text.toLowerCase().includes(search)
+    );
+  });
+
+  list.innerHTML = '';
+
+  filtered.forEach(function(question) {
+    const item = document.createElement('div');
+
+    item.className = 'question-item ' + question.result;
+
+    item.innerHTML = `
+      <strong>${question.result === 'acerto' ? '✅ Acertei' : '❌ Errei'}</strong>
+      <p><b>📚 Matéria:</b> ${escapeQuestion(question.subject)}</p>
+      <p><b>🏷️ Etiqueta:</b> ${escapeQuestion(question.tag)}</p>
+      <p><b>✏️ Questão:</b><br>${escapeQuestion(question.text)}</p>
+      <p><b>💡 Resposta:</b><br>${escapeQuestion(question.answer || 'Não informada')}</p>
+      <button onclick="deleteQuestion(${question.id})">
+        🗑️ Excluir
+      </button>
+    `;
+
+    list.appendChild(item);
+  });
+
+  document.getElementById('totalQuestions').textContent =
+    studyQuestions.length;
+
+  document.getElementById('correctQuestions').textContent =
+    studyQuestions.filter(q => q.result === 'acerto').length;
+
+  document.getElementById('wrongQuestions').textContent =
+    studyQuestions.filter(q => q.result === 'erro').length;
+}
+
+function deleteQuestion(id) {
+  if (!confirm('Deseja excluir esta questão?')) return;
+
+  studyQuestions = studyQuestions.filter(function(question) {
+    return question.id !== id;
+  });
+
+  localStorage.setItem(
+    'studyQuestions',
+    JSON.stringify(studyQuestions)
+  );
+
+  renderQuestionBank();
+}
+
+function escapeQuestion(text) {
+  return String(text)
+    .replace(/&/g, '&amp;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;')
+    .replace(/"/g, '&quot;')
+    .replace(/'/g, '&#039;')
+    .replace(/\n/g, '<br>');
+}
+
+renderQuestionBank();
+</script>
 </body>
 </html>
