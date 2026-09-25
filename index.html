@@ -1057,7 +1057,6 @@ function addEssay() {
   essaysPage();
 
 }
-
 function questionsPage() {
 
   layout(
@@ -1085,15 +1084,15 @@ function questionsPage() {
         id="qText"
         class="field"
         rows="4"
-        placeholder="Escreva a questão...">
-      </textarea>
+        placeholder="Escreva a questão..."
+      ></textarea>
 
       <textarea
         id="qAnswer"
         class="field"
         rows="3"
-        placeholder="Resposta correta ou explicação...">
-      </textarea>
+        placeholder="Resposta correta ou explicação..."
+      ></textarea>
 
       <select id="qResult" class="field">
 
@@ -1109,12 +1108,14 @@ function questionsPage() {
 
       <button class="primary" onclick="saveQuestion()">
         💾 Salvar questão
-        🗑️ Excluir questão
       </button>
 
     </div>
 
+
     <div class="card">
+
+      <h3>📚 Minhas questões</h3>
 
       <input
         id="qSearch"
@@ -1133,110 +1134,241 @@ function questionsPage() {
 
 }
 
+
 function saveQuestion() {
 
-  let subject = $('qSubject').value.trim();
+  const subject = $('qSubject').value.trim();
 
-  let tag = $('qTag').value.trim() || 'Sem etiqueta';
+  const tag =
+    $('qTag').value.trim() || 'Sem etiqueta';
 
-  let text = $('qText').value.trim();
+  const text =
+    $('qText').value.trim();
 
-  let answer = $('qAnswer').value.trim();
+  const answer =
+    $('qAnswer').value.trim();
 
-  let result = $('qResult').value;
+  const result =
+    $('qResult').value;
+
 
   if (!subject || !text) {
 
-    alert('Preencha a matéria e a questão.');
+    alert(
+      '⚠️ Preencha a matéria e a questão antes de salvar.'
+    );
 
     return;
-
   }
 
-  questions.unshift({
-    id: Date.now(),
-    subject,
-    tag,
-    text,
-    answer,
-    result
-  });
 
-  write('mc_questions', questions);
+  const newQuestion = {
+
+    id: Date.now(),
+
+    subject: subject,
+
+    tag: tag,
+
+    text: text,
+
+    answer: answer,
+
+    result: result
+
+  };
+
+
+  questions.unshift(newQuestion);
+
+
+  write(
+    'mc_questions',
+    questions
+  );
+
 
   questionsPage();
 
 }
 
+
 function renderQuestions() {
 
-  let list = $('questionList');
+  const list =
+    $('questionList');
 
   if (!list) return;
 
-  let s = ($('qSearch').value || '').toLowerCase();
 
-  let arr = questions.filter(q =>
-    (q.subject + ' ' + q.tag + ' ' + q.text)
+  const searchInput =
+    $('qSearch');
+
+  const search =
+    searchInput
+      ? searchInput.value.toLowerCase().trim()
+      : '';
+
+
+  const filteredQuestions =
+    questions.filter(q => {
+
+      const subject =
+        String(q.subject || '');
+
+      const tag =
+        String(q.tag || '');
+
+      const text =
+        String(q.text || '');
+
+      return (
+        subject +
+        ' ' +
+        tag +
+        ' ' +
+        text
+      )
       .toLowerCase()
-      .includes(s)
-  );
+      .includes(search);
 
-  list.innerHTML = arr.map(q =>
+    });
+
+
+  list.innerHTML =
+
+    filteredQuestions
+      .map(q => {
+
+        const status =
+          q.result === 'acerto'
+            ? 'acerto'
+            : 'erro';
+
+        const statusText =
+          q.result === 'acerto'
+            ? '✅ Acertei'
+            : '❌ Errei';
+
+
+        return `
+
+          <div class="item ${status}">
+
+            <b>
+              ${statusText}
+            </b>
+
+
+            <p>
+              <b>📚 Matéria:</b>
+              ${esc(q.subject || 'Não informada')}
+            </p>
+
+
+            <p>
+              <span class="tag">
+                🎀 ${esc(q.tag || 'Sem etiqueta')}
+              </span>
+            </p>
+
+
+            <p>
+              <b>📝 Questão:</b>
+              <br>
+              ${esc(q.text || '')}
+            </p>
+
+
+            <p>
+              <b>💡 Resposta/explicação:</b>
+              <br>
+              ${esc(q.answer || 'Não informada')}
+            </p>
+
+
+            <div class="row">
+
+              <button
+                class="primary danger"
+                onclick="deleteQuestion(${q.id})"
+              >
+                🗑️ Excluir questão
+              </button>
+
+            </div>
+
+          </div>
+
+        `;
+
+      })
+      .join('')
+
+    ||
+
     `
-    <div class="item ${q.result}">
-
-      <b>
-        ${q.result === 'acerto' ? '✅ Acertei' : '❌ Errei'}
-      </b>
-
-      <p>
-        <b>Matéria:</b>
-        ${esc(q.subject)}
+      <p class="muted">
+        📚 Nenhuma questão encontrada.
       </p>
-
-      <p>
-        <span class="tag">
-          ${esc(q.tag)}
-        </span>
-      </p>
-
-      <p>
-        <b>Questão:</b>
-        <br>
-        ${esc(q.text)}
-      </p>
-
-      <p>
-        <b>Resposta/explicação:</b>
-        <br>
-        ${esc(q.answer || 'Não informada')}
-      </p>
-
-      <button
-        class="primary danger"
-        onclick="deleteQuestion(${q.id})">
-        🗑️ Excluir
-      </button>
-
-    </div>
-    `
-  ).join('')
-  ||
-  '<p class="muted">Nenhuma questão encontrada.</p>';
+    `;
 
 }
+
+
+/* 🗑️ EXCLUIR QUESTÃO */
 
 function deleteQuestion(id) {
 
-  questions = questions.filter(q => q.id !== id);
+  const question =
+    questions.find(q => q.id === id);
 
-  write('mc_questions', questions);
 
-  renderQuestions();
+  if (!question) {
+
+    alert(
+      '⚠️ Essa questão não foi encontrada.'
+    );
+
+    return;
+  }
+
+
+  const confirmed =
+    confirm(
+      '🗑️ Tem certeza que deseja excluir esta questão?\n\n' +
+      'Depois de excluir, ela não aparecerá mais no seu Banco de Questões.'
+    );
+
+
+  if (!confirmed) {
+
+    return;
+
+  }
+
+
+  questions =
+    questions.filter(
+      q => q.id !== id
+    );
+
+
+  write(
+    'mc_questions',
+    questions
+  );
+
+
+  alert(
+    '✅ Questão excluída com sucesso!'
+  );
+
+
+  questionsPage();
 
 }
-
+ 
 function customize() {
 
   layout(
